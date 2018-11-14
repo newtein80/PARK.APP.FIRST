@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PARK.APP.FIRST.Models.ApplicationModel;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using PARK.APP.FIRST.Services;
+using System.Net;
 
 namespace PARK.APP.FIRST
 {
@@ -42,6 +43,7 @@ namespace PARK.APP.FIRST
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
             services.AddTransient<IEmailSender, EmailSender>(i =>
@@ -101,7 +103,8 @@ namespace PARK.APP.FIRST
 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                    );
             });
         }
     }
