@@ -8,5 +8,6 @@ namespace PARK.APP.FIRST.Models.ApplicationModel
 {
     public class ApplicationRole : IdentityRole
     {
+        public string Description { get; set; }
     }
 }
