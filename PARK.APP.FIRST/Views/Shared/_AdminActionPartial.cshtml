@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PARK.APP.FIRST.Models.ApplicationModel
+@using PARK.APP.FIRST.Data.SeedData
+
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+@{
+    ViewData["Title"] = "_AdminActionPartial";
+}
+
+@if (signInManager.IsSignedIn(User))
+{
+    var currentUser = await userManager.GetUserAsync(User);
+
+    var isAdmin = currentUser != null
+        && await userManager.IsInRoleAsync(
+            currentUser,
+            Constants.AdministratorRole);
+
+    if (isAdmin)
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a asp-controller="ManageUsers"
+                   asp-action="Index">
+                    Manage Users
+                </a>
+            </li>
+        </ul>
+    }
+}
+

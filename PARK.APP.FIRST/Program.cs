@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PARK.APP.FIRST.Data;
+using PARK.APP.FIRST.Data.SeedData;
 
 namespace PARK.APP.FIRST
 {
@@ -20,6 +21,9 @@ namespace PARK.APP.FIRST
             //CreateWebHostBuilder(args).Build().Run();
 
             var host = CreateWebHostBuilder(args).Build();
+
+            // https://nbarbettini.gitbooks.io/little-asp-net-core-book/content/chapters/security-and-identity/authorization-with-roles.html
+            InitializeDatabase(host);
 
             using (var scope = host.Services.CreateScope())
             {
@@ -44,6 +48,25 @@ namespace PARK.APP.FIRST
             }
 
             host.Run();
+        }
+
+        private static void InitializeDatabase(IWebHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                try
+                {
+                    Identity_SeedData.InitializeAsync(services).Wait();
+                }
+                catch (Exception ex)
+                {
+                    var logger = services
+                        .GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Error occurred seeding the DB.");
+                }
+            }
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

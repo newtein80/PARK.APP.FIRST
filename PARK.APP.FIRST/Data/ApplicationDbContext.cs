@@ -13,5 +13,8 @@ namespace PARK.APP.FIRST.Data
             : base(options)
         {
         }
+
+        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public virtual DbSet<ApplicationRole> ApplicationRole { get; set; }
     }
 }
