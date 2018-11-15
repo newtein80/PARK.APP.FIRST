@@ -17,6 +17,6 @@ namespace PARK.APP.FIRST.Data
 
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public virtual DbSet<ApplicationRole> ApplicationRole { get; set; }
-        public DbSet<PARK.APP.FIRST.Areas.UserManage.Models.ManageRoleViewModel> ManageRoleViewModel { get; set; }
+        public virtual DbSet<ManageRoleViewModel> ManageRoleViewModel { get; set; }
     }
 }

@@ -18,12 +18,13 @@ namespace PARK.APP.FIRST
     {
         public static void Main(string[] args)
         {
+            //// default generate
             //CreateWebHostBuilder(args).Build().Run();
 
             var host = CreateWebHostBuilder(args).Build();
 
-            // https://nbarbettini.gitbooks.io/little-asp-net-core-book/content/chapters/security-and-identity/authorization-with-roles.html
-            InitializeDatabase(host);
+            //// https://nbarbettini.gitbooks.io/little-asp-net-core-book/content/chapters/security-and-identity/authorization-with-roles.html
+            //InitializeDatabase(host);
 
             using (var scope = host.Services.CreateScope())
             {
@@ -35,10 +36,17 @@ namespace PARK.APP.FIRST
                     context.Database.Migrate();
                     //UserInfo_SeedData.Initialize(services);
 
-                    // Account, Role Seed Data Create
+                    //// https://www.youtube.com/watch?v=yydVHt2OKHk
+                    //Identity_SeedData.InitializeRoleAsyncYoutube(context, services).Wait();
+
+                    //// https://romansimuta.com/blogs/blog/authorization-with-roles-in-asp.net-core-mvc-web-application
+                    //Identity_SeedData.InitializeRoleAsync(context, services).Wait();
+
+                    //// https://gooroo.io/GoorooTHINK/Article/17333/Custom-user-roles-and-rolebased-authorization-in-ASPNET-core/32835#.W-zpcegzaUk
+                    //// Account, Role Seed Data Create
                     //var serviceProvider = services.GetRequiredService<IServiceProvider>();
                     //var configuration = services.GetRequiredService<IConfiguration>();
-                    //Seed_AccountRole.CreateRoles(serviceProvider, configuration).Wait();
+                    //Identity_SeedData.CreateRoles(serviceProvider, configuration).Wait();
                 }
                 catch (Exception ex)
                 {
@@ -50,27 +58,27 @@ namespace PARK.APP.FIRST
             host.Run();
         }
 
-        private static void InitializeDatabase(IWebHost host)
-        {
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                try
-                {
-                    Identity_SeedData.InitializeAsync(services).Wait();
-                }
-                catch (Exception ex)
-                {
-                    var logger = services
-                        .GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "Error occurred seeding the DB.");
-                }
-            }
-        }
-
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
+
+        //private static void InitializeDatabase(IWebHost host)
+        //{
+        //    using (var scope = host.Services.CreateScope())
+        //    {
+        //        var services = scope.ServiceProvider;
+
+        //        try
+        //        {
+        //            Identity_SeedData.InitializeAsync(services).Wait();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            var logger = services
+        //                .GetRequiredService<ILogger<Program>>();
+        //            logger.LogError(ex, "Error occurred seeding the DB.");
+        //        }
+        //    }
+        //}
     }
 }
