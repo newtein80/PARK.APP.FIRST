@@ -22,7 +22,7 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var admins = (await _userManager.GetUsersInRoleAsync("Administrator")).ToArray();
+            var admins = (await _userManager.GetUsersInRoleAsync("Admin")).ToArray();
 
             var everyone = await _userManager.Users.ToArrayAsync();
 
