@@ -25,11 +25,8 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
             this._roleManager = roleManager;
         }
 
-        [BindProperty]
-        public ManageUserInfoChangeViewModel Input { get; set; }
-
         // https://www.c-sharpcorner.com/article/asp-net-core-mvc-authentication-and-role-based-authorization-with-asp-net-core/
-        public class ManageUserInfoChangeViewModel
+        public class ManageUserInfoAddViewModel
         {
             public string PhoneNumber { get; set; }
             [Required]
@@ -57,6 +54,18 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
             [Required]
             [Display(Name = "Role")]
             public string ApplicationRoleId { get; set; }
+        }
+
+        public class ManageUserInfoEditViewModel
+        {
+            [Required]
+            public string Id { get; set; }
+            [Required]
+            public string UserName { get; set; }
+            public string PhoneNumber { get; set; }
+            [Required]
+            [DataType(DataType.EmailAddress)]
+            public string Email { get; set; }
         }
 
         public async Task<IActionResult> Index()
@@ -97,9 +106,87 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID ''.");
+            }
+
+            var vm_user = new ManageUserInfoEditViewModel()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                UserName = user.UserName
+            };
+
+            return View(vm_user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(string id, [Bind("Name,Description")] ApplicationRole applicationRole)
+        public async Task<IActionResult> EditUser(string id, [Bind("Id, Email, UserName, PhoneNumber")] ManageUserInfoEditViewModel manageUserInfoEditViewModel)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID ''.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // http://qaru.site/questions/15283775/rolemanagerdeleteasync-or-updateasync-not-working-as-expected-in-aspnet-core-20
+                    user.Email = manageUserInfoEditViewModel.Email;
+                    user.UserName = manageUserInfoEditViewModel.UserName;
+                    user.PhoneNumber = manageUserInfoEditViewModel.PhoneNumber;
+
+                    //var result = await _roleManager.UpdateAsync(applicationRole);
+                    var result = await _userManager.UpdateAsync(user);
+
+                    if (!result.Succeeded)
+                    {
+                        ModelState.AddModelError("", result.Errors.First().ToString());
+                        return View(manageUserInfoEditViewModel);
+                    }
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+
+                return RedirectToAction(nameof(UserList));
+            }
+            else
+            {
+                // https://stackoverflow.com/questions/5212248/get-error-message-if-modelstate-isvalid-fails
+                //var errors = ModelState.Select(x => x.Value.Errors)
+                //            .Where(y => y.Count > 0)
+                //            .ToList();
+
+                // https://stackoverflow.com/questions/15333513/why-modelstate-isvalid-always-return-false-in-mvc/15333657
+                var errorsItems = ModelState
+                            .Where(x => x.Value.Errors.Count > 0)
+                            .Select(x => new { x.Key, x.Value.Errors })
+                            .ToArray();
+
+                foreach(var errorItem in errorsItems)
+                {
+                    ModelState.AddModelError(errorItem.Key, errorItem.Errors[0].ErrorMessage);
+                }
+
+            }
+            return View(manageUserInfoEditViewModel);
+        }
+
+        [HttpGet]
         public IActionResult AddUser()
         {
-            ManageUserInfoChangeViewModel model = new ManageUserInfoChangeViewModel
+            ManageUserInfoAddViewModel model = new ManageUserInfoAddViewModel
             {
                 ApplicationRoles = _roleManager.Roles.Select(r => new SelectListItem
                 {
@@ -113,7 +200,7 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
         // https://www.c-sharpcorner.com/article/asp-net-core-mvc-authentication-and-role-based-authorization-with-asp-net-core/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddUser(ManageUserInfoChangeViewModel model)
+        public async Task<IActionResult> AddUser(ManageUserInfoAddViewModel model)
         {
             if (ModelState.IsValid)
             {

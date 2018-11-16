@@ -48,6 +48,8 @@ namespace PARK.APP.FIRST.Areas.UserManage.Models
         public  string PasswordHash { get; set; }
         public  bool EmailConfirmed { get; set; }
         public  string NormalizedEmail { get; set; }
+        [Required]
+        [DataType(DataType.EmailAddress)]
         public  string Email { get; set; }
         public  string NormalizedUserName { get; set; }
         public  string UserName { get; set; }
