@@ -39,7 +39,6 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
             return View(vm_role);
         }
 
-
         public IActionResult Create()
         {
             return View();
