@@ -10,9 +10,12 @@
 <br />
 https://www.c-sharpcorner.com/article/asp-net-core-mvc-authentication-and-role-based-authorization-with-asp-net-core/
 <br />
+https://www.youtube.com/watch?v=qz1kVbDIhWA
+<br />
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -30,31 +33,33 @@ https://www.c-sharpcorner.com/article/asp-net-core-mvc-authentication-and-role-b
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    <a class="btn btn-link" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     <bootstrap-button type="button" class="btn btn-primary" bootstrap-toggle-modal="myModal">
-                        Open sample modal
+                        Not Working
                     </bootstrap-button>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<bootstrap-modal id="myModal" aria-labelledby="myModalLabel" size="sm">
-    <bootstrap-modal-header>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">Sample modal header</h4>
-    </bootstrap-modal-header>
-    <bootstrap-modal-body>
-        Sample modal body
-    </bootstrap-modal-body>
-</bootstrap-modal>
+@*
+    <bootstrap-modal id="myModal" aria-labelledby="myModalLabel" size="sm">
+        <bootstrap-modal-header>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Sample modal header</h4>
+        </bootstrap-modal-header>
+        <bootstrap-modal-body>
+            Sample modal body
+        </bootstrap-modal-body>
+    </bootstrap-modal>
+*@
