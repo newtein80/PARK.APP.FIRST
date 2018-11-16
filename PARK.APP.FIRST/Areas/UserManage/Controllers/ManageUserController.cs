@@ -25,49 +25,7 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
             this._roleManager = roleManager;
         }
 
-        // https://www.c-sharpcorner.com/article/asp-net-core-mvc-authentication-and-role-based-authorization-with-asp-net-core/
-        public class ManageUserInfoAddViewModel
-        {
-            public string PhoneNumber { get; set; }
-            [Required]
-            [DataType(DataType.EmailAddress)]
-            public string Email { get; set; }
-
-            // https://stackoverflow.com/questions/32987119/validate-model-on-specific-string-values
-            // https://www.dotnettricks.com/learn/mvc/server-side-model-validation-in-mvc-razor
-            public string UserName { get; set; }
-            public string Id { get; set; }
-
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
-            public string Password { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
-
-            public List<SelectListItem> ApplicationRoles { get; set; }
-
-            [Required]
-            [Display(Name = "Role")]
-            public string ApplicationRoleId { get; set; }
-        }
-
-        public class ManageUserInfoEditViewModel
-        {
-            [Required]
-            public string Id { get; set; }
-            [Required]
-            public string UserName { get; set; }
-            public string PhoneNumber { get; set; }
-            [Required]
-            [DataType(DataType.EmailAddress)]
-            public string Email { get; set; }
-        }
-
+        #region+ UserList
         public async Task<IActionResult> Index()
         {
             var admins = (await _userManager.GetUsersInRoleAsync("Admin")).ToArray();
@@ -103,6 +61,20 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
             }).ToList();
 
             return View(users);
+        }
+        #endregion
+
+        #region+ EditUser
+        public class ManageUserInfoEditViewModel
+        {
+            [Required]
+            public string Id { get; set; }
+            [Required]
+            public string UserName { get; set; }
+            public string PhoneNumber { get; set; }
+            [Required]
+            [DataType(DataType.EmailAddress)]
+            public string Email { get; set; }
         }
 
         [HttpGet]
@@ -182,6 +154,39 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
             }
             return View(manageUserInfoEditViewModel);
         }
+        #endregion
+
+        #region+ AddUser
+        // https://www.c-sharpcorner.com/article/asp-net-core-mvc-authentication-and-role-based-authorization-with-asp-net-core/
+        public class ManageUserInfoAddViewModel
+        {
+            public string PhoneNumber { get; set; }
+            [Required]
+            [DataType(DataType.EmailAddress)]
+            public string Email { get; set; }
+
+            // https://stackoverflow.com/questions/32987119/validate-model-on-specific-string-values
+            // https://www.dotnettricks.com/learn/mvc/server-side-model-validation-in-mvc-razor
+            public string UserName { get; set; }
+            public string Id { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Password)]
+            [Display(Name = "Password")]
+            public string Password { get; set; }
+
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm password")]
+            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            public string ConfirmPassword { get; set; }
+
+            public List<SelectListItem> ApplicationRoles { get; set; }
+
+            [Required]
+            [Display(Name = "Role")]
+            public string ApplicationRoleId { get; set; }
+        }
 
         [HttpGet]
         public IActionResult AddUser()
@@ -234,5 +239,60 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
             }
             return RedirectToAction("AddUser");
         }
+        #endregion
+
+        #region+ DetailUser
+        public async Task<IActionResult> DetailUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID ''.");
+            }
+
+            var vm_user = new ApplicationUserAllViewModel()
+            {
+                Id = user.Id,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email,
+                UserName = user.UserName
+            };
+
+            return View(vm_user);
+        }
+        #endregion
+
+        #region+ DeleteUser
+        public async Task<IActionResult> Delete(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID ''.");
+            }
+            else
+            {
+                if (ModelState.IsValid)// ????
+                {
+                    try
+                    {
+                        var result = await _userManager.DeleteAsync(user);
+
+                        if (!result.Succeeded)
+                        {
+                            ModelState.AddModelError("", result.Errors.First().ToString());//????
+                            return View();
+                        }
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        throw;
+                    }
+                }
+
+                return RedirectToAction(nameof(UserList));
+            }
+        }
+        #endregion
     }
 }
