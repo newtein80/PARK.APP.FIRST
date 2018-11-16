@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PARK.APP.FIRST.Areas.UserManage.Models;
+using PARK.APP.FIRST.Filters;
 using PARK.APP.FIRST.Models.ApplicationModel;
 
 namespace PARK.APP.FIRST.Areas.UserManage.Controllers
@@ -36,6 +37,7 @@ namespace PARK.APP.FIRST.Areas.UserManage.Controllers
             public string Email { get; set; }
 
             // https://stackoverflow.com/questions/32987119/validate-model-on-specific-string-values
+            // https://www.dotnettricks.com/learn/mvc/server-side-model-validation-in-mvc-razor
             public string UserName { get; set; }
             public string Id { get; set; }
 
