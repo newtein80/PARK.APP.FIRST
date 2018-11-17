@@ -6,6 +6,12 @@
     <title>@ViewData["Title"] - PARK.APP.FIRST</title>
 
     <link href="~/css/pace-theme-minimal.css" rel="stylesheet" />
+
+    <environment include="Development">
+        <link href="~/lib/jqwidgets/styles/jqx.base.css" rel="stylesheet" />
+        <script src="~/lib/jqwidgets/jqxcore.js"></script>
+        <script src="~/lib/jqwidgets/jqxdata.js"></script>
+    </environment>
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -31,13 +37,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About" style="display:none">About</a></li>
                     @*<li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
-                    <li><a asp-area="" asp-controller="Home" asp-action="NotFound">NotFound</a></li>
-                    <li><a asp-area="Identity" asp-page="/Account/AccessDenied">AccessDenied</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="NotFound" style="display:none">NotFound</a></li>
+                    <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:none">AccessDenied</a></li>
                     <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="Index">User&Role</a></li>
                     <li><a asp-area="UserManage" asp-controller="ManageRole" asp-action="Index">Roles</a></li>
                     <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="UserList">UserList</a></li>
+                    <li><a asp-area="SystemManage" asp-controller="TMenus" asp-action="Index">MenuList</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
                 <partial name="_AdminActionPartial" />

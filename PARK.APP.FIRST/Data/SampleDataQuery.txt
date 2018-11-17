@@ -1,0 +1,208 @@
+﻿USE [PJSWORK]
+GO
+/****** Object:  Table [dbo].[T_MENU]    Script Date: 2018-11-17 오후 1:09:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[T_MENU](
+	[MENU_SEQ] [int] NOT NULL,
+	[MENU_NAME] [nvarchar](128) NULL,
+	[UPPER_MENU_SEQ] [int] NULL,
+	[PGM_ID] [nvarchar](64) NULL,
+	[MENU_DESCRIPTION] [nvarchar](512) NULL,
+	[IMAGE_PATH] [nvarchar](256) NULL,
+	[USE_YN] [char](1) NULL,
+	[SORT_ORDER] [int] NULL,
+ CONSTRAINT [PK_T_MENU] PRIMARY KEY CLUSTERED 
+(
+	[MENU_SEQ] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [PJSWORK]
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (1, N'취약점 점검', 0, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 10000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (2, N'취약점 항목 관리', 0, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 24000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (3, N'취약점 통계', 0, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 37000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (4, N'자산 관리', 0, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 48000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (5, N'정보센터', 0, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 58000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (6, N'관리자 메뉴', 0, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 60000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (7, N'점검요청', 0, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 1000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (101, N'IT인프라 점검', 1, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 11000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (102, N'점검계획', 101, N'DiagGroupReg_Infra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 11100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (103, N'점검결과 및 조치계획 등록', 101, N'DiagGroupIng_Infra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 11200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (104, N'최종 점검결과', 101, N'DiagGroupComplete_Infra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 11300)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (105, N'어플리케이션 점검', 1, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 13000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (106, N'점검계획', 126, N'DiagGroupReg_App_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 13010)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (107, N'점검결과 및 조치계획 등록', 126, N'DiagGroupIng_App_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 13020)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (108, N'최종 점검결과', 126, N'DiagGroupComplete_App_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 13030)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (109, N'기타 점검 관리', 1, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 10)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (110, N'네트워크 스캐너 점검', 1, N'DiagGroupReg_NetworkScanner_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 11)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (111, N'모의해킹', 105, N'', N'모의해킹 애플리케이션 현황', N'/_Images/Icon/icon_Manage.gif', N'Y', 13400)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (112, N'점검계획', 111, N'DiagGroupReg_Moi_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 13010)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (113, N'점검결과 및 조치계획 등록', 111, N'DiagGroupIng_Moi_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 13020)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (114, N'최종 점검결과', 111, N'DiagGroupComplete_Moi_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 13030)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (115, N'모의해킹 점검', 1, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 59)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (116, N'어플리케이션 점검', 115, N'AppScanMoi_List', N'모의해킹 애플리케이션 현황', N'/_Images/Icon/icon_Manage.gif', N'Y', 59)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (118, N'긴급보안 점검', 1, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 14000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (119, N'긴급보안 점검', 118, N'EmergencySecureScan_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 14100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (121, N'네트워크 CONFIG 점검', 1, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 12000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (122, N'점검계획', 121, N'DiagGroupReg_NwConfig_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 12100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (123, N'점검결과 및 조치계획 등록', 121, N'DiagGroupIng_NwConfig_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 12200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (124, N'최종 점검결과', 121, N'DiagGroupComplete_NwConfig_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 12300)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (126, N'웹 스캐너 점검', 105, N'', N'앱 스캐너 점검', N'/_Images/Icon/icon_Manage.gif', N'Y', 13500)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (127, N'예외처리', 1, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 15000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (128, N'자산별 예외처리', 127, N'DiagException_Asset_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 15100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (129, N'상시점검', 1, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 16000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (130, N'상시점검 등록', 129, N'DiagRegular_Reg_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 16100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (131, N'상시점검 현황', 129, N'DiagRegular_Result_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 16200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (132, N'전체자산 현황', 129, N'DiagRecentRegularResult_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 16300)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (201, N'컴플라이언스 관리', 2, N'ManageCompliance_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 21000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (202, N'취약점 항목 관리', 2, N'ManageVuln_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 22000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (203, N'점검결과 일괄등록 템플릿 관리', 2, N'ManageCompManFile_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 23000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (204, N'룰셋 관리', 2, N'ManageRule_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 24000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (205, N'스크립트 관리', 2, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 25000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (206, N'스크립트 입력 현황', 205, N'ManageNVISCScript_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 25100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (207, N'스크립트 버전 관리', 205, N'ManageNVISCScriptVer_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 25200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (208, N'스크립트 점검 항목 관리', 205, N'ManageNVISCScriptVuln_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 25300)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (209, N'자산별 취약점 예외관리', 2, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 26000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (210, N'IT인프라', 209, N'ManageAssetExcept_Infra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 26100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (211, N'어플리케이션', 209, N'ManageAssetExceptWebVuln_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 26200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (212, N'항목별 취약점 예외관리', 2, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 27000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (213, N'IT인프라', 212, N'ManageVulnExceptScript_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 27100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (214, N'어플리케이션', 212, N'ManageVulnExceptWebVuln_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 27200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (291, N'자산그룹별 취약점 현황', 3, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 30900)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (292, N'인프라', 291, N'StatDiagAssetVuln_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 30910)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (293, N'모의해킹', 291, N'StatDiagAssetVuln_App_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 30920)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (301, N'자산유형별 통계', 3, N'StatDiagInfra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 31000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (302, N'IT인프라', 301, N'StatDiagInfra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 31100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (303, N'어플리케이션', 301, N'StatDiagApp_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 31200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (304, N'조직별 통합 통계', 3, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 32000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (305, N'점검 이력관리', 3, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 33000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (306, N'IT인프라', 305, N'StatDiagHistoryInfra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 33100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (307, N'어플리케이션', 305, N'StatDiagHistoryApp_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 33200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (308, N'조직별 취약점 현황', 3, N'StatDiagOrg_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 34000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (309, N'업무별 취약점 현황', 3, N'StatDiagSystem_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 35000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (310, N'점검구분별 취약점 현황', 3, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 36000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (311, N'수동점검 취약점 항목별 통계', 310, N'StatDiagManualVuln_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 36100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (312, N'IT인프라', 310, N'StatDiagScriptVuln_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 36200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (313, N'어플리케이션', 310, N'StatDiagWebAppVuln_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 36300)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (314, N'IT인프라', 304, N'StatDiagIntegratedOrgInfra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 32100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (315, N'어플리케이션', 304, N'StatDiagIntegratedOrgApp_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 32200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (316, N'자산별 점검 현황', 3, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 37000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (317, N'IT인프라', 316, N'StatDiagResultAssetHostInfra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 37100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (318, N'어플리케이션', 316, N'StatDiagResultAssetHostApp_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 37200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (319, N'기간별 점검 현황', 3, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 38000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (320, N'IT인프라', 319, N'StatAssetPeriod_Infra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 38100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (321, N'어플리케이션', 319, N'StatAssetPeriod_App_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 38200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (401, N'IT인프라', 4, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 48100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (402, N'자산 정보', 401, N'ManageAssetInfra_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 48110)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (403, N'자산 변경 이력', 401, N'ManageAssetInfraHst_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 48120)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (404, N'어플리케이션', 4, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 48200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (405, N'자산 정보', 404, N'ManageAssetApp_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 48210)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (406, N'자산 변경 이력', 404, N'ManageAsset_AppHst_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 48220)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (501, N'공지사항', 5, N'BbsNotice_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 58100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (502, N'보안자료', 5, N'BbsReference_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 58200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (503, N'FAQ', 5, N'BbsQandA_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 58300)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (504, N'버전정보', 5, N'BbsSiteVer_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 58400)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (601, N'조직 사용자 관리', 6, N'AdminOrgUser_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 61000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (603, N'업무관리', 6, N'', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 62000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (604, N'업무 현황', 603, N'ManageSystem_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 62100)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (605, N'업무별 담당 현황', 603, N'ManageSystemOperator_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 62200)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (606, N'점검도구 관리', 6, N'ManageDiagTool_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 63000)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (611, N'업무별 자산 현황', 603, N'ManageSystemAsset_List', N'', N'/_Images/Icon/icon_Manage.gif', N'N', 62300)
+GO
+INSERT [dbo].[T_MENU] ([MENU_SEQ], [MENU_NAME], [UPPER_MENU_SEQ], [PGM_ID], [MENU_DESCRIPTION], [IMAGE_PATH], [USE_YN], [SORT_ORDER]) VALUES (701, N'점검요청서 작성', 7, N'DiagGroupBefore_Plan_List', N'', N'/_Images/Icon/icon_Manage.gif', N'Y', 7100)
+GO

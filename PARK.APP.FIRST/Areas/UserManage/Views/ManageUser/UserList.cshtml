@@ -1,5 +1,23 @@
-﻿@model IEnumerable<PARK.APP.FIRST.Areas.UserManage.Models.ManageUserListViewModel>
+﻿<script src="~/lib/jqwidgets/jqxbuttons.js"></script>
+<script src="~/lib/jqwidgets/jqxscrollbar.js"></script>
+<script src="~/lib/jqwidgets/jqxgrid.js"></script>
+<script src="~/lib/jqwidgets/jqxgrid.edit.js"></script>
+<script src="~/lib/jqwidgets/jqxgrid.columnsresize.js"></script>
+<script src="~/lib/jqwidgets/jqxgrid.filter.js"></script>
+<script src="~/lib/jqwidgets/jqxgrid.selection.js"></script>
+<script src="~/lib/jqwidgets/jqxgrid.sort.js"></script>
+<script src="~/lib/jqwidgets/jqxgrid.pager.js"></script>
+<script src="~/lib/jqwidgets/jqxgrid.aggregates.js"></script>
+<script src="~/lib/jqwidgets/jqxgrid.grouping.js"></script>
+<script src="~/lib/jqwidgets/jqxdata.export.js"></script>
+<script src="~/lib/jqwidgets/jqxgrid.export.js"></script>
+<script src="~/lib/jqwidgets/jqxmenu.js"></script>
+<script src="~/lib/jqwidgets/jqxlistbox.js"></script>
+<script src="~/lib/jqwidgets/jqxdropdownlist.js"></script>
+
+@model IEnumerable<PARK.APP.FIRST.Areas.UserManage.Models.ManageUserListViewModel>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "UserList";
@@ -7,7 +25,7 @@
 }
 
 <h2>UserList</h2>
-
+https://www.jqwidgets.com/asp.net-core-mvc-tag-helpers/asp.net-core-mvc-grid-tag-helper/index.htm
 <p>
     <a class="btn btn-success" asp-action="AddUser">Create New</a>
 </p>
@@ -35,28 +53,50 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailConfirmed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LockoutEnabled)
-            </td>
-            <td>
-                <a class="btn btn-primary" asp-action="EditUser" asp-route-id="@item.Id">Edit</a>
-                <a class="btn btn-info" asp-action="DetailUser" asp-route-id="@item.Id">Details</a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LockoutEnabled)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="EditUser" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-info" asp-action="DetailUser" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+<jqx-grid theme="@ViewData["Theme"]" sortable="true" filterable="true" auto-height="true" width="850" source="Model">
+    <jqx-grid-columns>
+        <jqx-grid-column column-group="name" datafield="UserName" width="100" text="First Name"></jqx-grid-column>
+        <jqx-grid-column column-group="name" datafield="Email" width="100" text="Last Name"></jqx-grid-column>
+        <jqx-grid-column datafield="PhoneNumber" width="150"></jqx-grid-column>
+        <jqx-grid-column datafield="UserName" width="200"></jqx-grid-column>
+        <jqx-grid-column datafield="Email" width="150"></jqx-grid-column>
+        <jqx-grid-column datafield="PhoneNumber"></jqx-grid-column>
+    </jqx-grid-columns>
+    <jqx-grid-column-groups>
+        <jqx-grid-column-group name="name" text="Name"></jqx-grid-column-group>
+    </jqx-grid-column-groups>
+</jqx-grid>
+
+
+@section scripts {
+    <script type="text/javascript">
+        function eventHandler(event) {
+        }
+    </script>
+}

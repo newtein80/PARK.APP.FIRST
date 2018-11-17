@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PARK.APP.FIRST.Models.ApplicationModel;
 using PARK.APP.FIRST.Areas.UserManage.Models;
+using PARK.APP.FIRST.Models;
 
 namespace PARK.APP.FIRST.Data
 {
@@ -26,7 +27,7 @@ namespace PARK.APP.FIRST.Data
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public virtual DbSet<ApplicationRole> ApplicationRole { get; set; }
         public virtual DbSet<ManageRoleViewModel> ManageRoleViewModel { get; set; }
-        public DbSet<PARK.APP.FIRST.Areas.UserManage.Models.ManageUserListViewModel> ManageUserListViewModel { get; set; }
-        public DbSet<PARK.APP.FIRST.Areas.UserManage.Models.ApplicationUserAllViewModel> ApplicationUserAllViewModel { get; set; }
+        public virtual DbSet<PARK.APP.FIRST.Areas.UserManage.Models.ManageUserListViewModel> ManageUserListViewModel { get; set; }
+        public virtual DbSet<PARK.APP.FIRST.Areas.UserManage.Models.ApplicationUserAllViewModel> ApplicationUserAllViewModel { get; set; }
     }
 }

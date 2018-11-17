@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using PARK.APP.FIRST.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using PARK.APP.FIRST.Models;
 
 namespace PARK.APP.FIRST.Controllers
 {
@@ -25,6 +23,7 @@ namespace PARK.APP.FIRST.Controllers
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
+
 
             return View();
         }
