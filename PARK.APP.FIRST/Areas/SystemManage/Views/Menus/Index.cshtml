@@ -1,0 +1,90 @@
+﻿@model IEnumerable<PARK.APP.FIRST.Areas.SystemManage.Models.Menu.TMenu>
+@using jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<jqx-grid theme="@ViewData["Theme"]" sortable="true" filterable="true" auto-height="true" width="850" source="Model">
+    <jqx-grid-columns>
+        <jqx-grid-column column-group="name" datafield="MenuName" width="100" text="First Name"></jqx-grid-column>
+        <jqx-grid-column column-group="name" datafield="PgmId" width="100" text="Last Name"></jqx-grid-column>
+        <jqx-grid-column datafield="ImagePath" width="150"></jqx-grid-column>
+        <jqx-grid-column datafield="UseYn" width="200"></jqx-grid-column>
+        <jqx-grid-column datafield="ImagePath" width="150"></jqx-grid-column>
+        <jqx-grid-column datafield="PgmId"></jqx-grid-column>
+    </jqx-grid-columns>
+    <jqx-grid-column-groups>
+        <jqx-grid-column-group name="name" text="Name"></jqx-grid-column-group>
+    </jqx-grid-column-groups>
+</jqx-grid>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MenuName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpperMenuSeq)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PgmId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MenuDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseYn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SortOrder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpperMenuSeq)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PgmId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImagePath)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UseYn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SortOrder)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MenuSeq">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MenuSeq">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MenuSeq">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

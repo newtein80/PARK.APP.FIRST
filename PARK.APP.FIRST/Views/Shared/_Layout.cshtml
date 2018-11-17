@@ -8,12 +8,8 @@
     <link href="~/css/pace-theme-minimal.css" rel="stylesheet" />
 
     <environment include="Development">
-        <link href="~/lib/jqwidgets/styles/jqx.base.css" rel="stylesheet" />
-        <script src="~/lib/jqwidgets/jqxcore.js"></script>
-        <script src="~/lib/jqwidgets/jqxdata.js"></script>
-    </environment>
-    <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link href="~/css/bootstrap.mvc.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
@@ -22,6 +18,7 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -38,13 +35,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="About" style="display:none">About</a></li>
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="NotFound" style="display:none">NotFound</a></li>
                     <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:none">AccessDenied</a></li>
                     <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="Index">User&Role</a></li>
                     <li><a asp-area="UserManage" asp-controller="ManageRole" asp-action="Index">Roles</a></li>
                     <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="UserList">UserList</a></li>
-                    <li><a asp-area="SystemManage" asp-controller="TMenus" asp-action="Index">MenuList</a></li>
+                    <li><a asp-area="SystemManage" asp-controller="Menus" asp-action="Index">MenuList</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
                 <partial name="_AdminActionPartial" />

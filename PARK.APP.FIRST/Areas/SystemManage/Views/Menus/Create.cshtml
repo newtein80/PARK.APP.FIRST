@@ -1,0 +1,69 @@
+﻿@model PARK.APP.FIRST.Areas.SystemManage.Models.Menu.TMenu
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>TMenu</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MenuSeq" class="control-label"></label>
+                <input asp-for="MenuSeq" class="form-control" />
+                <span asp-validation-for="MenuSeq" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MenuName" class="control-label"></label>
+                <input asp-for="MenuName" class="form-control" />
+                <span asp-validation-for="MenuName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpperMenuSeq" class="control-label"></label>
+                <input asp-for="UpperMenuSeq" class="form-control" />
+                <span asp-validation-for="UpperMenuSeq" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PgmId" class="control-label"></label>
+                <input asp-for="PgmId" class="form-control" />
+                <span asp-validation-for="PgmId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MenuDescription" class="control-label"></label>
+                <input asp-for="MenuDescription" class="form-control" />
+                <span asp-validation-for="MenuDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath" class="control-label"></label>
+                <input asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UseYn" class="control-label"></label>
+                <input asp-for="UseYn" class="form-control" />
+                <span asp-validation-for="UseYn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SortOrder" class="control-label"></label>
+                <input asp-for="SortOrder" class="form-control" />
+                <span asp-validation-for="SortOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

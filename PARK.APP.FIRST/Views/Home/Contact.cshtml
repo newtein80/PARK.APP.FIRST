@@ -4,6 +4,41 @@
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
+<bootstrap-page-header>
+    <h1>Example page header <small>Subtext for header</small></h1>
+</bootstrap-page-header>
+
+<bootstrap-alert class="alert-danger alert-dismissible fade in">
+    <bootstrap-alert-close><span aria-hidden="true">×</span></bootstrap-alert-close>
+    <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+</bootstrap-alert>
+
+<bootstrap-alert class="alert-warning alert-dismissible fade in">
+    <bootstrap-alert-close><span aria-hidden="true">×</span></bootstrap-alert-close>
+    <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+</bootstrap-alert>
+
+<bootstrap-pagination>
+    <bootstrap-pagination-item>
+        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </bootstrap-pagination-item>
+    <bootstrap-pagination-item><a href="#">1</a></bootstrap-pagination-item>
+    <bootstrap-pagination-item><a href="#">2</a></bootstrap-pagination-item>
+    <bootstrap-pagination-item><a href="#">3</a></bootstrap-pagination-item>
+    <bootstrap-pagination-item><a href="#">4</a></bootstrap-pagination-item>
+    <bootstrap-pagination-item><a href="#">5</a></bootstrap-pagination-item>
+    <bootstrap-pagination-item>
+        <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </bootstrap-pagination-item>
+</bootstrap-pagination>
+
+<bootstrap-listgroup>
+    <bootstrap-listgroup-item>Cras justo odio</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>Dapibus ac facilisis in</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>Morbi leo risus</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>Porta ac consectetur ac</bootstrap-listgroup-item>
+</bootstrap-listgroup>
+
 <address>
     One Microsoft Way<br />
     Redmond, WA 98052-6399<br />
@@ -15,3 +50,144 @@
     <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
+
+<bootstrap-button type="button" class="btn btn-primary" bootstrap-toggle-modal="myModal">
+    Open sample modal
+</bootstrap-button>
+
+<bootstrap-dropdown>
+    <bootstrap-dropdown-label id="newDropDown" class="btn btn-danger btn-lg" content="DropDown Button"></bootstrap-dropdown-label>
+    <bootstrap-dropdown-menu labelledby="newDropDown">
+        <bootstrap-dropdown-menu-item><a href="#">Action</a></bootstrap-dropdown-menu-item>
+        <bootstrap-dropdown-menu-item><a href="#">Another action</a></bootstrap-dropdown-menu-item>
+        <bootstrap-dropdown-menu-item><a href="#">Something else here</a></bootstrap-dropdown-menu-item>
+        <bootstrap-dropdown-menu-separator></bootstrap-dropdown-menu-separator>
+        <bootstrap-dropdown-menu-item><a href="#">Separated link</a></bootstrap-dropdown-menu-item>
+    </bootstrap-dropdown-menu>
+</bootstrap-dropdown>
+
+<bootstrap-tabs>
+    <bootstrap-tabs-nav id="tabs3" class="">
+        <bootstrap-tab active="true"><a href="#home" aria-controls="home" role="tab">Home</a></bootstrap-tab>
+        <bootstrap-tab><a href="#profile" aria-controls="profile" role="tab">Profile</a></bootstrap-tab>
+        <bootstrap-tab>
+            <bootstrap-dropdown>
+                <bootstrap-dropdown-label id="bootstrapDropdown" class="btn btn-link" content="Dropdown"></bootstrap-dropdown-label>
+                <bootstrap-dropdown-menu labelledby="bootstrapDropdown">
+                    <bootstrap-dropdown-menu-item><a href="#dropdown1">fat</a></bootstrap-dropdown-menu-item>
+                    <bootstrap-dropdown-menu-item><a href="#dropdown2">mdo</a></bootstrap-dropdown-menu-item>
+                </bootstrap-dropdown-menu>
+            </bootstrap-dropdown>
+        </bootstrap-tab>
+    </bootstrap-tabs-nav>
+    <bootstrap-tabs-content>
+        <bootstrap-tab-pane active="true" id="home" class="fade in">Content 1.</bootstrap-tab-pane>
+        <bootstrap-tab-pane id="profile" class="fade">Content 2.</bootstrap-tab-pane>
+        <bootstrap-tab-pane id="dropdown1" class="fade">Content 3.</bootstrap-tab-pane>
+        <bootstrap-tab-pane id="dropdown2" class="fade">Content 4.</bootstrap-tab-pane>
+    </bootstrap-tabs-content>
+</bootstrap-tabs>
+
+<bootstrap-button bootstrap-tooltip-toggle="btn2" bootstrap-tooltip="Tooltip on the top" type="button" id="btn2" class="btn btn-default" data-placement='top'>Tooltip on top</bootstrap-button>
+
+<bootstrap-collapse trigger="#triggerA, #triggerB, #triggerBB" id="collapseExample">
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+</bootstrap-collapse>
+
+<bootstrap-carousel class="slide" id="carousel-example-generic1" style="width:900px; display:block;">
+    <bootstrap-carousel-indicators style="display:block;">
+        <bootstrap-carousel-indicator target="#carousel-example-generic1" slide-to="0" active="true" class=""></bootstrap-carousel-indicator>
+        <bootstrap-carousel-indicator target="#carousel-example-generic1" slide-to="1"></bootstrap-carousel-indicator>
+        <bootstrap-carousel-indicator target="#carousel-example-generic1" slide-to="2"></bootstrap-carousel-indicator>
+    </bootstrap-carousel-indicators>
+    <bootstrap-carousel-items style="display:block;">
+        <bootstrap-carousel-item active="true"><img src="..." /></bootstrap-carousel-item>
+        <bootstrap-carousel-item><img src="..." /></bootstrap-carousel-item>
+        <bootstrap-carousel-item><img src="..." /></bootstrap-carousel-item>
+    </bootstrap-carousel-items>
+    <bootstrap-carousel-control type="left" slide="prev" target="#carousel-example-generic1">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </bootstrap-carousel-control>
+    <bootstrap-carousel-control type="right" slide="next" target="#carousel-example-generic1">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </bootstrap-carousel-control>
+</bootstrap-carousel>
+
+<bootstrap-input-group>
+    <bootstrap-input-group-addon id="basic-addon">https://example.com/users/</bootstrap-input-group-addon>
+    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon">
+</bootstrap-input-group>
+
+<bootstrap-nav>
+    <bootstrap-nav-item class="active"><a href="#">Home</a></bootstrap-nav-item>
+    <bootstrap-nav-item><a href="#">Profile</a></bootstrap-nav-item>
+    <bootstrap-nav-item><a href="#">Messages</a></bootstrap-nav-item>
+</bootstrap-nav>
+
+<bootstrap-nav-bar>
+    <bootstrap-nav-bar-header>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Brand</a>
+    </bootstrap-nav-bar-header>
+    <bootstrap-nav-bar-collapse>
+        <p class="navbar-text">Signed in as Mark Otto</p>
+    </bootstrap-nav-bar-collapse>
+</bootstrap-nav-bar>
+
+<bootstrap-breadcrumb>
+    <bootstrap-breadcrumb-item><a href="#">Home</a></bootstrap-breadcrumb-item>
+    <bootstrap-breadcrumb-item><a href="#">Library</a></bootstrap-breadcrumb-item>
+    <bootstrap-breadcrumb-item class="active">Data</bootstrap-breadcrumb-item>
+</bootstrap-breadcrumb>
+
+<bootstrap-label class="label-default">New</bootstrap-label>
+
+<bootstrap-jumbotron>
+    <h1>Hello, world!</h1>
+    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+</bootstrap-jumbotron>
+
+<bootstrap-progress>
+    <bootstrap-progress-bar value="60">
+        60%
+    </bootstrap-progress-bar>
+</bootstrap-progress>
+
+<bootstrap-listgroup>
+    <bootstrap-listgroup-item>Cras justo odio</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>Dapibus ac facilisis in</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>Morbi leo risus</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>Porta ac consectetur ac</bootstrap-listgroup-item>
+</bootstrap-listgroup>
+
+<bootstrap-panel class="panel-default">
+    <bootstrap-panel-header>
+        <h3 class="panel-title">Panel title</h3>
+    </bootstrap-panel-header>
+    <bootstrap-panel-body>
+        Panel content
+    </bootstrap-panel-body>
+    <bootstrap-panel-footer>Panel footer</bootstrap-panel-footer>
+</bootstrap-panel>
+
+<bootstrap-well>Look, I'm in a well!</bootstrap-well>
+
+<bootstrap-modal id="myModal" aria-labelledby="myModalLabel" size="sm">
+    <bootstrap-modal-header>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sample modal header</h4>
+    </bootstrap-modal-header>
+    <bootstrap-modal-body>
+        Sample modal body
+    </bootstrap-modal-body>
+</bootstrap-modal>

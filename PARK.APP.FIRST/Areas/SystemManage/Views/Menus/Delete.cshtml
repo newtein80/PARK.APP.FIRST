@@ -1,0 +1,64 @@
+﻿@model PARK.APP.FIRST.Areas.SystemManage.Models.Menu.TMenu
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TMenu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MenuName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpperMenuSeq)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpperMenuSeq)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PgmId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PgmId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MenuDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UseYn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UseYn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SortOrder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SortOrder)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MenuSeq" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
