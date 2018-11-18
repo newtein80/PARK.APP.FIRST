@@ -23,7 +23,7 @@
     </script>
 }
 
-<div id="grid"></div>
+
 <p>Click !</p>
 <div id="grid1" style="background-color:red;height:60px;width:60px;"></div>
 
@@ -33,77 +33,22 @@
 @{
     var employee = Model.FirstOrDefault();
 }
+
+
 <jqx-calendar theme="@ViewData["Theme"]" width="200" height="200"></jqx-calendar>
-<jqx-grid id="grid" alt-rows="true" show-status-bar="true" show-aggregates="true" filterable="true" pageable="true" auto-height="true" source-id="MenuSeq" sortable="true" width="850" source="Model">
-    <jqx-grid-columns>
-        <jqx-grid-column datafield-for="@(employee.MenuName)" width="150" text="a"></jqx-grid-column>
-        <jqx-grid-column datafield-for="@(employee.ImagePath)" width="150" text="b"></jqx-grid-column>
-        <jqx-grid-column datafield-for="@(employee.UpperMenuSeq)" width="150" text="c"></jqx-grid-column>
-    </jqx-grid-columns>
-</jqx-grid>
+<div id="grid"></div>
+<div style="display:none">@*display:none <- Must be required!*@
+    <jqx-grid id="grid" alt-rows="true" show-status-bar="true" show-aggregates="false" filterable="true" pageable="true" auto-height="false" source-id="MenuSeq" sortable="true" height="650" width="850" source="Model">
+        <jqx-grid-columns>
+            <jqx-grid-column column-group="name1" datafield-for="@(employee.MenuName)" width="150" text="MenuName"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(employee.ImagePath)" width="150" text="MenuName"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(employee.UpperMenuSeq)" width="150" text="MenuName"></jqx-grid-column>
+        </jqx-grid-columns>
+        <jqx-grid-column-groups>
+            <jqx-grid-column-group name="name1" text="group1"></jqx-grid-column-group>
+        </jqx-grid-column-groups>
+    </jqx-grid>
+</div>
 
-<span id="tooltip">Move cursor here to see the tooltip</span>
-<jqx-tool-tip settings="settings"></jqx-tool-tip>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MenuName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpperMenuSeq)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PgmId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MenuDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UseYn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SortOrder)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MenuName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpperMenuSeq)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PgmId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MenuDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImagePath)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UseYn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SortOrder)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.MenuSeq">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MenuSeq">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MenuSeq">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+Move cursor here to see the <span id="tooltip">tooltip</span>
+<jqx-tool-tip settings="settings">sddf</jqx-tool-tip>

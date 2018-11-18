@@ -1,0 +1,44 @@
+﻿https://www.jqwidgets.com/community/topic/problem-with-google-chrome-2/
+
+https://www.jqwidgets.com/community/topic/grid-shows-in-chrome-but-not-in-firefox-or-opera/
+
+http://jsfiddle.net/feherzs/wv5g1o1f/7/
+
+http://jsfiddle.net/8moaavo9/15/
+
+https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxscheduler/scheduler-localization.htm
+
+<jqx-grid id="grid"
+          width="100%"
+          server-processing="true"
+          pageable="true"
+          page-size-options="@Model.PageSizeOptions"
+          page-size="@Model.UserPreferedPageSize"
+          columns-resize="true"
+          auto-height="true"
+          sortable="true"
+          filterable="true"
+          alt-rows="true"
+          columns-reorder="true"
+          enable-mouse-wheel="false"
+          enable-ellipsis="true"
+          source-root="data"
+          source-total-records="totalRecords"
+          source-model="@Model.Model"
+          source-url="@Model.DataUrl">
+    <jqx-grid-columns>
+        @foreach (var col in Model.Columns)
+        {
+        <jqx-grid-column filterable="true"
+                          sortable="true"
+                          hideable="true"
+                          draggable="true"
+                          column-type="@col.ColumnType"
+                          filter-type="date"
+                          hidden="@col.IsHidden"
+                          text="@col.NameKey"
+                          datafield="@col.PropertyName">
+        </jqx-grid-column>
+        }
+    </jqx-grid-columns>
+</jqx-grid>

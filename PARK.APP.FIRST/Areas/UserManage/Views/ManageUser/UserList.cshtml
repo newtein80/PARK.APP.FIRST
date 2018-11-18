@@ -79,21 +79,6 @@ https://www.jqwidgets.com/asp.net-core-mvc-tag-helpers/asp.net-core-mvc-grid-tag
     </tbody>
 </table>
 
-<jqx-grid theme="@ViewData["Theme"]" sortable="true" filterable="true" auto-height="true" width="850" source="Model">
-    <jqx-grid-columns>
-        <jqx-grid-column column-group="name" datafield="UserName" width="100" text="First Name"></jqx-grid-column>
-        <jqx-grid-column column-group="name" datafield="Email" width="100" text="Last Name"></jqx-grid-column>
-        <jqx-grid-column datafield="PhoneNumber" width="150"></jqx-grid-column>
-        <jqx-grid-column datafield="UserName" width="200"></jqx-grid-column>
-        <jqx-grid-column datafield="Email" width="150"></jqx-grid-column>
-        <jqx-grid-column datafield="PhoneNumber"></jqx-grid-column>
-    </jqx-grid-columns>
-    <jqx-grid-column-groups>
-        <jqx-grid-column-group name="name" text="Name"></jqx-grid-column-group>
-    </jqx-grid-column-groups>
-</jqx-grid>
-
-
 @section scripts {
     <script type="text/javascript">
         function eventHandler(event) {
