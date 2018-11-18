@@ -1,32 +1,51 @@
 ﻿@model IEnumerable<PARK.APP.FIRST.Areas.SystemManage.Models.Menu.TMenu>
-@using jQWidgets.AspNetCore.Mvc.TagHelpers
-@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
-
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
 @{
     ViewData["Title"] = "Index";
+    ViewData["Theme"] = "Dark Blue";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<KeyValuePair<string, object>> settings = new List<KeyValuePair<string, object>>()
+    {
+        new KeyValuePair<string, object>("position", "mouse"),
+        new KeyValuePair<string, object>("content", "Tooltip"),
+        new KeyValuePair<string, object>("selector", "tooltip"),
+        new KeyValuePair<string, object>("theme", ViewData["Theme"])
+    };
+}
+@section scripts {
+    <script type="text/javascript">
+        $("#grid1").click(function (event) {
+            alert("!!!"); // true
+        });
+    </script>
 }
 
+<div id="grid"></div>
+<p>Click !</p>
+<div id="grid1" style="background-color:red;height:60px;width:60px;"></div>
+
+
 <h2>Index</h2>
-<jqx-grid theme="@ViewData["Theme"]" sortable="true" filterable="true" auto-height="true" width="850" source="Model">
+
+@{
+    var employee = Model.FirstOrDefault();
+}
+<jqx-calendar theme="@ViewData["Theme"]" width="200" height="200"></jqx-calendar>
+<jqx-grid id="grid" alt-rows="true" show-status-bar="true" show-aggregates="true" filterable="true" pageable="true" auto-height="true" source-id="MenuSeq" sortable="true" width="850" source="Model">
     <jqx-grid-columns>
-        <jqx-grid-column column-group="name" datafield="MenuName" width="100" text="First Name"></jqx-grid-column>
-        <jqx-grid-column column-group="name" datafield="PgmId" width="100" text="Last Name"></jqx-grid-column>
-        <jqx-grid-column datafield="ImagePath" width="150"></jqx-grid-column>
-        <jqx-grid-column datafield="UseYn" width="200"></jqx-grid-column>
-        <jqx-grid-column datafield="ImagePath" width="150"></jqx-grid-column>
-        <jqx-grid-column datafield="PgmId"></jqx-grid-column>
+        <jqx-grid-column datafield-for="@(employee.MenuName)" width="150" text="a"></jqx-grid-column>
+        <jqx-grid-column datafield-for="@(employee.ImagePath)" width="150" text="b"></jqx-grid-column>
+        <jqx-grid-column datafield-for="@(employee.UpperMenuSeq)" width="150" text="c"></jqx-grid-column>
     </jqx-grid-columns>
-    <jqx-grid-column-groups>
-        <jqx-grid-column-group name="name" text="Name"></jqx-grid-column-group>
-    </jqx-grid-column-groups>
 </jqx-grid>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<span id="tooltip">Move cursor here to see the tooltip</span>
+<jqx-tool-tip settings="settings"></jqx-tool-tip>
+
+
 <table class="table">
     <thead>
         <tr>

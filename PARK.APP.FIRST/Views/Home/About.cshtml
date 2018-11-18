@@ -1,79 +1,28 @@
 ﻿@{
     ViewData["Title"] = "About";
+    List<KeyValuePair<string, object>> settings = new List<KeyValuePair<string, object>>()
+    {
+        new KeyValuePair<string, object>("position", "mouse"),
+        new KeyValuePair<string, object>("content", "Tooltip"),
+        new KeyValuePair<string, object>("selector", "tooltip"),
+        new KeyValuePair<string, object>("theme", ViewData["Theme"])
+    };
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
-<p>Use this area to provide additional information.</p>
-https://www.youtube.com/watch?v=6Nn2GsUxyoc
-<br />
-Tutorial : https://www.tutorialspoint.com/asp.net_core/asp.net_core_dbcontext.htm
-<br />
-* 파라미터의 id 값 안보이게 하는 방법
-<br />
-* Admin 역할의 사용자 등록 수정 삭제
-<br />
-*** 사용자 등록 할 때 역할 선택
-<br />
-*** 역할에 따른 메뉴 설정
-<br />
-*** 사용자의 사용등록, 거부 상태 설정
-<br />
-* 사용자 등록 시 기본으로 역할 설정
-<br />
-* 버튼의 사용자 역할별 설정
-<br />
-== 2018.11.16 봐야할 것 ==
-<br />
-ModelState 처리 : https://exceptionnotfound.net/asp-net-mvc-demystified-modelstate/
-<br />
-에러처리 : https://www.jerriepelser.com/blog/validation-response-aspnet-core-webapi/
-<br />
-https://github.hubspot.com/pace/docs/welcome/
-<br />
-https://www.c-sharpcorner.com/article/asp-net-core-2-0-user-role-base-menu-management-using-dependency-injection/
-<br />
-https://www.c-sharpcorner.com/article/asp-net-core-mvc-authentication-and-role-based-authorization-with-asp-net-core/
-<br />
-https://social.technet.microsoft.com/wiki/contents/articles/36804.asp-net-core-mvc-authentication-and-role-based-authorization-with-asp-net-core-identity.aspx
-<br />
-https://forums.asp.net/t/2017508.aspx?asp+net+MVC+5+Role+management+authorization+error+No+user+was+found+
-<br />
-http://johnatten.com/2014/08/10/asp-net-identity-2-0-implementing-group-based-permissions-management/
-<br />
-https://www.codeproject.com/Articles/1248792/Dynamic-Role-Based-Authorization-in-ASP-NET-Core
-<br />
-https://www.youtube.com/watch?v=K3hmX6vXeCk
-<br />
-https://www.youtube.com/watch?v=pdm3xJe3ZRw
-<br />
-https://stackoverflow.com/questions/45442567/asp-net-core-how-to-get-the-user-role-in-ef-core-and-identity
-<br />
-https://forums.asp.net/t/2129247.aspx?Get+all+users+with+a+specific+role+in+ASP+NET+Core+2+0
-<br />
-https://forums.asp.net/t/2122325.aspx?Customise+IdentityDbContext+asp+net+core
-<br />
-https://logcorner.com/how-to-customize-asp-net-identity-core-with-external-database-storage-step-by-step/
-<br />
-https://stackoverflow.com/questions/45785548/how-do-i-filter-users-by-role-id
-<br />
-https://stackoverflow.com/questions/45442567/asp-net-core-how-to-get-the-user-role-in-ef-core-and-identity
-<br />
-https://stackoverflow.com/questions/21545480/how-to-get-the-id-of-roles-for-which-a-user-is-enrolled-in-mvc-5
-<br />
-https://www.c-sharpcorner.com/article/list-of-users-with-roles-in-mvc-asp-net-identity/
-<br />
-https://www.youtube.com/watch?v=LDzHD2SWIYc
-<br />
-https://www.youtube.com/user/EssaadaniTV/search?query=+Identity
-<br />
-https://www.youtube.com/watch?v=ogGvTAj6W2U&index=8&list=PLwj1YcMhLRN1T3fIb-JDa4xNFfVQoljGI
-<br />
-https://aspcore.jqwidgets.com/bootstrap#alert
-<br />
-http://www.dotnetqueries.com/Article/84/show-confirmation-message-before-delete-using-bootstrap-modal-popup-in-asp-net-mvc
-<br />
-https://www.trycatchfail.com/2018/01/22/easily-add-bootstrap-alerts-to-your-viewresults-with-asp-net-core/
-<br />
-https://www.davepaquette.com/archive/2015/09/20/custom-mvc-6-tag-helper-samples.aspx
-<br />
+@section scripts {
+    <script type="text/javascript">
+
+        function getInstance(instance) {
+            instance["close"]();
+        }
+    </script>
+}
+<jqx-calendar theme="@ViewData["Theme"]" width="200" height="200"></jqx-calendar>
+<span id="tooltip">Move cursor here to see the tooltip</span>
+<jqx-tool-tip settings="settings"></jqx-tool-tip>
+
+<jqx-rating theme="@ViewData["theme"]" value="3" width="200" height="35"></jqx-rating>
+
+

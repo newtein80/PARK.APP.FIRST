@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PARK.APP.FIRST.Areas.SystemManage.Models.Menu;
 using PARK.APP.FIRST.Data;
+using Newtonsoft.Json;
 
 namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
 {
     [Area("SystemManage")]
+    //[Route("Menus")]
     public class MenusController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,6 +26,31 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.TMenu.ToListAsync());
+        }
+
+
+        public class JSONData
+        {
+            public List<TMenu> Menus
+            {
+                get;
+                set;
+            }
+            public int TotalRecords
+            {
+                get;
+                set;
+            }
+        }
+
+        public string GetList()
+        {
+            var m_Menus = _context.TMenu.ToList();
+            JSONData data = new JSONData();
+            data.Menus = m_Menus;
+            data.TotalRecords = m_Menus.Count;
+
+            return JsonConvert.SerializeObject(data);
         }
 
         // GET: SystemManage/Menus/Details/5
