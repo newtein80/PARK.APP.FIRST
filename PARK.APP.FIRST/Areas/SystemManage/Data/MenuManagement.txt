@@ -1,58 +1,273 @@
-﻿USE PJSWORK
-GO    
-  
-IF EXISTS ( SELECT [name] FROM sys.tables WHERE [name] = 'MenuMaster' )    
-DROP TABLE MenuMaster    
-GO    
-    
-CREATE TABLE MenuMaster    
-(    
-   MenuIdentity int identity(1,1),    
-   MenuID VARCHAR(30)  NOT NULL,    
-   MenuName VARCHAR(30)  NOT NULL,  
-   Parent_MenuID  VARCHAR(30)  NOT NULL,  
-   User_Roll [varchar](256) NOT NULL,   
-   MenuFileName VARCHAR(100) NOT NULL,     
-   MenuURL VARCHAR(500) NOT NULL,    
-   USE_YN Char(1) DEFAULT 'Y',    
-   CreatedDate datetime    
-CONSTRAINT [PK_MenuMaster] PRIMARY KEY CLUSTERED          
-(         
-  [MenuIdentity] ASC   ,    
-  [MenuID] ASC,    
-  [MenuName] ASC      
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]         
-) ON [PRIMARY]       
+﻿USE [PJSWORK]
+GO
+/****** Object:  Table [dbo].[MenuMaster]    Script Date: 11/19/2018 13:13:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[MenuMaster](
+	[MenuIdentity] [int] IDENTITY(1,1) NOT NULL,
+	[MenuId] [nvarchar](max) NULL,
+	[MenuName] [nvarchar](max) NULL,
+	[Parent_MenuId] [nvarchar](max) NULL,
+	[User_Roll] [nvarchar](max) NULL,
+	[User_Auth] [nvarchar](max) NULL,
+	[User_Duty] [nvarchar](max) NULL,
+	[MenuArea] [nvarchar](max) NULL,
+	[MenuController] [nvarchar](max) NULL,
+	[MenuAction] [nvarchar](max) NULL,
+	[Use_Yn] [nvarchar](max) NULL,
+	[Sort_Order] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NULL,
+	[CssClass] [nvarchar](max) NULL,
+ CONSTRAINT [PK_MenuMaster] PRIMARY KEY CLUSTERED 
+(
+	[MenuIdentity] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+     
    
-select * from MenuMaster  
--- Insert Admin User Details
-Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('AUSER','ADMIN Dashboard','*','ADMIN','INDEX','ADMINC','Y',getDate())  
- Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('AAbout','About Admin','*','ADMIN','INDEX','ADMINAC','Y',getDate())   
-Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('LStock','Live Stock','AUSER','ADMIN','INDEX','StockC','Y',getDate())     
-Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('Profile','User Details','AUSER','ADMIN','INDEX','MemberC','Y',getDate())   
-Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('MUSER','Manager Dashboard','*','ADMIN','INDEX','ManagerC','Y',getDate())  
- Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('MAbout','About Manager','*','ADMIN','INDEX','ManagerAC','Y',getDate())   
-Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('Accounts','Account Details','MUSER','ADMIN','INDEX','AccountC','Y',getDate())    
-    Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('Inventory','Inventory Details','MUSER','ADMIN','INDEX','InventoryC','Y',getDate())  
+INSERT INTO [PJSWORK].[dbo].[MenuMaster]
+           ([MenuId]
+           ,[MenuName]
+           ,[Parent_MenuId]
+           ,[User_Roll]
+           ,[User_Auth]
+           ,[User_Duty]
+           ,[MenuArea]
+           ,[MenuController]
+           ,[MenuAction]
+           ,[Use_Yn]
+           ,[Sort_Order]
+           ,[CreatedDate]
+           ,[CssClass])
+     VALUES
+           ('root'
+           ,'AppTitle'
+           ,''
+           ,'admin,manager'
+           ,NULL
+           ,NULL
+           ,''
+           ,'Home'
+           ,'Index'
+           ,'Y'
+           ,1
+           ,GETDATE()
+           ,'navbar-brand')
+GO
 
--- Insert Manager User Details 
-Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('MUSER','Manager Dashboard','*','Manager','INDEX','ManagerC','Y',getDate())  
- Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('MAbout','About Manager','*','Manager','INDEX','ManagerAC','Y',getDate())   
-Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('Accounts','Account Details','MUSER','Manager','INDEX','AccountC','Y',getDate())     
-Insert into MenuMaster(MenuID ,MenuName,Parent_MenuID,User_Roll,MenuFileName,MenuURL,USE_YN,CreatedDate)
-    Values('Inventory','Inventory Details','MUSER','Manager','INDEX','InventoryC','Y',getDate())   
+INSERT INTO [PJSWORK].[dbo].[MenuMaster]
+           ([MenuId]
+           ,[MenuName]
+           ,[Parent_MenuId]
+           ,[User_Roll]
+           ,[User_Auth]
+           ,[User_Duty]
+           ,[MenuArea]
+           ,[MenuController]
+           ,[MenuAction]
+           ,[Use_Yn]
+           ,[Sort_Order]
+           ,[CreatedDate]
+           ,[CssClass])
+     VALUES
+           ('default'
+           ,'AppDefault'
+           ,''
+           ,'admin'
+           ,NULL
+           ,NULL
+           ,''
+           ,'Home'
+           ,'About'
+           ,'Y'
+           ,2
+           ,GETDATE()
+           ,'')
+GO
 
-select * from MenuMaster 
+INSERT INTO [PJSWORK].[dbo].[MenuMaster]
+           ([MenuId]
+           ,[MenuName]
+           ,[Parent_MenuId]
+           ,[User_Roll]
+           ,[User_Auth]
+           ,[User_Duty]
+           ,[MenuArea]
+           ,[MenuController]
+           ,[MenuAction]
+           ,[Use_Yn]
+           ,[Sort_Order]
+           ,[CreatedDate]
+           ,[CssClass])
+     VALUES
+           ('default1'
+           ,'AppDefault'
+           ,'default'
+           ,'admin'
+           ,NULL
+           ,NULL
+           ,''
+           ,'Home'
+           ,'Contact'
+           ,'Y'
+           ,3
+           ,GETDATE()
+           ,'')
+GO
 
-select * from AspnetUserRoles
+
+INSERT INTO [PJSWORK].[dbo].[MenuMaster]
+           ([MenuId]
+           ,[MenuName]
+           ,[Parent_MenuId]
+           ,[User_Roll]
+           ,[User_Auth]
+           ,[User_Duty]
+           ,[MenuArea]
+           ,[MenuController]
+           ,[MenuAction]
+           ,[Use_Yn]
+           ,[Sort_Order]
+           ,[CreatedDate]
+           ,[CssClass])
+     VALUES
+           ('default2'
+           ,'NotFound'
+           ,'default'
+           ,'admin'
+           ,NULL
+           ,NULL
+           ,''
+           ,'Home'
+           ,'NotFound'
+           ,'Y'
+           ,4
+           ,GETDATE()
+           ,'')
+GO
+
+INSERT INTO [PJSWORK].[dbo].[MenuMaster]
+           ([MenuId]
+           ,[MenuName]
+           ,[Parent_MenuId]
+           ,[User_Roll]
+           ,[User_Auth]
+           ,[User_Duty]
+           ,[MenuArea]
+           ,[MenuController]
+           ,[MenuAction]
+           ,[Use_Yn]
+           ,[Sort_Order]
+           ,[CreatedDate]
+           ,[CssClass])
+     VALUES
+           ('manage1'
+           ,'UserRole'
+           ,''
+           ,'admin'
+           ,NULL
+           ,NULL
+           ,'UserManage'
+           ,'ManageUser'
+           ,'Index'
+           ,'Y'
+           ,5
+           ,GETDATE()
+           ,'')
+GO
+
+
+INSERT INTO [PJSWORK].[dbo].[MenuMaster]
+           ([MenuId]
+           ,[MenuName]
+           ,[Parent_MenuId]
+           ,[User_Roll]
+           ,[User_Auth]
+           ,[User_Duty]
+           ,[MenuArea]
+           ,[MenuController]
+           ,[MenuAction]
+           ,[Use_Yn]
+           ,[Sort_Order]
+           ,[CreatedDate]
+           ,[CssClass])
+     VALUES
+           ('manage2'
+           ,'Roles'
+           ,'manage1'
+           ,'admin'
+           ,NULL
+           ,NULL
+           ,'UserManage'
+           ,'ManageRole'
+           ,'Index'
+           ,'Y'
+           ,5
+           ,GETDATE()
+           ,'')
+GO
+
+
+INSERT INTO [PJSWORK].[dbo].[MenuMaster]
+           ([MenuId]
+           ,[MenuName]
+           ,[Parent_MenuId]
+           ,[User_Roll]
+           ,[User_Auth]
+           ,[User_Duty]
+           ,[MenuArea]
+           ,[MenuController]
+           ,[MenuAction]
+           ,[Use_Yn]
+           ,[Sort_Order]
+           ,[CreatedDate]
+           ,[CssClass])
+     VALUES
+           ('manage3'
+           ,'UserList'
+           ,'manage1'
+           ,'admin'
+           ,NULL
+           ,NULL
+           ,'UserManage'
+           ,'ManageUser'
+           ,'UserList'
+           ,'Y'
+           ,6
+           ,GETDATE()
+           ,'')
+GO
+
+
+INSERT INTO [PJSWORK].[dbo].[MenuMaster]
+           ([MenuId]
+           ,[MenuName]
+           ,[Parent_MenuId]
+           ,[User_Roll]
+           ,[User_Auth]
+           ,[User_Duty]
+           ,[MenuArea]
+           ,[MenuController]
+           ,[MenuAction]
+           ,[Use_Yn]
+           ,[Sort_Order]
+           ,[CreatedDate]
+           ,[CssClass])
+     VALUES
+           ('manage4'
+           ,'MenuList'
+           ,''
+           ,'admin'
+           ,NULL
+           ,NULL
+           ,'SystemManage'
+           ,'Menus'
+           ,'Index'
+           ,'Y'
+           ,6
+           ,GETDATE()
+           ,'')
+GO

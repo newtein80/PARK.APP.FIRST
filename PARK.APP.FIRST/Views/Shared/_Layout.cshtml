@@ -163,16 +163,16 @@
             </div>*@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PARK.APP.FIRST</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="NotFound" style="display:none">NotFound</a></li>
-                    <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:none">AccessDenied</a></li>
-                    <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="Index">User&Role</a></li>
-                    <li><a asp-area="UserManage" asp-controller="ManageRole" asp-action="Index">Roles</a></li>
-                    <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="UserList">UserList</a></li>
-                    <li><a asp-area="SystemManage" asp-controller="Menus" asp-action="Index">MenuList</a></li>
-                    @*@if (User.Identity.IsAuthenticated)
+                    @*<li><a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PARK.APP.FIRST</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="NotFound" style="display:none">NotFound</a></li>
+        <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:none">AccessDenied</a></li>
+        <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="Index">User&Role</a></li>
+        <li><a asp-area="UserManage" asp-controller="ManageRole" asp-action="Index">Roles</a></li>
+        <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="UserList">UserList</a></li>
+        <li><a asp-area="SystemManage" asp-controller="Menus" asp-action="Index">MenuList</a></li>*@
+                    @if (User.Identity.IsAuthenticated)
                     {
                         var UserRoles = "";
                         if (@User.IsInRole("Admin"))
@@ -188,15 +188,15 @@
                         {
                             @if (menus.GetMenuMaster(@UserRoles).Any())
                             {
-                                @foreach (var menuNames in menus.GetMenuMaster(@UserRoles).Where(n => n.Parent_MenuId == "*"))
+                                @foreach (var menuNames in menus.GetMenuMaster(@UserRoles).Where(n => n.Parent_MenuId == "" && n.Use_Yn == "Y"))
                                 {
                                     <li>
-                                        <a asp-area="" asp-controller=@menuNames.MenuUrl asp-action=@menuNames.MenuFileName>@menuNames.MenuName</a>
+                                        <a asp-area="@menuNames.MenuArea" asp-controller=@menuNames.MenuController asp-action=@menuNames.MenuAction>@menuNames.MenuName</a>
                                         <ul class="sub-menu">
-                                            @foreach (var subMenu in menus.GetMenuMaster(@UserRoles).Where (n => n.Parent_MenuId == @menuNames.MenuId))
+                                            @foreach (var subMenu in menus.GetMenuMaster(@UserRoles).Where(n => n.Parent_MenuId == @menuNames.MenuId && n.Use_Yn == "Y"))
                                             {
                                                 <li>
-                                                    <a asp-area="" asp-controller=@subMenu.MenuUrl asp-action=@subMenu.MenuFileName>@subMenu.MenuName</a>
+                                                    <a asp-area="@subMenu.MenuArea" asp-controller=@subMenu.MenuController asp-action=@subMenu.MenuAction>@subMenu.MenuName</a>
                                                 </li>
                                             }
                                         </ul>
@@ -204,7 +204,8 @@
                                 }
                             }
                         }
-                    }*@
+                    }
+                    <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:">AccessDenied</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
                 <partial name="_AdminActionPartial" />
