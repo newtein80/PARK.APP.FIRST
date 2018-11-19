@@ -1,0 +1,192 @@
+﻿@model IEnumerable<PARK.APP.FIRST.Areas.SystemManage.Models.Menu.MenuMaster>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Theme"] = "energyblue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<p>
+    https://www.jqwidgets.com/jquery-widgets-documentation/documentation/asp-net-core/mvc-tag-helpers.htm?search=
+</p>
+<p>
+    https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/popupediting.htm?arctic
+</p>
+<p>
+    https://www.jqwidgets.com/custom-grid-cells-rendering/
+</p>
+@{
+    var menu = Model.FirstOrDefault();
+}
+<jqx-button theme="Web" on-click="@Url.Action("Create", "MenuMastersController")">Text</jqx-button>
+<div id="grid"></div>
+<jqx-toggle-button instance="getInstance()">Button</jqx-toggle-button>
+
+@section scripts {
+    <script type="text/javascript">
+        function getInstance(instance) {
+            instance["unCheck"]();
+        }
+
+        var buttonclick = function (event) {
+            var id = event.target.id;
+            alert(id);
+        }
+
+        var buttonclick2 = function (value) {
+            alert(value);
+        }
+
+        var delete_renderer = function (value) {
+            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="buttonclick2(' + value + ')" id="btn' + id + '" value="delete Row"/>'
+        }
+
+        var confirm_renderer = function (value) {
+            return '<input class="btn btn-primary" style="width:80%; height:80%;" type="button" onClick="buttonclick2(' + value + ')" id="btn' + id + '" value="confirm Row"/>'
+        }
+    </script>
+}
+
+<div style="display:none">
+    @*display:none <- Must be required!*@
+    @*<jqx-grid id="grid" alt-rows="true" show-status-bar="true" show-aggregates="false" filterable="true" pageable="true" auto-height="false" source-id="MenuId" sortable="true" height="650" width="100%" source="Model">*@
+    <jqx-grid id="grid" alt-rows="true" selection-mode="multiplecellsadvanced" edit-mode="selectedcell" filterable="true" pageable="true" sortable="true" source-id-for="@(menu.MenuIdentity)" theme="@ViewData["Theme"]" edit="@Url.Action("Edit","MenuMastersController")" width="850" source="Model">
+        <jqx-grid-columns>
+            <jqx-grid-column cells-renderer="delete_renderer()" datafield-for="@(menu.MenuIdentity)" width="180" text="Button"></jqx-grid-column>
+            <jqx-grid-column cells-renderer="confirm_renderer()" datafield-for="@(menu.User_Duty)" width="180" text="Button"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(menu.MenuName)" width="150" text="MenuName"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(menu.Parent_MenuId)" width="150" text="ParentMenu"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(menu.User_Roll)" width="150" text="Roll"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(menu.MenuArea)" width="150" text="Area"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(menu.MenuController)" width="150" text="Controller"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(menu.MenuAction)" width="150" text="Action"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(menu.Use_Yn)" width="60" text="UseYn"></jqx-grid-column>
+        </jqx-grid-columns>
+        <jqx-grid-column-groups>
+            <jqx-grid-column-group name="name1" text="group1"></jqx-grid-column-group>
+        </jqx-grid-column-groups>
+    </jqx-grid>
+</div>
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenuId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenuName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Parent_MenuId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User_Roll)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User_Auth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User_Duty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenuArea)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenuController)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenuAction)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Use_Yn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CssClass)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sort_Order)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Parent_MenuId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User_Roll)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User_Auth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User_Duty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuArea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuController)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuAction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Use_Yn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CssClass)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sort_Order)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MenuIdentity">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MenuIdentity">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MenuIdentity">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
+<p>
+    https://www.jqwidgets.com/community/topic/rendering-issues-in-chrome/
+</p>
+<p>
+    https://www.jqwidgets.com/community/topic/available-parameters-for-renderer-function/
+</p>
+<p>
+    https://www.jqwidgets.com/asp.net-core-mvc-tag-helpers-documentation/documentation/jqxgrid/asp-net-core-tag-helper-grid-api.htm?search=
+</p>
+<p>
+    https://www.jqwidgets.com/community/topic/asp-net-mvc-5-_layout-and-index-problem/
+</p>
+<p>
+    https://www.jqwidgets.com/jquery-widgets-documentation/documentation/asp.net-integration/asp.net-grid-server-side-editing.htm
+</p>
+<p>
+    https://asp.net-hacker.rocks/2018/10/29/customizing-aspnetcore-09-actionfilters.html
+</p>

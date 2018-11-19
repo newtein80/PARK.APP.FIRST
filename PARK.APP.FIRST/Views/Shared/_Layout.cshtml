@@ -1,4 +1,4 @@
-﻿@inject PARK.APP.FIRST.Services.MenuMasterService menus
+﻿@*@inject PARK.APP.FIRST.Services.MenuMasterService menus*@
 
 <!DOCTYPE html>
 <html>
@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 
-    <style>
+    @*<style>
         body {
             padding-top: 65px;
         }
@@ -147,7 +147,7 @@
             display: block;
             color: #FFFFFF
         }
-    </style>
+    </style>*@
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -163,49 +163,50 @@
             </div>*@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PARK.APP.FIRST</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="NotFound" style="display:none">NotFound</a></li>
-        <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:none">AccessDenied</a></li>
-        <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="Index">User&Role</a></li>
-        <li><a asp-area="UserManage" asp-controller="ManageRole" asp-action="Index">Roles</a></li>
-        <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="UserList">UserList</a></li>
-        <li><a asp-area="SystemManage" asp-controller="Menus" asp-action="Index">MenuList</a></li>*@
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        var UserRoles = "";
-                        if (@User.IsInRole("Admin"))
-                        {
-                            UserRoles = "Admin";
-                        }
-                        else
-                        {
-                            UserRoles = "Manager";
-                        }
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PARK.APP.FIRST</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="NotFound" style="display:none">NotFound</a></li>
+                    <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:none">AccessDenied</a></li>
+                    <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="Index">User&Role</a></li>
+                    <li><a asp-area="UserManage" asp-controller="ManageRole" asp-action="Index">Roles</a></li>
+                    <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="UserList">UserList</a></li>
+                    <li><a asp-area="SystemManage" asp-controller="Menus" asp-action="Index">MenuList</a></li>
+                    <li><a asp-area="SystemManage" asp-controller="MenuMasters" asp-action="Index">NewMenuList</a></li>
+                    @*@if (User.Identity.IsAuthenticated)
+        {
+            var UserRoles = "";
+            if (@User.IsInRole("Admin"))
+            {
+                UserRoles = "Admin";
+            }
+            else
+            {
+                UserRoles = "Manager";
+            }
 
-                        @if (menus.GetMenuMaster(@UserRoles).Any())
-                        {
-                            @if (menus.GetMenuMaster(@UserRoles).Any())
-                            {
-                                @foreach (var menuNames in menus.GetMenuMaster(@UserRoles).Where(n => n.Parent_MenuId == "" && n.Use_Yn == "Y"))
+            @if (menus.GetMenuMaster(@UserRoles).Any())
+            {
+                @if (menus.GetMenuMaster(@UserRoles).Any())
+                {
+                    @foreach (var menuNames in menus.GetMenuMaster(@UserRoles).Where(n => n.Parent_MenuId == "" && n.Use_Yn == "Y"))
+                    {
+                        <li>
+                            <a asp-area="@menuNames.MenuArea" asp-controller=@menuNames.MenuController asp-action=@menuNames.MenuAction>@menuNames.MenuName</a>
+                            <ul class="sub-menu">
+                                @foreach (var subMenu in menus.GetMenuMaster(@UserRoles).Where(n => n.Parent_MenuId == @menuNames.MenuId && n.Use_Yn == "Y"))
                                 {
                                     <li>
-                                        <a asp-area="@menuNames.MenuArea" asp-controller=@menuNames.MenuController asp-action=@menuNames.MenuAction>@menuNames.MenuName</a>
-                                        <ul class="sub-menu">
-                                            @foreach (var subMenu in menus.GetMenuMaster(@UserRoles).Where(n => n.Parent_MenuId == @menuNames.MenuId && n.Use_Yn == "Y"))
-                                            {
-                                                <li>
-                                                    <a asp-area="@subMenu.MenuArea" asp-controller=@subMenu.MenuController asp-action=@subMenu.MenuAction>@subMenu.MenuName</a>
-                                                </li>
-                                            }
-                                        </ul>
+                                        <a asp-area="@subMenu.MenuArea" asp-controller=@subMenu.MenuController asp-action=@subMenu.MenuAction>@subMenu.MenuName</a>
                                     </li>
                                 }
-                            }
-                        }
+                            </ul>
+                        </li>
                     }
-                    <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:">AccessDenied</a></li>
+                }
+            }
+        }*@
+                    <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:none">AccessDenied</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
                 <partial name="_AdminActionPartial" />

@@ -1,0 +1,97 @@
+﻿@model PARK.APP.FIRST.Areas.SystemManage.Models.Menu.MenuMaster
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MenuMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MenuId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MenuName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent_MenuId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Parent_MenuId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User_Roll)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User_Roll)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User_Auth)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User_Auth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User_Duty)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User_Duty)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuArea)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MenuArea)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuController)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MenuController)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuAction)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MenuAction)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Use_Yn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Use_Yn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CssClass)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CssClass)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sort_Order)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sort_Order)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MenuIdentity">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
