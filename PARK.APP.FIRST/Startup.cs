@@ -57,6 +57,9 @@ namespace PARK.APP.FIRST
                 )
             );
 
+            // https://www.codeproject.com/Articles/1237650/ASP-NET-Core-User-Role-Base-Dynamic-Menu-Managemen
+            services.AddTransient<MenuMasterService, MenuMasterService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

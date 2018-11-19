@@ -67,5 +67,6 @@ namespace PARK.APP.FIRST.Data
         public virtual DbSet<ManageUserListViewModel> ManageUserListViewModel { get; set; }
         public virtual DbSet<ApplicationUserAllViewModel> ApplicationUserAllViewModel { get; set; }
         public virtual DbSet<TMenu> TMenu { get; set; }
+        public virtual DbSet<MenuMaster> MenuMaster { get; set; }
     }
 }
