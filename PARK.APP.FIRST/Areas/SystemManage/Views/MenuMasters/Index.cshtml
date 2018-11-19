@@ -52,6 +52,12 @@
         var confirm_renderer = function (value) {
             return '<input class="btn btn-primary" style="width:80%; height:80%;" type="button" onClick="buttonclick2(' + value + ')" id="btn' + id + '" value="confirm Row"/>'
         }
+
+        // cellsrenderer 와 columnsrenderer(?) 는 모두 고정으로 넘어오는 parameter가 존재한다
+        // https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-cellsrendering.htm
+        var cellsrenderer = function (row, columnfield, value, defaulthtml, columnproperties) {
+            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="buttonclick2(' + value + ')" id="btn' + id + '" value="delete Row"/>'
+        }
     </script>
 }
 
@@ -60,7 +66,7 @@
     @*<jqx-grid id="grid" alt-rows="true" show-status-bar="true" show-aggregates="false" filterable="true" pageable="true" auto-height="false" source-id="MenuId" sortable="true" height="650" width="100%" source="Model">*@
     <jqx-grid id="grid" alt-rows="true" selection-mode="multiplecellsadvanced" edit-mode="selectedcell" filterable="true" pageable="true" sortable="true" source-id-for="@(menu.MenuIdentity)" theme="@ViewData["Theme"]" edit="@Url.Action("Edit","MenuMastersController")" width="850" source="Model">
         <jqx-grid-columns>
-            <jqx-grid-column cells-renderer="delete_renderer()" datafield-for="@(menu.MenuIdentity)" width="180" text="Button"></jqx-grid-column>
+            <jqx-grid-column cells-renderer="cellsrenderer()" datafield-for="@(menu.MenuIdentity)" width="180" text="Button"></jqx-grid-column>
             <jqx-grid-column cells-renderer="confirm_renderer()" datafield-for="@(menu.User_Duty)" width="180" text="Button"></jqx-grid-column>
             <jqx-grid-column column-group="name1" datafield-for="@(menu.MenuName)" width="150" text="MenuName"></jqx-grid-column>
             <jqx-grid-column column-group="name1" datafield-for="@(menu.Parent_MenuId)" width="150" text="ParentMenu"></jqx-grid-column>
