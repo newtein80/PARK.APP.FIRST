@@ -24,6 +24,10 @@ button tag : <button type='button' class='btn btn-default' data-placement="top" 
 <br />
 Razor AtcionLink : @Html.ActionLink("Create Button", "Create", "MenuMasters", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
 <br />
+input tag : <input type="button" onclick="alert('Apply');" id="Test1" value="jqxButton Theme Apply" />
+<br />
+input tag : <input type="button" id="Test2" value="Url.Action" onclick="@Url.Action("Create", "MenuMastersController")"/>
+<br />
 <div id="grid"></div>
 
 
@@ -34,51 +38,44 @@ Razor AtcionLink : @Html.ActionLink("Create Button", "Create", "MenuMasters", ro
             alert(id);
         }
 
+        $("#Test1").jqxButton({ theme: 'metro', width: '150', height: '25' });
+
+        $("#Test2").jqxButton({ theme: 'metro', width: '150', height: '25' });
+
+        //$("input[id^='btn_']").jqxButton({ theme: 'metro' });
+
         // cellsrenderer 와 columnsrenderer(?) 는 모두 고정으로 넘어오는 parameter가 존재한다
         // https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-cellsrendering.htm
-        var cellsrenderer_correct = function (index, datafield, value, defaultvalue, column, rowdata) {
+        var cellsrenderer_default = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
             var str_args = rowdata.MenuIdentity;
-            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="buttonclick_correct(\'' + str_args + '\')" id="btn_' + rowdata.MenuIdentity + '" value="' + rowdata.MenuName + '"/>'
+            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.MenuIdentity + '" value="' + rowdata.MenuName + '"/>'
         }
 
-        var buttonclick_correct = function (value) {
+        var cellsrenderer_default2 = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.MenuIdentity;
+            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.MenuIdentity + '" value="' + rowdata.MenuName + '"/>'
+        }
+
+        var cellsrenderer_default_fn = function (value) {
             alert("rowdata.MenuIdentity : " + value);
-        }
-
-        var cellsbuttonclick_correct = function (row) {
-            //var data = $('#grid').jqxGrid('getrowdata', row);
-            alert("asdf");
         }
 
         var cellsrenderer_btn = function (index, datafield, value, defaultvalue, column, rowdata) {
             return 'Edit'
+            // Add style
+            //return '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="">Edit</button>';
         }
 
-        var cellsrenderer_edit = function (index, datafield, value, defaultvalue, column, rowdata) {
-            var str_args = rowdata.MenuIdentity;
-            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="buttonclick_correct(\'' + str_args + '\')" id="btn_' + rowdata.MenuIdentity + '" value="' + rowdata.MenuName + '"/>'
+        var cellsbuttonclick_btn = function () {
+            //var data = $('#grid').jqxGrid('getrowdata', row);
+            //alert(data.MenuName);
+            alert("xxx");
         }
 
-        var cellsrenderer_wrong = function (index, datafield, value, defaultvalue, column, rowdata) {
-            //rowdataObject = cloneObject(rowdata);
-            var rowdataObject = JSON.stringify(rowdata);
-
-            //return '<input class="btn btn-primary" style="width:80%; height:80%;" type="button" onClick="buttonclick_wrong2(' + JSON.parse(rowdataObject) + ')" id="btn_Del_' + value + '" value="' + rowdata.MenuName + '"/>'
-            return '<input class="btn btn-primary" style="width:80%; height:80%;" type="button" onClick="buttonclick_wrong2(\'' + rowdataObject + '\')" id="btn_Del_' + value + '" value="' + rowdata.MenuName + '"/>'
-        }
-
-        var buttonclick_wrong = function (rowdata) {
-            alert("buttonclick_wrong");
-            alert(rowdata.MenuIdentity + " :: " + rowdata.MenuName + " :: " + rowdata.Parent_MenuId + " :: " + rowdata.MenuArea + " :: " + rowdata.MenuController + " :: " + rowdata.MenuAction);
-        }
-
-        function fn_ObjectPassing() {
-            //alert(args.MenuIdentity + " :: " + args.MenuName + " :: " + args.Parent_MenuId + " :: " + args.MenuArea + " :: " + args.MenuController + " :: " + args.MenuAction);
-            alert("1");
-        }
-
-        var buttonclick_wrong2 = function () {
-            alert("2");
+        function cellsbuttonclick_btn2() {
+            alert("xxx");
         }
 
         function cloneObject(obj) {
@@ -103,12 +100,13 @@ Razor AtcionLink : @Html.ActionLink("Create Button", "Create", "MenuMasters", ro
 <div style="display:none">
     @*display:none <- Must be required!*@
     @*<jqx-grid id="grid" alt-rows="true" show-status-bar="true" show-aggregates="false" filterable="true" pageable="true" auto-height="false" source-id="MenuId" sortable="true" height="650" width="100%" source="Model">*@
-    <jqx-grid id="grid" alt-rows="true" selection-mode="multiplecellsadvanced" edit-mode="selectedcell" filterable="true" pageable="true" sortable="true" source-id-for="@(menu.MenuIdentity)" theme="@ViewData["Theme"]" edit="@Url.Action("Edit","MenuMastersController")" width="850" source="Model">
+    @*edit="@Url.Action("Edit","MenuMastersController")" alt-rows="true" selection-mode="multiplecellsadvanced" edit-mode="selectedcell" *@
+    <jqx-grid id="grid" filterable="true" pageable="true" sortable="true" source-id-for="@(menu.MenuIdentity)" theme="@ViewData["Theme"]" width="850" source="Model">
         <jqx-grid-columns>
-            <jqx-grid-column cells-renderer="cellsrenderer_correct()" datafield-for="@(menu.MenuIdentity)" width="180" text="correct"></jqx-grid-column>
-            <jqx-grid-column cells-renderer="cellsrenderer_btn()" button-click="cellsbuttonclick_correct()" datafield-for="@(menu.User_Auth)" width="180" text="click"></jqx-grid-column>
-            @*<jqx-grid-column cells-renderer="delete_renderer()" datafield-for="@(menu.User_Duty)" width="180" text="Button"></jqx-grid-column>*@
-            <jqx-grid-column cells-renderer="cellsrenderer_edit()" datafield-for="@(menu.Sort_Order)" width="180" text="edit"></jqx-grid-column>
+            <jqx-grid-column cells-renderer="cellsrenderer_default()" datafield-for="@(menu.MenuIdentity)" width="180" text="Default"></jqx-grid-column>
+
+            <jqx-grid-column cells-renderer="cellsrenderer_btn()" datafield-for="@(menu.User_Auth)" button-click="cellsbuttonclick_btn()" column-type="button" width="180" text="click"></jqx-grid-column>
+
             <jqx-grid-column column-group="name1" datafield-for="@(menu.MenuName)" width="150" text="MenuName"></jqx-grid-column>
             <jqx-grid-column column-group="name1" datafield-for="@(menu.Parent_MenuId)" width="150" text="ParentMenu"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(menu.User_Roll)" width="150" text="Roll"></jqx-grid-column>
@@ -116,7 +114,6 @@ Razor AtcionLink : @Html.ActionLink("Create Button", "Create", "MenuMasters", ro
             <jqx-grid-column datafield-for="@(menu.MenuController)" width="150" text="Controller"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(menu.MenuAction)" width="150" text="Action"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(menu.Use_Yn)" width="60" text="UseYn"></jqx-grid-column>
-            <jqx-grid-column cells-renderer="cellsrenderer_wrong()" datafield-for="@(menu.User_Duty)" width="180" text="wrong"></jqx-grid-column>
         </jqx-grid-columns>
         <jqx-grid-column-groups>
             <jqx-grid-column-group name="name1" text="group1"></jqx-grid-column-group>

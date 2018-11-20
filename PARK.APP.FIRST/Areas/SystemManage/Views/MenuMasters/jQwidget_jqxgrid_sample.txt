@@ -1,0 +1,118 @@
+﻿<script type='text/javascript'>
+	$(function () {
+		var source = {
+			id: 'MenuIdentity'
+			,  dataFields:
+				[
+					{ name: 'MenuIdentity', type: 'number'}
+					, { name: 'User_Auth', type: 'string'}
+					, { name: 'Sort_Order', type: 'number'}
+					, { name: 'MenuName', type: 'string'}
+					, { name: 'Parent_MenuId', type: 'string'}
+					, { name: 'User_Roll', type: 'string'}
+					, { name: 'MenuArea', type: 'string'}
+					, { name: 'MenuController', type: 'string'}
+					, { name: 'MenuAction', type: 'string'}
+					, { name: 'Use_Yn', type: 'string'}
+					, { name: 'User_Duty', type: 'string'}
+					, { name: 'MenuIdentity', type: 'string'}
+				]
+			, dataType: 'array'
+			, localData:
+				[
+					{ 'MenuIdentity': 1, 'MenuId': 'root', 'MenuName': 'AppTitle', 'Parent_MenuId': '', 'User_Roll': 'admin,manager', 'User_Auth': '', 'User_Duty': '', 'MenuArea': '', 'MenuController': 'Home', 'MenuAction': 'Index', 'Use_Yn': 'Y', 'CssClass': 'navbar-brand', 'Sort_Order': 1, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 486) }
+					, { 'MenuIdentity': 2, 'MenuId': 'default', 'MenuName': 'AppDefault', 'Parent_MenuId': '', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': '', 'MenuController': 'Home', 'MenuAction': 'About', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 2, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 493) }
+					, { 'MenuIdentity': 3, 'MenuId': 'default1', 'MenuName': 'AppDefault', 'Parent_MenuId': 'default', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': '', 'MenuController': 'Home', 'MenuAction': 'Contact', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 3, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 493) }
+					, { 'MenuIdentity': 4, 'MenuId': 'default2', 'MenuName': 'NotFound', 'Parent_MenuId': 'default', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': '', 'MenuController': 'Home', 'MenuAction': 'NotFound', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 4, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 496) }
+					, { 'MenuIdentity': 5, 'MenuId': 'manage1', 'MenuName': 'UserRole', 'Parent_MenuId': '', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': 'UserManage', 'MenuController': 'ManageUser', 'MenuAction': 'Index', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 5, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 496) }
+					, { 'MenuIdentity': 6, 'MenuId': 'manage2', 'MenuName': 'Roles', 'Parent_MenuId': 'manage1', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': 'UserManage', 'MenuController': 'ManageRole', 'MenuAction': 'Index', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 5, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 496) }
+					, { 'MenuIdentity': 7, 'MenuId': 'manage3', 'MenuName': 'UserList', 'Parent_MenuId': 'manage1', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': 'UserManage', 'MenuController': 'ManageUser', 'MenuAction': 'UserList', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 6, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 500) }
+					, { 'MenuIdentity': 8, 'MenuId': 'manage4', 'MenuName': 'MenuList', 'Parent_MenuId': '', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': 'SystemManage', 'MenuController': 'Menus', 'MenuAction': 'Index', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 6, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 500) }
+				]
+			, updaterow: function(rowid, rowdata, commit) {
+					// synchronize with the server - send update command
+                    // call commit with parameter true if the synchronization with the server is successful 
+                    // and with parameter false if the synchronization failder.					rowdata.MenuIdentity = rowid;
+					rowdata._UID = rowid;
+					var json = JSON.stringify(rowdata);
+
+					$.ajax({
+						type: 'POST'
+						,data: { 'jsonData': json}
+						,dataType: 'text'
+						,url: '/SystemManage/MenuMastersController/Edit'
+						,success: function(returnPayload) {
+							if (returnPayload)
+								commit(true);
+							}
+						,error: function(xhr, ajaxOptions, thrownError) {
+							commit(false);
+							console.log(thrownError);
+							}
+						,async: false
+					});
+				}
+		};
+
+		var adapter = new $.jqx.dataAdapter(source);
+		
+		var grid= new jqxGrid(
+			$('#grid')
+			, {
+				altRows: true
+				, selectionMode: 'multiplecellsadvanced'
+				, editMode: 'selectedcell'
+				, filterable: true
+				, pageable: true
+				, sortable: true
+				, theme: 'metro'
+				, width: 850
+				, columnGroups:
+					[
+						{ text: 'group1', parentGroup: null, name: 'name1' }
+					]
+				, columns:
+					[
+						{ text: 'correct', dataField: 'MenuIdentity', cellsRenderer: cellsrenderer_correct, width: 180 }
+						, { text: 'click', dataField: 'User_Auth', cellsRenderer: cellsrenderer_btn, width: 180 }
+						, { text: 'edit', dataField: 'Sort_Order', cellsRenderer: cellsrenderer_edit, width: 180 }
+						, { text: 'MenuName', dataField: 'MenuName', columnGroup: 'name1', width: 150 }
+						, { text: 'ParentMenu', dataField: 'Parent_MenuId', columnGroup: 'name1', width: 150 }
+						, { text: 'Roll', dataField: 'User_Roll', width: 150 }
+						, { text: 'Area', dataField: 'MenuArea', width: 150 }
+						, { text: 'Controller', dataField: 'MenuController', width: 150 }
+						, { text: 'Action', dataField: 'MenuAction', width: 150 }
+						, { text: 'UseYn', dataField: 'Use_Yn', width: 60 }
+						, { text: 'wrong', dataField: 'User_Duty', cellsRenderer: cellsrenderer_wrong, width: 180 }
+					]
+				, virtualMode: false
+				, source: adapter
+			}
+		);
+	});
+
+	//아래부분은 https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/popupediting.htm?arctic 에서 참고
+
+	// initialize the popup window and buttons.
+    $("#popupWindow").jqxWindow({
+        width: 250, resizable: false,  isModal: true, autoOpen: false, cancelButton: $("#Cancel"), modalOpacity: 0.01           
+    });
+
+    $("#popupWindow").on('open', function () {
+        $("#firstName").jqxInput('selectAll');
+    });
+         
+    $("#Cancel").jqxButton({ theme: theme });
+    $("#Save").jqxButton({ theme: theme });
+
+    // update the edited row when the user clicks the 'Save' button.
+    $("#Save").click(function () {
+        if (editrow >= 0) {
+            var row = { firstname: $("#firstName").val(), lastname: $("#lastName").val(), productname: $("#product").val(),
+                quantity: parseInt($("#quantity").jqxNumberInput('decimal')), price: parseFloat($("#price").jqxNumberInput('decimal'))
+            };
+            var rowID = $('#grid').jqxGrid('getrowid', editrow);
+            $('#grid').jqxGrid('updaterow', rowID, row);
+            $("#popupWindow").jqxWindow('hide');
+        }
+    });</script>===============================================================================================<script type='text/javascript'>	$(function () {		var source = {			id: 'MenuIdentity'			,  dataFields:				[					{ name: 'MenuIdentity', type: 'number'}					, { name: 'User_Auth', type: 'string'}					, { name: 'MenuName', type: 'string'}					, { name: 'Parent_MenuId', type: 'string'}					, { name: 'User_Roll', type: 'string'}					, { name: 'MenuArea', type: 'string'}					, { name: 'MenuController', type: 'string'}					, { name: 'MenuAction', type: 'string'}					, { name: 'Use_Yn', type: 'string'}					, { name: 'MenuIdentity', type: 'string'}				]			, dataType: 'array'			, localData:				[					{ 'MenuIdentity': 1, 'MenuId': 'root', 'MenuName': 'AppTitle', 'Parent_MenuId': '', 'User_Roll': 'admin,manager', 'User_Auth': '', 'User_Duty': '', 'MenuArea': '', 'MenuController': 'Home', 'MenuAction': 'Index', 'Use_Yn': 'Y', 'CssClass': 'navbar-brand', 'Sort_Order': 1, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 486) }					, { 'MenuIdentity': 2, 'MenuId': 'default', 'MenuName': 'AppDefault', 'Parent_MenuId': '', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': '', 'MenuController': 'Home', 'MenuAction': 'About', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 2, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 493) }					, { 'MenuIdentity': 3, 'MenuId': 'default1', 'MenuName': 'AppDefault', 'Parent_MenuId': 'default', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': '', 'MenuController': 'Home', 'MenuAction': 'Contact', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 3, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 493) }					, { 'MenuIdentity': 4, 'MenuId': 'default2', 'MenuName': 'NotFound', 'Parent_MenuId': 'default', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': '', 'MenuController': 'Home', 'MenuAction': 'NotFound', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 4, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 496) }					, { 'MenuIdentity': 5, 'MenuId': 'manage1', 'MenuName': 'UserRole', 'Parent_MenuId': '', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': 'UserManage', 'MenuController': 'ManageUser', 'MenuAction': 'Index', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 5, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 496) }					, { 'MenuIdentity': 6, 'MenuId': 'manage2', 'MenuName': 'Roles', 'Parent_MenuId': 'manage1', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': 'UserManage', 'MenuController': 'ManageRole', 'MenuAction': 'Index', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 5, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 496) }					, { 'MenuIdentity': 7, 'MenuId': 'manage3', 'MenuName': 'UserList', 'Parent_MenuId': 'manage1', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': 'UserManage', 'MenuController': 'ManageUser', 'MenuAction': 'UserList', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 6, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 500) }					, { 'MenuIdentity': 8, 'MenuId': 'manage4', 'MenuName': 'MenuList', 'Parent_MenuId': '', 'User_Roll': 'admin', 'User_Auth': '', 'User_Duty': '', 'MenuArea': 'SystemManage', 'MenuController': 'Menus', 'MenuAction': 'Index', 'Use_Yn': 'Y', 'CssClass': '', 'Sort_Order': 6, 'CreatedDate': new Date(2018, 10, 20, 1, 5, 53, 500) }				]			, updaterow:				function(rowid, rowdata, commit) {					rowdata.MenuIdentity = rowid;					rowdata._UID = rowid;					var json = JSON.stringify(rowdata);					$.ajax({						type: 'POST'						,data: { 'jsonData': json}						,dataType: 'text'						,url: '/SystemManage/MenuMastersController/Edit'						,success: function(returnPayload) {							if (returnPayload)								commit(true);						}						,error: function(xhr, ajaxOptions, thrownError) {							commit(false);							console.log(thrownError);						}						,async: false					});				}			};			var adapter = new $.jqx.dataAdapter(source);						var grid= new jqxGrid($('#grid'), {				filterable: true				, pageable: true				, sortable: true				, theme: 'metro'				, width: 850				, columnGroups:					[						{ text: 'group1', parentGroup: null, name: 'name1' }					]				, columns:					[						{ text: 'Default', dataField: 'MenuIdentity', cellsRenderer: cellsrenderer_default, width: 180 }						, { text: 'click', dataField: 'User_Auth', cellsRenderer: cellsrenderer_btn, columnType: 'button', width: 180 }						, { text: 'MenuName', dataField: 'MenuName', columnGroup: 'name1', width: 150 }						, { text: 'ParentMenu', dataField: 'Parent_MenuId', columnGroup: 'name1', width: 150 }						, { text: 'Roll', dataField: 'User_Roll', width: 150 }						, { text: 'Area', dataField: 'MenuArea', width: 150 }						, { text: 'Controller', dataField: 'MenuController', width: 150 }						, { text: 'Action', dataField: 'MenuAction', width: 150 }						, { text: 'UseYn', dataField: 'Use_Yn', width: 60 }					]				, virtualMode: false				, source: adapter			});		});</script>

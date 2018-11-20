@@ -10,10 +10,12 @@
     <link href="~/css/pace-theme-minimal.css" rel="stylesheet" />
     <link href="~/lib/jqwidgets/styles/jqx.base.css" rel="stylesheet" />
     <link href="~/lib/jqwidgets/styles/jqx.metro.css" rel="stylesheet" />
-
+    @*https://www.jqwidgets.com/community/topic/uncaught-typeerror-cannot-set-property-dataadapter-of-undefined/*@
+    @*jqx-all.js should be referenced after the jQuery Framework. In addition, jqxdata.js should not be referenced due to the fact that you load jqx-all.js which includes jqxdata.js.*@
+    <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
     <script src="~/lib/jqwidgets/jqx-all.js" asp-append-version="true"></script>
-    @*<script src="~/lib/jqwidgets/jqxdata.js" asp-append-version="true"></script>*@
-    @*<script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>*@
+    <script src="~/lib/jqwidgets/jqxdata.js" asp-append-version="true"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
@@ -30,56 +32,45 @@
     </environment>
 
     @*<style>
-        body {
-            padding-top: 65px;
-        }
+            body {
+                padding-top: 65px;
+            }
 
-        ul, li {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            color: #00000;
-        }
+            ul, li {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                color: #00000;
+            }
 
-        .nav {
-            color: #FFFFFF;
-        }
-
-        .navbar-nav {
-            color: #FFFFFF;
-        }
-
-        .menu {
-            background: transparent;
-            height: 60px;
-            padding: 0 0px;
-            color: #FFFFFF;
-        }
-
-            .menu > li {
-                display: inline-block;
-                padding: 0px 0px 0px 0px;
-                display: inline-block;
-                text-align: center;
-                line-height: 28px;
-                height: 32px;
+            .nav {
                 color: #FFFFFF;
             }
 
-                .menu > li a {
+            .navbar-nav {
+                color: #FFFFFF;
+            }
+
+            .menu {
+                background: transparent;
+                height: 60px;
+                padding: 0 0px;
+                color: #FFFFFF;
+            }
+
+                .menu > li {
                     display: inline-block;
                     padding: 0px 0px 0px 0px;
                     display: inline-block;
                     text-align: center;
                     line-height: 28px;
                     height: 32px;
-                    width: 130px;
                     color: #FFFFFF;
                 }
 
-                    .menu > li a:hover {
+                    .menu > li a {
                         display: inline-block;
-                        padding: 0px 0px 1px 0px;
+                        padding: 0px 0px 0px 0px;
                         display: inline-block;
                         text-align: center;
                         line-height: 28px;
@@ -88,67 +79,78 @@
                         color: #FFFFFF;
                     }
 
-        .sub-menu {
-            position: absolute;
-            display: none;
-            background-color: transparent;
-            width: 130px;
-            color: #FFFFFF;
-            padding: 2px;
-        }
+                        .menu > li a:hover {
+                            display: inline-block;
+                            padding: 0px 0px 1px 0px;
+                            display: inline-block;
+                            text-align: center;
+                            line-height: 28px;
+                            height: 32px;
+                            width: 130px;
+                            color: #FFFFFF;
+                        }
 
-            .sub-menu > li {
-                display: inline-block;
-                padding: 0px 0px 0px 0px;
-                display: inline-block;
-                text-align: center;
-                line-height: 28px;
-                height: 32px;
+            .sub-menu {
+                position: absolute;
+                display: none;
+                background-color: transparent;
                 width: 130px;
-                background: #3d3b3b;
                 color: #FFFFFF;
+                padding: 2px;
             }
 
-                .sub-menu > li a:hover {
+                .sub-menu > li {
+                    display: inline-block;
+                    padding: 0px 0px 0px 0px;
+                    display: inline-block;
+                    text-align: center;
+                    line-height: 28px;
+                    height: 32px;
+                    width: 130px;
+                    background: #3d3b3b;
+                    color: #FFFFFF;
+                }
+
+                    .sub-menu > li a:hover {
+                        display: block;
+                        cursor: pointer;
+                        width: 130px;
+                        background: #ddd;
+                        color: #000000
+                    }
+
+            .sub-menu2 {
+                position: absolute;
+                display: none;
+                background-color: pink;
+            }
+
+                .sub-menu2 > li {
                     display: block;
                     cursor: pointer;
-                    width: 130px;
-                    background: #ddd;
-                    color: #000000
+                    background-color: green;
                 }
 
-        .sub-menu2 {
-            position: absolute;
-            display: none;
-            background-color: pink;
-        }
+                    .sub-menu2 > li a:hover {
+                        display: block;
+                        Login cursor: pointer;
+                        background-color: pink;
+                    }
 
-            .sub-menu2 > li {
-                display: block;
-                cursor: pointer;
-                background-color: green;
+            .sub-menu2 {
+                margin-top: -2px;
             }
 
-                .sub-menu2 > li a:hover {
-                    display: block;
-                    Login cursor: pointer;
-                    background-color: pink;
-                }
+            li:hover .sub-menu {
+                display: block;
+                color: #FFFFFF
+            }
 
-        .sub-menu2 {
-            margin-top: -2px;
-        }
-
-        li:hover .sub-menu {
-            display: block;
-            color: #FFFFFF
-        }
-
-        li:hover .sub-menu2 {
-            display: block;
-            color: #FFFFFF
-        }
-    </style>*@
+            li:hover .sub-menu2 {
+                display: block;
+                color: #FFFFFF
+            }
+        </style>*@
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
