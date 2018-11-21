@@ -28,6 +28,8 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
             return View(await _context.MenuMaster.ToListAsync());
         }
 
+        #region+ ServerSide Paging, Filtering, Sorting
+        // https://github.com/jqwidgets/Grid.AspNetCore.Mvc
         public class JSONData
         {
             public List<MenuMaster> MenuMasters
@@ -42,6 +44,7 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
             }
         }
 
+        // https://github.com/jqwidgets/Grid.AspNetCore.Mvc
         [HttpPost]
         public string GetPageData(string jsonData)
         {
@@ -50,7 +53,7 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
             List<JToken> filterGroups = token.SelectToken("filterGroups").Children().ToList();
             int pageSize = (int)token.SelectToken("pagesize");
             int pageNum = (int)token.SelectToken("pagenum");
-            string sortField = (string)token.SelectToken("sortdataField");
+            string sortField = (string)token.SelectToken("sortdatafield");
             string sortOrder = (string)token.SelectToken("sortorder");
             int count = 0;
             List<MenuMaster> employees = new List<MenuMaster>();
@@ -219,6 +222,36 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
             data.TotalRecords = allEmployees.Count;
             data.MenuMasters = employees;
             return JsonConvert.SerializeObject(data);
+        }
+        #endregion
+
+        [HttpPost]
+        public bool CellEditData(string jsonData)
+        {
+            MenuMaster employee = (MenuMaster)JsonConvert.DeserializeObject(jsonData, typeof(MenuMaster));
+            for (int i = 0; i < _context.MenuMaster.ToList().Count; i++)
+            {
+                MenuMaster currentEmployee = _context.MenuMaster.ToList()[i];
+                if (currentEmployee.MenuIdentity == employee.MenuIdentity)
+                {
+                    currentEmployee.MenuName = employee.MenuName;
+                    currentEmployee.CreatedDate = currentEmployee.CreatedDate;
+                    currentEmployee.CssClass = currentEmployee.CssClass;
+                    currentEmployee.MenuAction = currentEmployee.MenuAction;
+                    currentEmployee.MenuArea = currentEmployee.MenuArea;
+                    currentEmployee.MenuController = currentEmployee.MenuController;
+                    currentEmployee.MenuId = currentEmployee.MenuId;
+                    currentEmployee.Parent_MenuId = currentEmployee.Parent_MenuId;
+                    currentEmployee.Sort_Order = currentEmployee.Sort_Order;
+                    currentEmployee.User_Auth = currentEmployee.User_Auth;
+                    currentEmployee.User_Duty = currentEmployee.User_Duty;
+                    currentEmployee.User_Roll = currentEmployee.User_Roll;
+                    currentEmployee.Use_Yn = currentEmployee.Use_Yn;
+
+                    return true;
+                }
+            }
+            return false;
         }
 
         // GET: SystemManage/MenuMasters/Details/5
