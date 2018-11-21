@@ -1,0 +1,91 @@
+﻿@model PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.TcompInfo
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TcompInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CompName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CompDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CompRef)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompRef)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StandardYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StandardYear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiagType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiagType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ConfirmYn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ConfirmYn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UseYn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UseYn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateUserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateUserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateUserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateUserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CompDetailGubun)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompDetailGubun)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CompSeq">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

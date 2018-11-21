@@ -16,6 +16,7 @@ using PARK.APP.FIRST.Models.ApplicationModel;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using PARK.APP.FIRST.Services;
 using System.Net;
+using PARK.APP.FIRST.Areas.VulnManage.Models.Vuln;
 
 namespace PARK.APP.FIRST
 {
@@ -39,6 +40,10 @@ namespace PARK.APP.FIRST
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<VulnDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 

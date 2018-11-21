@@ -1,0 +1,90 @@
+﻿@model PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.TcompInfo
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>TcompInfo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CompSeq" />
+            <div class="form-group">
+                <label asp-for="CompName" class="control-label"></label>
+                <input asp-for="CompName" class="form-control" />
+                <span asp-validation-for="CompName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompDescription" class="control-label"></label>
+                <input asp-for="CompDescription" class="form-control" />
+                <span asp-validation-for="CompDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompRef" class="control-label"></label>
+                <input asp-for="CompRef" class="form-control" />
+                <span asp-validation-for="CompRef" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StandardYear" class="control-label"></label>
+                <input asp-for="StandardYear" class="form-control" />
+                <span asp-validation-for="StandardYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiagType" class="control-label"></label>
+                <input asp-for="DiagType" class="form-control" />
+                <span asp-validation-for="DiagType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmYn" class="control-label"></label>
+                <input asp-for="ConfirmYn" class="form-control" />
+                <span asp-validation-for="ConfirmYn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UseYn" class="control-label"></label>
+                <input asp-for="UseYn" class="form-control" />
+                <span asp-validation-for="UseYn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateUserId" class="control-label"></label>
+                <input asp-for="CreateUserId" class="form-control" />
+                <span asp-validation-for="CreateUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateDt" class="control-label"></label>
+                <input asp-for="CreateDt" class="form-control" />
+                <span asp-validation-for="CreateDt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateUserId" class="control-label"></label>
+                <input asp-for="UpdateUserId" class="form-control" />
+                <span asp-validation-for="UpdateUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateDt" class="control-label"></label>
+                <input asp-for="UpdateDt" class="form-control" />
+                <span asp-validation-for="UpdateDt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompDetailGubun" class="control-label"></label>
+                <input asp-for="CompDetailGubun" class="form-control" />
+                <span asp-validation-for="CompDetailGubun" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

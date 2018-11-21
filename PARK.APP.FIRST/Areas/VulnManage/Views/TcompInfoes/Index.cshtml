@@ -1,0 +1,234 @@
+﻿@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.TcompInfo>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Theme"] = "metro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var tcompInfo = Model.FirstOrDefault();
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Razor AtcionLink(Create)", "Create", "TcompInfoes", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })&nbsp;<input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
+</p>
+@section scripts {
+    <script type="text/javascript">
+        var buttonclick = function (event) {
+            var id = event.target.id;
+            alert(id);
+        }
+
+        $("input[id^='file_']").jqxButton({ theme: 'metro' });
+
+        // cellsrenderer 와 columnsrenderer(?) 는 모두 고정으로 넘어오는 parameter가 존재한다
+        // https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-cellsrendering.htm
+        var cellsrenderer_default = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.CompSeq;
+            return '<input class="btn btn-danger" style="width:100%; height:100%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.CompSeq + '" value="' + 'rowdata.CompSeq' + '"/>'
+        }
+
+        var cellsrenderer_default_fn = function (value) {
+            alert("rowdata.CompSeq : " + value);
+        }
+
+        var cellsrenderer_btn = function (index, datafield, value, defaultvalue, column, rowdata) {
+            return 'Edit'
+        }
+
+        var cellsbuttonclick_btn = function () {
+            alert("xxx");
+        }
+
+        function cellsbuttonclick_btn2() {
+            alert("xxx");
+        }
+
+        function cloneObject(obj) {
+            if (obj == null || typeof (obj) != 'object')
+                return obj;
+
+            var temp = new obj.constructor();
+            for (var key in obj)
+                temp[key] = cloneObject(obj[key]);
+
+            return temp;
+        }
+
+        var template = { rowDetails: "<div style=\"margin: 10px;\"></div>", rowDetailsHeight: 220, rowDetailsHidden: true };
+
+        var initRowDetails = function (index, parentElement, gridElement, record) {
+            var id = record.uid.toString();
+            var grid = $($(parentElement).children()[0]);
+            var data = [];
+
+
+
+            var generaterow = function (i) {
+                var row = {};
+                row["OrderDate"] = new Date(2016, Math.floor(Math.random() * 11), Math.floor(Math.random() * 27))
+                row["Quantity"] = Math.floor(Math.random() * 50)
+                row["ProductName"] = record.ProductName;
+                return row;
+            }
+            for (var i = 0; i < Math.max(10, Math.floor(Math.random() * 20)); i++) {
+                var row = generaterow(i);
+                data[i] = row;
+            }
+
+
+
+            var source = {
+                datafields: [
+                    { name: 'OrderDate', type: 'date' },
+                    { name: 'Quantity', type: 'string' },
+                    { name: 'ProductName', type: 'string' }
+                ],
+                localdata: data
+            }
+            var nestedGridAdapter = new $.jqx.dataAdapter(source);
+            if (grid != null) {
+                grid.jqxGrid({
+                    source: nestedGridAdapter, width: 780, height: 200,
+                    columns: [
+                        { text: 'Order Date', cellsFormat: 'd', dataField: 'OrderDate', width: 200 },
+                        { text: 'Quantity', cellsAlign: 'right', dataField: 'Quantity', width: 200 },
+                        { text: 'Product Name', dataField: 'ProductName' }
+                    ]
+                });
+            }
+        }
+
+
+        function alertTest(str) {
+            alert(str);
+        }
+    </script>
+}
+<div id="grid"></div>
+<div style="display:none">
+    <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(tcompInfo.CompSeq)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="grid_TcompInfo_List" source-total-records="TotalRecords" source-url="@Url.Action("GetPageData","TcompInfoes")" source-model="tcompInfo">
+        <jqx-grid-columns>
+            <jqx-grid-column datafield-for="@(tcompInfo.CompName)" width="150" text="CompName"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(tcompInfo.CompDescription)" width="150" text="CompDescription"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(tcompInfo.DiagType)" width="150" text="DiagType"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(tcompInfo.CreateDt)" width="150" text="CreateDt"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(tcompInfo.CompDetailGubun)" width="150" text="CompDetailGubun"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(tcompInfo.ConfirmYn)" width="60" text="ConfirmYn"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" cells-renderer="cellsrenderer_default()" datafield-for="@(tcompInfo.CompSeq)" width="180" text="CompSeq"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" cells-renderer="cellsrenderer_btn()" datafield-for="@(tcompInfo.UseYn)" button-click="cellsbuttonclick_btn()" column-type="button" width="180" text="UseYn"></jqx-grid-column>
+        </jqx-grid-columns>
+        <jqx-grid-column-groups>
+            <jqx-grid-column-group name="name1" text="Colum Group"></jqx-grid-column-group>
+        </jqx-grid-column-groups>
+    </jqx-grid>
+</div>
+<p></p>
+<bootstrap-listgroup>
+    <bootstrap-listgroup-item>1. DB table 생성</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>2. Scaffold-DbContext "연결문자열" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Areas/VulnManage/Models/Vuln -Context "VulnDbContext" -table TCompInfo, TVulnGroup, TVuln -Force</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>3. Add-Migration -Context VulnDbContext CompVulnInfos_Add_01</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>4. Update-Database -Context VulnDbContext</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>5. StartUp.cs 에 services.AddDbContext VulnDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); 추가</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>6. '스캐폴드 항목 추가' -> Model 선택, "VulnDbContext" 선택</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>7. GetPageData 참고하여 jqx grid source class 생성(* source class 명명규칙 주의!!! 헷갈림!!!)</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>8. 생성할 View 화면에 addTagHelper 추가!</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>9. var tcompInfo = Model.FirstOrDefault(); 생성</bootstrap-listgroup-item>
+    <bootstrap-listgroup-item>10. source-root="grid_TcompInfo_List" 에서 grid_TcompInfo_List 는 jqx grid source class의 List<> 이름, source-model="tcompInfo" 는 View 화면의 지역변수</bootstrap-listgroup-item>
+</bootstrap-listgroup>
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompRef)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StandardYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiagType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ConfirmYn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UseYn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateUserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateDt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdateUserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdateDt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompDetailGubun)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompRef)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StandardYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiagType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ConfirmYn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UseYn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateUserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateDt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdateUserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdateDt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompDetailGubun)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CompSeq">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.CompSeq">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.CompSeq">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
