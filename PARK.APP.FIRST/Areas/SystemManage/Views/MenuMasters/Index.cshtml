@@ -121,7 +121,11 @@
             }
         }
 
+
         var jqxGridInstance = {};
+        function alertTest(str) {
+            alert(str);
+        }
         function exportExcel() {
             jqxGridInstance.exportdata("xls", "Grid", true, null, true, '@Url.Action("ExportData", "MenuMasters")');
         }
@@ -169,20 +173,11 @@
         </jqx-grid-column-groups>
     </jqx-grid>
 </div>
-<br />
-    a tag : <a asp-action="Create" class='btn btn-default'>Create New</a>
-<br />
-    jqx-button : <jqx-button theme="metro" on-click="@Url.Action("Create", "MenuMastersController")">Create Button</jqx-button>
-<br />
-    button tag : <button type='button' class='btn btn-default' data-placement="top" on-click="@Url.Action("Create", "MenuMastersController")">Create Button</button>
-<br />
-    input tag : <input type="button" onclick="alert('Apply');" id="Test1" value="jqxButton Theme Apply" />
-<br />
-    input tag : <input type="button" id="Test2" value="Url.Action" onclick="@Url.Action("Create", "MenuMastersController")" />
-<br />
+
 <p>
     https://www.jqwidgets.com/community/topic/export-multiple-jqxgrids-to-excel-on-single-button-click/
 </p>
+<input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
 <input type="button" onclick="exportExcel()" id="file_Excel" value="Excel" />
 <input type="button" onclick="htmlExport()" id="file_Html" value="Html" />
 <input type="button" onclick="csvExport()" id="file_Csv" value="Csv" />
@@ -288,6 +283,17 @@
     </table>*@
 <div style="display:none">
     <div id="grid1" style="background-color:red;height:60px;width:60px;"></div>
+    <br />
+    a tag : <a asp-action="Create" class='btn btn-default'>Create New</a>
+    <br />
+    jqx-button : <jqx-button theme="metro" on-click="@Url.Action("Create", "MenuMastersController")">Create Button</jqx-button>
+    <br />
+    button tag : <button type='button' class='btn btn-default' data-placement="top" on-click="@Url.Action("Create", "MenuMastersController")">Create Button</button>
+    <br />
+    input tag : <input type="button" onclick="alert('Apply');" id="Test1" value="jqxButton Theme Apply" />
+    <br />
+    input tag : <input type="button" id="Test2" value="Url.Action" onclick="@Url.Action("Create", "MenuMastersController")" />
+    <br />
     <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="exportExcel()">Excel Export</jqx-button>
     <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="htmlExport()">HTML Export</jqx-button>
     <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="csvExport()">CSV Export</jqx-button>
