@@ -1,0 +1,103 @@
+﻿@model PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.TvulnGroup
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TvulnGroup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UpperSeq)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpperSeq)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Level)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Level)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiagKind)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiagKind)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiagTerm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiagTerm)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiagTool)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiagTool)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SortOrder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SortOrder)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateUserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateUserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateUserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateUserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CompSeqNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompSeqNavigation.CompName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.GroupSeq">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

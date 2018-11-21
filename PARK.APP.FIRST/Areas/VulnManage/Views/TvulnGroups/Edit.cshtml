@@ -1,0 +1,100 @@
+﻿@model PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.TvulnGroup
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>TvulnGroup</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="GroupSeq" />
+            <div class="form-group">
+                <label asp-for="UpperSeq" class="control-label"></label>
+                <input asp-for="UpperSeq" class="form-control" />
+                <span asp-validation-for="UpperSeq" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Level" class="control-label"></label>
+                <input asp-for="Level" class="form-control" />
+                <span asp-validation-for="Level" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupType" class="control-label"></label>
+                <input asp-for="GroupType" class="form-control" />
+                <span asp-validation-for="GroupType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompSeq" class="control-label"></label>
+                <select asp-for="CompSeq" class="form-control" asp-items="ViewBag.CompSeq"></select>
+                <span asp-validation-for="CompSeq" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiagKind" class="control-label"></label>
+                <input asp-for="DiagKind" class="form-control" />
+                <span asp-validation-for="DiagKind" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiagTerm" class="control-label"></label>
+                <input asp-for="DiagTerm" class="form-control" />
+                <span asp-validation-for="DiagTerm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupId" class="control-label"></label>
+                <input asp-for="GroupId" class="form-control" />
+                <span asp-validation-for="GroupId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupName" class="control-label"></label>
+                <input asp-for="GroupName" class="form-control" />
+                <span asp-validation-for="GroupName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiagTool" class="control-label"></label>
+                <input asp-for="DiagTool" class="form-control" />
+                <span asp-validation-for="DiagTool" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SortOrder" class="control-label"></label>
+                <input asp-for="SortOrder" class="form-control" />
+                <span asp-validation-for="SortOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateUserId" class="control-label"></label>
+                <input asp-for="CreateUserId" class="form-control" />
+                <span asp-validation-for="CreateUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateDt" class="control-label"></label>
+                <input asp-for="CreateDt" class="form-control" />
+                <span asp-validation-for="CreateDt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateUserId" class="control-label"></label>
+                <input asp-for="UpdateUserId" class="form-control" />
+                <span asp-validation-for="UpdateUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateDt" class="control-label"></label>
+                <input asp-for="UpdateDt" class="form-control" />
+                <span asp-validation-for="UpdateDt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

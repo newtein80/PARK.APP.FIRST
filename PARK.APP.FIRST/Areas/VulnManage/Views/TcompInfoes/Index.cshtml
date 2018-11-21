@@ -60,6 +60,30 @@
             return temp;
         }
 
+        var compdetailsurl = '@Url.Action("Index", "TvulnGroups")';
+
+        var compSource =
+        {
+            datafields: [
+                { name: 'GroupName', type: 'string' },
+                { name: 'DiagKind', type: 'string' },
+                { name: 'CompSeq', type: 'int' },
+                { name: 'GroupSeq', type: 'int' },
+                { name: 'DiagKind', type: 'string' }
+            ],
+            root: "TvulnGroups",
+            record: "TvulnGroup",
+            datatype: "array",
+            url: compdetailsurl,
+            async: false
+        };
+
+        var ordersDataAdapter = new $.jqx.dataAdapter(compSource, { autoBind: true });
+        orders = ordersDataAdapter.records;
+        var nestedGrids = new Array();
+
+
+
         var template = { rowDetails: "<div style=\"margin: 10px;\"></div>", rowDetailsHeight: 220, rowDetailsHidden: true };
 
         var initRowDetails = function (index, parentElement, gridElement, record) {
@@ -68,20 +92,7 @@
             var data = [];
 
 
-
-            var generaterow = function (i) {
-                var row = {};
-                row["OrderDate"] = new Date(2016, Math.floor(Math.random() * 11), Math.floor(Math.random() * 27))
-                row["Quantity"] = Math.floor(Math.random() * 50)
-                row["ProductName"] = record.ProductName;
-                return row;
-            }
-            for (var i = 0; i < Math.max(10, Math.floor(Math.random() * 20)); i++) {
-                var row = generaterow(i);
-                data[i] = row;
-            }
-
-
+            
 
             var source = {
                 datafields: [
@@ -110,6 +121,9 @@
         }
     </script>
 }
+<p>
+    google : jqwidget init-row-details tag helper site:www.jqwidgets.com
+</p>
 <div id="grid"></div>
 <div style="display:none">
     <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(tcompInfo.CompSeq)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="grid_TcompInfo_List" source-total-records="TotalRecords" source-url="@Url.Action("GetPageData","TcompInfoes")" source-model="tcompInfo">

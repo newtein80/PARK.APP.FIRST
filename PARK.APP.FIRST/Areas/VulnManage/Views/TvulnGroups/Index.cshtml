@@ -1,0 +1,117 @@
+﻿@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.TvulnGroup>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UpperSeq)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiagKind)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiagTerm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiagTool)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SortOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateUserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateUserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateDt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompSeqNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpperSeq)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiagKind)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiagTerm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiagTool)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SortOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateUserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateUserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateDt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompSeqNavigation.CompName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.GroupSeq">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.GroupSeq">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.GroupSeq">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
