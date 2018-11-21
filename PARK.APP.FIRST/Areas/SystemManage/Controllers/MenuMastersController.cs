@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using jQWidgets.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -225,6 +226,15 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
         }
         #endregion
 
+        #region+ Export File
+        [HttpPost]
+        public FileContentResult ExportData(FormPostBack data)
+        {
+            return ExportHelper.ExportData(data);
+        }
+        #endregion
+
+        #region+ Edit Cell (Not Working)
         [HttpPost]
         public bool CellEditData(string jsonData)
         {
@@ -253,6 +263,7 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
             }
             return false;
         }
+        #endregion
 
         // GET: SystemManage/MenuMasters/Details/5
         public async Task<IActionResult> Details(int? id)
