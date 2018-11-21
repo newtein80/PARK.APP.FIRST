@@ -1,8 +1,29 @@
 ﻿@{
     ViewData["Title"] = "Contact";
+    List<KeyValuePair<string, object>> settings = new List<KeyValuePair<string, object>>()
+    {
+        new KeyValuePair<string, object>("position", "mouse"),
+        new KeyValuePair<string, object>("content", "Tooltip"),
+        new KeyValuePair<string, object>("selector", "tooltip"),
+        new KeyValuePair<string, object>("theme", ViewData["Theme"])
+    };
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
+
+@section scripts {
+    <script type="text/javascript">
+
+        function getInstance(instance) {
+            instance["close"]();
+        }
+    </script>
+}
+<jqx-calendar theme="@ViewData["Theme"]" width="200" height="200"></jqx-calendar>
+<span id="tooltip">Move cursor here to see the tooltip</span>
+<jqx-tool-tip settings="settings"></jqx-tool-tip>
+
+<jqx-rating theme="@ViewData["theme"]" value="3" width="200" height="35"></jqx-rating>
 
 <bootstrap-page-header>
     <h1>Example page header <small>Subtext for header</small></h1>
