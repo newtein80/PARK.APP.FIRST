@@ -2,19 +2,16 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
-
 @{
     ViewData["Title"] = "Index";
     ViewData["Theme"] = "metro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
-
 @{
     var menu = Model.FirstOrDefault();
 }
+
+<h2>Index</h2>
 
 a tag : <a asp-action="Create" class='btn btn-default'>Create New</a>
 <br />
@@ -29,7 +26,6 @@ input tag : <input type="button" onclick="alert('Apply');" id="Test1" value="jqx
 input tag : <input type="button" id="Test2" value="Url.Action" onclick="@Url.Action("Create", "MenuMastersController")"/>
 <br />
 <div id="grid"></div>
-
 
 @section scripts {
     <script type="text/javascript">
@@ -97,29 +93,28 @@ input tag : <input type="button" id="Test2" value="Url.Action" onclick="@Url.Act
     </script>
 }
 
-<div style="display:none">
-    @*display:none <- Must be required!*@
-    @*<jqx-grid id="grid" alt-rows="true" show-status-bar="true" show-aggregates="false" filterable="true" pageable="true" auto-height="false" source-id="MenuId" sortable="true" height="650" width="100%" source="Model">*@
-    @*edit="@Url.Action("Edit","MenuMastersController")" alt-rows="true" selection-mode="multiplecellsadvanced" edit-mode="selectedcell" *@
-    <jqx-grid id="grid" filterable="true" pageable="true" sortable="true" source-id-for="@(menu.MenuIdentity)" theme="@ViewData["Theme"]" width="850" source="Model">
-        <jqx-grid-columns>
-            <jqx-grid-column cells-renderer="cellsrenderer_default()" datafield-for="@(menu.MenuIdentity)" width="180" text="Default"></jqx-grid-column>
-
-            <jqx-grid-column cells-renderer="cellsrenderer_btn()" datafield-for="@(menu.User_Auth)" button-click="cellsbuttonclick_btn()" column-type="button" width="180" text="click"></jqx-grid-column>
-
-            <jqx-grid-column column-group="name1" datafield-for="@(menu.MenuName)" width="150" text="MenuName"></jqx-grid-column>
-            <jqx-grid-column column-group="name1" datafield-for="@(menu.Parent_MenuId)" width="150" text="ParentMenu"></jqx-grid-column>
-            <jqx-grid-column datafield-for="@(menu.User_Roll)" width="150" text="Roll"></jqx-grid-column>
-            <jqx-grid-column datafield-for="@(menu.MenuArea)" width="150" text="Area"></jqx-grid-column>
-            <jqx-grid-column datafield-for="@(menu.MenuController)" width="150" text="Controller"></jqx-grid-column>
-            <jqx-grid-column datafield-for="@(menu.MenuAction)" width="150" text="Action"></jqx-grid-column>
-            <jqx-grid-column datafield-for="@(menu.Use_Yn)" width="60" text="UseYn"></jqx-grid-column>
-        </jqx-grid-columns>
-        <jqx-grid-column-groups>
-            <jqx-grid-column-group name="name1" text="group1"></jqx-grid-column-group>
-        </jqx-grid-column-groups>
-    </jqx-grid>
-</div>
+    <div style="display:none">
+        @*display:none <- Must be required!*@
+        @*<jqx-grid id="grid" alt-rows="true" show-status-bar="true" show-aggregates="false" filterable="true" pageable="true" auto-height="false" source-id="MenuId" sortable="true" height="650" width="100%" source="Model">*@
+        @*edit="@Url.Action("Edit","MenuMastersController")" alt-rows="true" selection-mode="multiplecellsadvanced" edit-mode="selectedcell" *@
+        @*<jqx-grid id="grid" filterable="true" show-default-load-element="true" pageable="true" sortable="true" source-id-for="@(menu.MenuIdentity)" theme="@ViewData["Theme"]" width="850" source="Model">*@
+        <jqx-grid id="grid" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="ID" theme="@ViewData["Theme"]" sortable="true" width="850" source-root="MenuMasters" source-total-records="TotalRecords" source-url="@Url.Action("GetPageData","MenuMasters")" source-model="menu">
+            <jqx-grid-columns>
+                <jqx-grid-column cells-renderer="cellsrenderer_default()" datafield-for="@(menu.MenuIdentity)" width="180" text="Default"></jqx-grid-column>
+                <jqx-grid-column column-group="name1" datafield-for="@(menu.MenuName)" width="150" text="MenuName"></jqx-grid-column>
+                <jqx-grid-column column-group="name1" datafield-for="@(menu.Parent_MenuId)" width="150" text="ParentMenu"></jqx-grid-column>
+                <jqx-grid-column datafield-for="@(menu.User_Roll)" width="150" text="Roll"></jqx-grid-column>
+                <jqx-grid-column datafield-for="@(menu.MenuArea)" width="150" text="Area"></jqx-grid-column>
+                <jqx-grid-column datafield-for="@(menu.MenuController)" width="150" text="Controller"></jqx-grid-column>
+                <jqx-grid-column datafield-for="@(menu.MenuAction)" width="150" text="Action"></jqx-grid-column>
+                <jqx-grid-column datafield-for="@(menu.Use_Yn)" width="60" text="UseYn"></jqx-grid-column>
+                <jqx-grid-column cells-renderer="cellsrenderer_btn()" datafield-for="@(menu.User_Auth)" button-click="cellsbuttonclick_btn()" column-type="button" width="180" text="click"></jqx-grid-column>
+            </jqx-grid-columns>
+            <jqx-grid-column-groups>
+                <jqx-grid-column-group name="name1" text="group1"></jqx-grid-column-group>
+            </jqx-grid-column-groups>
+        </jqx-grid>
+    </div>
 
 @*<table class="table">
         <thead>
