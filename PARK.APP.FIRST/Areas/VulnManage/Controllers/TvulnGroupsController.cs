@@ -25,38 +25,11 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         // GET: VulnManage/TvulnGroups
         public async Task<IActionResult> IndexDefault()
         {
-            //var vulnDbContext = _context.TvulnGroup.Include(t => t.CompSeqNavigation);
-            //return View(await vulnDbContext.ToListAsync());
-
-
-            DbParameter outputParam = null;
-            //exec dbo.SP_VULN_GROUP_LIST '29', 'script','','','','','',1,10,1,0
-            return View(await _context.LoadStoredProc("dbo.SP_VULN_GROUP_LIST")
-               .WithSqlParam("comp_seq", 1)
-               .WithSqlParam("diag_type", 1)
-               .WithSqlParam("diag_kind", 1)
-               .WithSqlParam("group_seq", 1)
-               .WithSqlParam("group_name", 1)
-               .WithSqlParam("user_id", 1)
-               .WithSqlParam("sort_field", 1)
-               .WithSqlParam("is_desc", 1)
-               .WithSqlParam("pagesize", 1)
-               .WithSqlParam("pageindex", 1)
-               .WithSqlParam("allCount", 1)
-               .WithSqlParam("allCount", (dbParam) =>
-               {
-                   dbParam.Direction = System.Data.ParameterDirection.Output;
-                   dbParam.DbType = System.Data.DbType.Int32;
-                   outputParam = dbParam;
-               })
-               .ExecuteStoredNonQueryAsync());
-               //.ExecuteStoredProc((handler) =>
-               //{
-               //    var fooResults = handler.ReadToList<TvulnGroup>();
-               //    // do something with your results.
-               //});
+            var vulnDbContext = _context.TvulnGroup.Include(t => t.CompSeqNavigation);
+            return View(await vulnDbContext.ToListAsync());
         }
 
+        #region+ EFExtension Use - StoredProcedure : https://github.com/snickler/EFCore-FluentStoredProcedure
         public class FooDto
         {
             public Int64 GROUP_SEQ { get; set; }
@@ -114,6 +87,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
 
             return View(users);
         }
+        #endregion
 
         // GET: VulnManage/TvulnGroups/Details/5
         public async Task<IActionResult> Details(long? id)
