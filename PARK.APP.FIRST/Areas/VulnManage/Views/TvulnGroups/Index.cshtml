@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.TvulnGroup>
+﻿@*@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.TvulnGroup>*@
+@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Controllers.TvulnGroupsController.FooDto>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
@@ -15,7 +16,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.UpperSeq)
             </th>
             <th>
@@ -23,23 +24,23 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.GroupType)
-            </th>
+            </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.DiagKind)
+                @Html.DisplayNameFor(model => model.DIAG_KIND)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.DiagTerm)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.GroupId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.GROUP_NAME)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GroupName)
+                @Html.DisplayNameFor(model => model.DIAG_TOOL)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiagTool)
-            </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.SortOrder)
             </th>
             <th>
@@ -56,7 +57,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CompSeqNavigation)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -64,7 +65,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.UpperSeq)
                 </td>
                 <td>
@@ -72,23 +73,23 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GroupType)
-                </td>
+                </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.DiagKind)
+                    @Html.DisplayFor(modelItem => item.DIAG_KIND)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.DiagTerm)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GroupId)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.GROUP_NAME)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.GroupName)
+                    @Html.DisplayFor(modelItem => item.DIAG_TOOL)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiagTool)
-                </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.SortOrder)
                 </td>
                 <td>
@@ -105,11 +106,11 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CompSeqNavigation.CompName)
-                </td>
+                </td>*@
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.GroupSeq">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.GroupSeq">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.GroupSeq">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.GROUP_SEQ">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.GROUP_SEQ">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.GROUP_SEQ">Delete</a>
                 </td>
             </tr>
         }
