@@ -42,3 +42,10 @@ INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId]
 INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (8, N'manage4', N'MenuList', N'manage5', N'admin', NULL, NULL, N'SystemManage', N'Menus', N'Index', N'Y', 8, CAST(0x0700BA60AD6EF83E0B AS DateTime2), N'')
 INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (9, N'manage5', N'NewMenuList', N'', N'admin', NULL, NULL, N'SystemManage', N'MenuMasters', N'Index', N'Y', 9, CAST(0x07904E127058FA3E0B AS DateTime2), N'')
 SET IDENTITY_INSERT [dbo].[MenuMaster] OFF
+
+
+INSERT [dbo].[MenuMaster] (
+[MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass])
+VALUES
+(N'vulnmanage3', N'Vuln Manage', N'vulnmanage1', N'admin', NULL, NULL, N'VulnManage', N'Tvulns', N'Index', N'Y', 12, getdate(), N'')
+

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using PARK.APP.FIRST.Services;
 using System.Net;
 using PARK.APP.FIRST.Areas.VulnManage.Models.Vuln;
+using PARK.APP.FIRST.Areas.VulnManage.Repositories;
 
 namespace PARK.APP.FIRST
 {
@@ -61,6 +62,10 @@ namespace PARK.APP.FIRST
                     Configuration["EmailSender:Password"]
                 )
             );
+
+            // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
+            services.AddTransient<ITVulnRepository, TVulnRepository>();
+            //services.AddScoped<TVulnRepository>();
 
             // https://www.codeproject.com/Articles/1237650/ASP-NET-Core-User-Role-Base-Dynamic-Menu-Managemen
             services.AddTransient<MenuMasterService, MenuMasterService>();

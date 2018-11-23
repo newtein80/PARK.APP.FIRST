@@ -90,14 +90,14 @@ from
         ,   t2.COMP_NAME
         ,   t1.UPPER_SEQ
         ,   t1.GROUP_ID
-     from dbo.T_VULN_GROUP as t1 with(nolock)
+     from dbo.TVulnGroup as t1 with(nolock)
         inner join
         (
             select 
                 COMP_SEQ
                 ,   COMP_NAME
                 ,   DIAG_TYPE
-            from dbo.T_COMP_INFO
+            from dbo.TCompInfo
         ) as t2
         on
         (
@@ -127,7 +127,7 @@ from
         ,   t1.COMP_SEQ
         ,   t1.DIAG_KIND as DIAG_KIND_NAME
         ,   t1.DIAG_TOOL as DIAG_TOOL_NAME
-    from dbo.T_VULN_GROUP as t1 with(nolock)
+    from dbo.TVulnGroup as t1 with(nolock)
     where UPPER_SEQ <> 0
 ) as t3
 inner join @T_TEMP as t4

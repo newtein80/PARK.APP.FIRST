@@ -1,0 +1,250 @@
+﻿@model PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.Tvuln
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Tvuln</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ManualYn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ManualYn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AutoYn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AutoYn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ManageId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ManageId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientStandardId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClientStandardId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VulnName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VulnName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SortOrder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SortOrder)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RuleYn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RuleYn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Rate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Rate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Score)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Score)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplyTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplyTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Detail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Detail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DetailPath)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DetailPath)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Judgement)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Judgement)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Effect)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Effect)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Remedy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Remedy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RemedyPath)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RemedyPath)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Refrrence)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Refrrence)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParserContents)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParserContents)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrgParserContents)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrgParserContents)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplyTarget)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplyTarget)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UseYn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UseYn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExceptCd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExceptCd)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExceptTermType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExceptTermType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExceptTermFr)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExceptTermFr)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExceptTermTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExceptTermTo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExceptReason)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExceptReason)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExceptUserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExceptUserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExceptDt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExceptDt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateUserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateUserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateUserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateUserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Vulgroup)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Vulgroup)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Vulno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Vulno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RemedyDetail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RemedyDetail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Overview)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Overview)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ManagementVulnYn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ManagementVulnYn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupSeqNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupSeqNavigation.GroupType)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="VulnSeq" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
