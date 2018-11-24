@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PARK.APP.FIRST.Areas.VulnManage.Repositories
 {
+    // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
     public interface ITVulnRepository
     {
         Task<List<Tvuln>> GetByVulnGroupSeq(int vulnGroupSeq);

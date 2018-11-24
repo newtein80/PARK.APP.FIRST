@@ -11,6 +11,7 @@ using Dapper;
 
 namespace PARK.APP.FIRST.Areas.VulnManage.Repositories
 {
+    // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
     public class TVulnRepository : ITVulnRepository
     {
         private readonly IConfiguration _configuration;

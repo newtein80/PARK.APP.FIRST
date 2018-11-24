@@ -38,6 +38,8 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         {
             //var vulnDbContext = _context.Tvuln.Include(t => t.GroupSeqNavigation);
             //return View(await vulnDbContext.ToListAsync());
+
+            // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
             return View(await tVulnRepository.GetByVulnGroupSeq(202));
         }
 

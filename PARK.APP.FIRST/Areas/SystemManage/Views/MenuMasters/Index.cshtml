@@ -13,11 +13,103 @@
     //List<string> groups = new List<string>() { "MenuController" };
 }
 
-<h2>Index</h2>
 <h2>https://github.com/jqwidgets/Grid.AspNetCore.Mvc</h2>
-<p>
-    @Html.ActionLink("Razor AtcionLink(Create)", "Create", "MenuMasters", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
-</p>
+@Html.ActionLink("Razor AtcionLink(Create)", "Create", "MenuMasters", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+<bootstrap-button type="button" class="btn btn-primary" bootstrap-toggle-modal="menuMasterModal">
+    Open sample modal
+</bootstrap-button>
+<p></p>
+<bootstrap-modal id="menuMasterModal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
+    <bootstrap-modal-header>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sample modal header</h4>
+    </bootstrap-modal-header>
+    <bootstrap-modal-body>
+        <p>
+            http://jsfiddle.net/hristoxux/97nL59x8/
+        </p>
+        <p>
+            http://jsfiddle.net/8W6zj/
+        </p>
+        <p>
+            https://www.jqwidgets.com/assembling-n-nested-jquery-grid/
+        </p>
+        <p>
+            https://www.jqwidgets.com/community/topic/export-multiple-jqxgrids-to-excel-on-single-button-click/
+        </p>
+        <p>
+            https://www.jqwidgets.com/community/topic/nested-grids-with-different-child-grid-for-each-parent-row/
+        </p>
+        <p>
+            https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-datasources.htm
+        </p>
+        <div style="display:none">
+            <div id="grid1" style="background-color:red;height:60px;width:60px;"></div>
+            <br />
+            a tag : <a asp-action="Create" class='btn btn-default'>Create New</a>
+            <br />
+            jqx-button : <jqx-button theme="metro" on-click="@Url.Action("Create", "MenuMastersController")">Create Button</jqx-button>
+            <br />
+            button tag : <button type='button' class='btn btn-default' data-placement="top" on-click="@Url.Action("Create", "MenuMastersController")">Create Button</button>
+            <br />
+            input tag : <input type="button" onclick="alert('Apply');" id="Test1" value="jqxButton Theme Apply" />
+            <br />
+            input tag : <input type="button" id="Test2" value="Url.Action" onclick="@Url.Action("Create", "MenuMastersController")" />
+            <br />
+            <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="exportExcel()">Excel Export</jqx-button>
+            <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="htmlExport()">HTML Export</jqx-button>
+            <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="csvExport()">CSV Export</jqx-button>
+            <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="xmlExport()">XML Export</jqx-button>
+            <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="pdfExport()">PDF Export</jqx-button>
+            <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="tsvExport()">TSV Export</jqx-button>
+            <p>
+                https://www.dofactory.com/tutorial/javascript-function-objects
+            </p>
+            <p>
+                https://www.jqwidgets.com/jquery-widgets-documentation/documentation/asp-net-core/mvc-tag-helpers.htm?search=
+            </p>
+            <p>
+                https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/popupediting.htm?arctic
+            </p>
+            <p>
+                https://www.jqwidgets.com/custom-grid-cells-rendering/
+            </p>
+            <p>
+                https://www.jqwidgets.com/community/topic/rowdata-value/
+            </p>
+            <p>
+                https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/computedcolumn.htm?light
+            </p>
+            <p>
+                https://www.jqwidgets.com/community/topic/rendering-issues-in-chrome/
+            </p>
+            <p>
+                https://www.jqwidgets.com/community/topic/available-parameters-for-renderer-function/
+            </p>
+            <p>
+                https://www.jqwidgets.com/asp.net-core-mvc-tag-helpers-documentation/documentation/jqxgrid/asp-net-core-tag-helper-grid-api.htm?search=
+            </p>
+            <p>
+                https://www.jqwidgets.com/community/topic/asp-net-mvc-5-_layout-and-index-problem/
+            </p>
+            <p>
+                https://www.jqwidgets.com/jquery-widgets-documentation/documentation/asp.net-integration/asp.net-grid-server-side-editing.htm
+            </p>
+            <p>
+                https://asp.net-hacker.rocks/2018/10/29/customizing-aspnetcore-09-actionfilters.html
+            </p>
+        </div>
+        <input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
+        <input type="button" onclick="exportExcel()" id="file_Excel" value="Excel" />
+        <input type="button" onclick="htmlExport()" id="file_Html" value="Html" />
+        <input type="button" onclick="csvExport()" id="file_Csv" value="Csv" />
+        <input type="button" onclick="xmlExport()" id="file_Xml" value="Xml" />
+        <input type="button" onclick="pdfExport()" id="file_Pdf" value="Pdf" />
+        <input type="button" onclick="tsvExport()" id="file_Tsv" value="Tsv" />
+    </bootstrap-modal-body>
+</bootstrap-modal>
 <div id="grid"></div>
 
 @section scripts {
@@ -173,32 +265,6 @@
         </jqx-grid-column-groups>
     </jqx-grid>
 </div>
-<p>
-    http://jsfiddle.net/hristoxux/97nL59x8/
-</p>
-<p>
-    http://jsfiddle.net/8W6zj/
-</p>
-<p>
-    https://www.jqwidgets.com/assembling-n-nested-jquery-grid/
-</p>
-<p>
-    https://www.jqwidgets.com/community/topic/export-multiple-jqxgrids-to-excel-on-single-button-click/
-</p>
-<p>
-    https://www.jqwidgets.com/community/topic/nested-grids-with-different-child-grid-for-each-parent-row/
-</p>
-<p>
-    https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-datasources.htm
-</p>
-<input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
-<input type="button" onclick="exportExcel()" id="file_Excel" value="Excel" />
-<input type="button" onclick="htmlExport()" id="file_Html" value="Html" />
-<input type="button" onclick="csvExport()" id="file_Csv" value="Csv" />
-<input type="button" onclick="xmlExport()" id="file_Xml" value="Xml" />
-<input type="button" onclick="pdfExport()" id="file_Pdf" value="Pdf" />
-<input type="button" onclick="tsvExport()" id="file_Tsv" value="Tsv" />
-
 @*<table class="table">
         <thead>
             <tr>
@@ -295,59 +361,3 @@
     }
         </tbody>
     </table>*@
-<div style="display:none">
-    <div id="grid1" style="background-color:red;height:60px;width:60px;"></div>
-    <br />
-    a tag : <a asp-action="Create" class='btn btn-default'>Create New</a>
-    <br />
-    jqx-button : <jqx-button theme="metro" on-click="@Url.Action("Create", "MenuMastersController")">Create Button</jqx-button>
-    <br />
-    button tag : <button type='button' class='btn btn-default' data-placement="top" on-click="@Url.Action("Create", "MenuMastersController")">Create Button</button>
-    <br />
-    input tag : <input type="button" onclick="alert('Apply');" id="Test1" value="jqxButton Theme Apply" />
-    <br />
-    input tag : <input type="button" id="Test2" value="Url.Action" onclick="@Url.Action("Create", "MenuMastersController")" />
-    <br />
-    <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="exportExcel()">Excel Export</jqx-button>
-    <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="htmlExport()">HTML Export</jqx-button>
-    <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="csvExport()">CSV Export</jqx-button>
-    <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="xmlExport()">XML Export</jqx-button>
-    <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="pdfExport()">PDF Export</jqx-button>
-    <jqx-button style="margin-top:20px;" theme="@ViewData["Theme"]" on-click="tsvExport()">TSV Export</jqx-button>
-    <p>
-        https://www.dofactory.com/tutorial/javascript-function-objects
-    </p>
-    <p>
-        https://www.jqwidgets.com/jquery-widgets-documentation/documentation/asp-net-core/mvc-tag-helpers.htm?search=
-    </p>
-    <p>
-        https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/popupediting.htm?arctic
-    </p>
-    <p>
-        https://www.jqwidgets.com/custom-grid-cells-rendering/
-    </p>
-    <p>
-        https://www.jqwidgets.com/community/topic/rowdata-value/
-    </p>
-    <p>
-        https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/computedcolumn.htm?light
-    </p>
-    <p>
-        https://www.jqwidgets.com/community/topic/rendering-issues-in-chrome/
-    </p>
-    <p>
-        https://www.jqwidgets.com/community/topic/available-parameters-for-renderer-function/
-    </p>
-    <p>
-        https://www.jqwidgets.com/asp.net-core-mvc-tag-helpers-documentation/documentation/jqxgrid/asp-net-core-tag-helper-grid-api.htm?search=
-    </p>
-    <p>
-        https://www.jqwidgets.com/community/topic/asp-net-mvc-5-_layout-and-index-problem/
-    </p>
-    <p>
-        https://www.jqwidgets.com/jquery-widgets-documentation/documentation/asp.net-integration/asp.net-grid-server-side-editing.htm
-    </p>
-    <p>
-        https://asp.net-hacker.rocks/2018/10/29/customizing-aspnetcore-09-actionfilters.html
-    </p>
-</div>

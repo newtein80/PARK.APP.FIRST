@@ -12,9 +12,34 @@
 }
 
 <h2>Index</h2>
-
+@Html.ActionLink("Razor AtcionLink(Create)", "Create", "TcompInfoes", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+<bootstrap-button type="button" class="btn btn-primary" bootstrap-toggle-modal="menuMasterModal">
+    Open sample modal
+</bootstrap-button>
+<bootstrap-modal id="menuMasterModal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
+    <bootstrap-modal-header>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sample modal header</h4>
+    </bootstrap-modal-header>
+    <bootstrap-modal-body>
+        <bootstrap-listgroup>
+            <bootstrap-listgroup-item>1. DB table 생성</bootstrap-listgroup-item>
+            <bootstrap-listgroup-item>2. Scaffold-DbContext "연결문자열" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Areas/VulnManage/Models/Vuln -Context "VulnDbContext" -table TCompInfo, TVulnGroup, TVuln -Force</bootstrap-listgroup-item>
+            <bootstrap-listgroup-item>3. Add-Migration -Context VulnDbContext CompVulnInfos_Add_01</bootstrap-listgroup-item>
+            <bootstrap-listgroup-item>4. Update-Database -Context VulnDbContext</bootstrap-listgroup-item>
+            <bootstrap-listgroup-item>5. StartUp.cs 에 services.AddDbContext VulnDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); 추가</bootstrap-listgroup-item>
+            <bootstrap-listgroup-item>6. '스캐폴드 항목 추가' -> Model 선택, "VulnDbContext" 선택</bootstrap-listgroup-item>
+            <bootstrap-listgroup-item>7. GetPageData 참고하여 jqx grid source class 생성(* source class 명명규칙 주의!!! 헷갈림!!!)</bootstrap-listgroup-item>
+            <bootstrap-listgroup-item>8. 생성할 View 화면에 addTagHelper 추가!</bootstrap-listgroup-item>
+            <bootstrap-listgroup-item>9. var tcompInfo = Model.FirstOrDefault(); 생성</bootstrap-listgroup-item>
+            <bootstrap-listgroup-item>10. source-root="grid_TcompInfo_List" 에서 grid_TcompInfo_List 는 jqx grid source class의 List<> 이름, source-model="tcompInfo" 는 View 화면의 지역변수</bootstrap-listgroup-item>
+        </bootstrap-listgroup>
+    </bootstrap-modal-body>
+    <input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
+</bootstrap-modal>
 <p>
-    @Html.ActionLink("Razor AtcionLink(Create)", "Create", "TcompInfoes", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })&nbsp;<input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
 </p>
 @section scripts {
     <script type="text/javascript">
@@ -142,19 +167,6 @@
         </jqx-grid-column-groups>
     </jqx-grid>
 </div>
-<p></p>
-<bootstrap-listgroup>
-    <bootstrap-listgroup-item>1. DB table 생성</bootstrap-listgroup-item>
-    <bootstrap-listgroup-item>2. Scaffold-DbContext "연결문자열" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Areas/VulnManage/Models/Vuln -Context "VulnDbContext" -table TCompInfo, TVulnGroup, TVuln -Force</bootstrap-listgroup-item>
-    <bootstrap-listgroup-item>3. Add-Migration -Context VulnDbContext CompVulnInfos_Add_01</bootstrap-listgroup-item>
-    <bootstrap-listgroup-item>4. Update-Database -Context VulnDbContext</bootstrap-listgroup-item>
-    <bootstrap-listgroup-item>5. StartUp.cs 에 services.AddDbContext VulnDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); 추가</bootstrap-listgroup-item>
-    <bootstrap-listgroup-item>6. '스캐폴드 항목 추가' -> Model 선택, "VulnDbContext" 선택</bootstrap-listgroup-item>
-    <bootstrap-listgroup-item>7. GetPageData 참고하여 jqx grid source class 생성(* source class 명명규칙 주의!!! 헷갈림!!!)</bootstrap-listgroup-item>
-    <bootstrap-listgroup-item>8. 생성할 View 화면에 addTagHelper 추가!</bootstrap-listgroup-item>
-    <bootstrap-listgroup-item>9. var tcompInfo = Model.FirstOrDefault(); 생성</bootstrap-listgroup-item>
-    <bootstrap-listgroup-item>10. source-root="grid_TcompInfo_List" 에서 grid_TcompInfo_List 는 jqx grid source class의 List<> 이름, source-model="tcompInfo" 는 View 화면의 지역변수</bootstrap-listgroup-item>
-</bootstrap-listgroup>
 @*<table class="table">
         <thead>
             <tr>

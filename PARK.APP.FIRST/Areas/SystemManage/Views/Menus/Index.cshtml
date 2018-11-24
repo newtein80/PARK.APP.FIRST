@@ -25,7 +25,7 @@
 
 
 <p>Click !</p>
-<div id="grid1" style="background-color:red;height:60px;width:60px;"></div>
+<div id="grid1" style="background-color:red;height:60px;width:60px;display:none"></div>
 
 
 <h2>Index</h2>
@@ -34,8 +34,6 @@
     var employee = Model.FirstOrDefault();
 }
 
-
-<jqx-calendar theme="@ViewData["Theme"]" width="200" height="200"></jqx-calendar>
 <div id="grid"></div>
 <div style="display:none">@*display:none <- Must be required!*@
     <jqx-grid id="grid" alt-rows="true" show-status-bar="true" show-aggregates="false" filterable="true" pageable="true" auto-height="false" source-id="MenuSeq" sortable="true" height="650" width="850" source="Model">

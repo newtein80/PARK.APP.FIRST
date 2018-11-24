@@ -10,9 +10,39 @@
 
 <h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@Html.ActionLink("Razor AtcionLink(Create)", "Create", "TvulnGroups", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+<bootstrap-button type="button" class="btn btn-primary" bootstrap-toggle-modal="menuMasterModal">
+    Open sample modal
+</bootstrap-button>
+<bootstrap-modal id="menuMasterModal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
+    <bootstrap-modal-header>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sample modal header</h4>
+    </bootstrap-modal-header>
+    <bootstrap-modal-body>
+        <p>
+            https://stackoverflow.com/questions/4764011/multiple-models-in-a-view
+        </p>
+        <p>
+            google : asp.net core razor page multi model
+        </p>
+        <p>
+            asp.net core linq paging
+        </p>
+        <p>
+            https://www.c-sharpcorner.com/article/paging-in-asp-net-core-2-0-web-api/
+        </p>
+        <p>
+            https://stackoverflow.com/questions/50088999/add-paging-to-razor-view-in-asp-net-core
+        </p>
+        <p>
+            https://tech.io/playgrounds/5363/paging-with-entity-framework-core
+        </p>
+    </bootstrap-modal-body>
+</bootstrap-modal>
+<p></p>
 <table class="table">
     <thead>
         <tr>
@@ -116,21 +146,4 @@
         }
     </tbody>
 </table>
-<p>
-    https://stackoverflow.com/questions/4764011/multiple-models-in-a-view
-</p>
-<p>
-    google : asp.net core razor page multi model
-</p>
-<p>
-    asp.net core linq paging
-</p>
-<p>
-    https://www.c-sharpcorner.com/article/paging-in-asp-net-core-2-0-web-api/
-</p>
-<p>
-    https://stackoverflow.com/questions/50088999/add-paging-to-razor-view-in-asp-net-core
-</p>
-<p>
-    https://tech.io/playgrounds/5363/paging-with-entity-framework-core
-</p>
+
