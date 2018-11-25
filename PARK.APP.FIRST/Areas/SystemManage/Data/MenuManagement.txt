@@ -1,6 +1,6 @@
 ﻿USE [PJSWORK]
 GO
-/****** Object:  Table [dbo].[MenuMaster]    Script Date: 11/19/2018 13:13:13 ******/
+/****** Object:  Table [dbo].[MenuMaster]    Script Date: 2018-11-25 오전 1:38:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -23,29 +23,40 @@ CREATE TABLE [dbo].[MenuMaster](
  CONSTRAINT [PK_MenuMaster] PRIMARY KEY CLUSTERED 
 (
 	[MenuIdentity] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-     
-   
-USE [PJSWORK]
+SET IDENTITY_INSERT [dbo].[MenuMaster] ON 
 GO
-/****** Object:  Table [dbo].[MenuMaster]    Script Date: 11/21/2018 10:57:29 ******/
-SET IDENTITY_INSERT [dbo].[MenuMaster] ON
-INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (1, N'root', N'AppTitle', N'', N'admin', NULL, NULL, N'', N'Home', N'Index', N'Y', 1, CAST(0x0750F269B66AF83E0B AS DateTime2), N'navbar-brand')
-INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (2, N'default', N'About', N'', N'admin', NULL, NULL, N'', N'Home', N'About', N'Y', 2, CAST(0x079012C8FF6CF83E0B AS DateTime2), N'')
-INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (3, N'default1', N'Contact', N'default', N'admin', NULL, NULL, N'', N'Home', N'Contact', N'Y', 3, CAST(0x07601A6B4D6DF83E0B AS DateTime2), N'')
-INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (4, N'default2', N'NotFound', N'default', N'admin', NULL, NULL, N'', N'Home', N'NotFound', N'Y', 4, CAST(0x079008E1866DF83E0B AS DateTime2), N'')
-INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (5, N'manage1', N'UserRole', N'manage3', N'admin', NULL, NULL, N'UserManage', N'ManageUser', N'Index', N'Y', 5, CAST(0x0710B4694F6EF83E0B AS DateTime2), N'')
-INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (6, N'manage2', N'Roles', N'manage3', N'admin', NULL, NULL, N'UserManage', N'ManageRole', N'Index', N'Y', 6, CAST(0x07D01F72706EF83E0B AS DateTime2), N'')
-INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (7, N'manage3', N'UserList', N'', N'admin', NULL, NULL, N'UserManage', N'ManageUser', N'UserList', N'Y', 7, CAST(0x075096978B6EF83E0B AS DateTime2), N'')
-INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (8, N'manage4', N'MenuList', N'manage5', N'admin', NULL, NULL, N'SystemManage', N'Menus', N'Index', N'Y', 8, CAST(0x0700BA60AD6EF83E0B AS DateTime2), N'')
-INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (9, N'manage5', N'NewMenuList', N'', N'admin', NULL, NULL, N'SystemManage', N'MenuMasters', N'Index', N'Y', 9, CAST(0x07904E127058FA3E0B AS DateTime2), N'')
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (1, N'root', N'AppTitle', N'', N'admin', NULL, NULL, N'', N'Home', N'Index', N'Y', 1, CAST(N'2018-11-19T12:43:52.6930000' AS DateTime2), N'navbar-brand')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (2, N'default', N'About', N'', N'admin', NULL, NULL, N'', N'Home', N'About', N'Y', 2, CAST(N'2018-11-19T13:00:14.7770000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (3, N'default1', N'Contact', N'default', N'admin', NULL, NULL, N'', N'Home', N'Contact', N'Y', 3, CAST(N'2018-11-19T13:02:25.0300000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (4, N'default2', N'NotFound', N'default', N'admin', NULL, NULL, N'', N'Home', N'NotFound', N'Y', 4, CAST(N'2018-11-19T13:04:01.4330000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (5, N'manage1', N'UserRole', N'manage3', N'admin', NULL, NULL, N'UserManage', N'ManageUser', N'Index', N'Y', 5, CAST(N'2018-11-19T13:09:37.8730000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (6, N'manage2', N'Roles', N'manage3', N'admin', NULL, NULL, N'UserManage', N'ManageRole', N'Index', N'Y', 6, CAST(N'2018-11-19T13:10:33.2930000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (7, N'manage3', N'UserList', N'', N'admin', NULL, NULL, N'UserManage', N'ManageUser', N'UserList', N'Y', 7, CAST(N'2018-11-19T13:11:18.8370000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (8, N'manage4', N'MenuList', N'default', N'admin', NULL, NULL, N'SystemManage', N'Menus', N'Index', N'Y', 8, CAST(N'2018-11-19T13:12:15.5200000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (9, N'manage5', N'NewMenuList', N'', N'admin', NULL, NULL, N'SystemManage', N'MenuMasters', N'Index', N'Y', 9, CAST(N'2018-11-21T10:33:03.7370000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (10, N'vulnmanage1', N'Vuln Manage', N'manage5', N'admin', NULL, NULL, N'VulnManage', N'TcompInfoes', N'Index', N'Y', 10, CAST(N'2018-11-21T22:18:20.4233333' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (11, N'vulnmanage2', N'Vuln Group Manage', N'manage5', N'admin', NULL, NULL, N'VulnManage', N'TvulnGroups', N'Index', N'Y', 11, CAST(N'2018-11-22T01:59:59.9200000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (12, N'vulnmanage3', N'Vuln Manage', N'manage5', N'admin', NULL, NULL, N'VulnManage', N'Tvulns', N'Index', N'Y', 12, CAST(N'2018-11-23T21:00:15.4133333' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (13, N'index01', N'test 01', N'', N'admin', NULL, NULL, N'VulnManage', N'Tvulns', N'Index_01', N'Y', 13, CAST(N'2018-11-24T10:38:49.2600000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (14, N'index02', N'test 02', N'index01', N'admin', NULL, NULL, N'VulnManage', N'Tvulns', N'Index_02', N'Y', 14, CAST(N'2018-11-24T11:01:46.0100000' AS DateTime2), N'')
+GO
+INSERT [dbo].[MenuMaster] ([MenuIdentity], [MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass]) VALUES (15, N'index03', N'test 03', N'index01', N'admin', NULL, NULL, N'VulnManage', N'Tvulns', N'Index_03', N'Y', 15, CAST(N'2018-11-25T01:37:16.7133333' AS DateTime2), N'')
+GO
 SET IDENTITY_INSERT [dbo].[MenuMaster] OFF
-
-
-INSERT [dbo].[MenuMaster] (
-[MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass])
-VALUES
-(N'vulnmanage3', N'Vuln Manage', N'vulnmanage1', N'admin', NULL, NULL, N'VulnManage', N'Tvulns', N'Index', N'Y', 12, getdate(), N'')
-
+GO

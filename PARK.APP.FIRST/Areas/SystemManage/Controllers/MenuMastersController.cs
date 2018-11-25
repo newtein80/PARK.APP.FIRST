@@ -50,6 +50,7 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
         public string GetPageData(string jsonData)
         {
             JToken token = JObject.Parse(jsonData);
+            //JObject token = JObject.Parse(jsonData);
 
             List<JToken> filterGroups = token.SelectToken("filterGroups").Children().ToList();
             int pageSize = (int)token.SelectToken("pagesize");

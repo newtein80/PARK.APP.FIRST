@@ -1,0 +1,78 @@
+﻿@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.Tvuln>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+@{
+    ViewData["Title"] = "Index_02";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index_02</h2>
+
+<p>
+    @Html.ActionLink("Razor AtcionLink(Create)", "Create", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    @Html.ActionLink("Index_01", "Index_01", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    @Html.ActionLink("Index_02", "Index_02", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    @Html.ActionLink("Index_03", "Index_03", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ManageId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VulnName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SortOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateUserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateDt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vulgroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vulno)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManageId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VulnName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SortOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateUserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateDt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vulgroup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vulno)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.VulnSeq">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.VulnSeq">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.VulnSeq">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

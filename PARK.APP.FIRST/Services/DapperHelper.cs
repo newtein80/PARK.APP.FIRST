@@ -283,6 +283,7 @@ namespace PARK.APP.FIRST.Services
             {
                 connection.Open();
                 var output = connection.Query<T>(storedProcedure, param, commandType: CommandType.StoredProcedure);
+                connection.Close();
                 return output;
             }
         }
@@ -318,6 +319,7 @@ namespace PARK.APP.FIRST.Services
             {
                 connection.Open();
                 var output = connection.Query<T>(storedProcedure, param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                connection.Close();
                 return output;
             }
         }
@@ -329,6 +331,7 @@ namespace PARK.APP.FIRST.Services
             {
                 connection.Open();
                 connection.Execute(storedProcedure, param, commandType: CommandType.StoredProcedure);
+                connection.Close();
             }
         }
 

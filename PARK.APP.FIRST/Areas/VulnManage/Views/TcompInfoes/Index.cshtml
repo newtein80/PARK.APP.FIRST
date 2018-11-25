@@ -24,6 +24,9 @@
         <h4 class="modal-title">Sample modal header</h4>
     </bootstrap-modal-header>
     <bootstrap-modal-body>
+        <p>
+            google : jqwidget init-row-details tag helper site:www.jqwidgets.com
+        </p>
         <bootstrap-listgroup>
             <bootstrap-listgroup-item>1. DB table 생성</bootstrap-listgroup-item>
             <bootstrap-listgroup-item>2. Scaffold-DbContext "연결문자열" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Areas/VulnManage/Models/Vuln -Context "VulnDbContext" -table TCompInfo, TVulnGroup, TVuln -Force</bootstrap-listgroup-item>
@@ -39,8 +42,7 @@
     </bootstrap-modal-body>
     <input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
 </bootstrap-modal>
-<p>
-</p>
+<p></p>
 @section scripts {
     <script type="text/javascript">
         var buttonclick = function (event) {
@@ -146,9 +148,6 @@
         }
     </script>
 }
-<p>
-    google : jqwidget init-row-details tag helper site:www.jqwidgets.com
-</p>
 <div id="grid"></div>
 <div style="display:none">
     <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(tcompInfo.CompSeq)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="grid_TcompInfo_List" source-total-records="TotalRecords" source-url="@Url.Action("GetPageData","TcompInfoes")" source-model="tcompInfo">

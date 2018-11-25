@@ -1,0 +1,146 @@
+﻿@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.Tvuln>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+@{
+    ViewData["Title"] = "Index_03";
+    ViewData["Theme"] = "metro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var vuln = Model.FirstOrDefault();
+}
+
+<h2>Index_03</h2>
+<p>
+    @Html.ActionLink("Razor AtcionLink(Create)", "Create", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    @Html.ActionLink("Index_01", "Index_01", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    @Html.ActionLink("Index_02", "Index_02", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    @Html.ActionLink("Index_03", "Index_03", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    <bootstrap-button type="button" class="btn btn-primary" bootstrap-toggle-modal="index_03_Modal">
+        Open sample modal
+    </bootstrap-button>
+</p>
+<bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
+    <bootstrap-modal-header>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sample modal header</h4>
+    </bootstrap-modal-header>
+    <bootstrap-modal-body>
+        <input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
+    </bootstrap-modal-body>
+</bootstrap-modal>
+<div id="grid"></div>
+
+@section scripts {
+    <script type="text/javascript">
+        var buttonclick = function (event) {
+            var id = event.target.id;
+            alert(id);
+        }
+
+        $("input[id^='file_']").jqxButton({ theme: 'metro' });
+
+        // https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-cellsrendering.htm
+        var cellsrenderer_default = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.VulnSeq;
+            return '<input class="btn btn-danger" style="width:100%; height:100%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VulnSeq + '" value="' + 'rowdata.VulnName' + '"/>'
+        }
+
+        var cellsrenderer_default2 = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.VulnSeq;
+            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VulnSeq + '" value="' + rowdata.VulnName + '"/>'
+        }
+
+        var cellsrenderer_default_fn = function (value) {
+            alert("rowdata.VulnSeq : " + value);
+        }
+
+        var cellsrenderer_btn = function (index, datafield, value, defaultvalue, column, rowdata) {
+            return 'Edit'
+        }
+
+        var cellsbuttonclick_btn = function () {
+            alert("xxx");
+        }
+
+        function cellsbuttonclick_btn2() {
+            alert("xxx");
+        }
+
+        function cloneObject(obj) {
+            if (obj == null || typeof (obj) != 'object')
+                return obj;
+
+            var temp = new obj.constructor();
+            for (var key in obj)
+                temp[key] = cloneObject(obj[key]);
+
+            return temp;
+        }
+
+        var template = { rowDetails: "<div style=\"margin: 10px;\"></div>", rowDetailsHeight: 220, rowDetailsHidden: true };
+        var initRowDetails = function (index, parentElement, gridElement, record) {
+            var id = record.uid.toString();
+            var grid = $($(parentElement).children()[0]);
+            var data = [];
+            var generaterow = function (i) {
+                var row = {};
+                row["OrderDate"] = new Date(2016, Math.floor(Math.random() * 11), Math.floor(Math.random() * 27))
+                row["Quantity"] = Math.floor(Math.random() * 50)
+                row["ProductName"] = record.ProductName;
+                return row;
+            }
+            for (var i = 0; i < Math.max(10, Math.floor(Math.random() * 20)); i++) {
+                var row = generaterow(i);
+                data[i] = row;
+            }
+            var source = {
+                datafields: [
+                    { name: 'OrderDate', type: 'date' },
+                    { name: 'Quantity', type: 'string' },
+                    { name: 'ProductName', type: 'string' }
+                ],
+                localdata: data
+            }
+            var nestedGridAdapter = new $.jqx.dataAdapter(source);
+            if (grid != null) {
+                grid.jqxGrid({
+                    source: nestedGridAdapter, width: 780, height: 200,
+                    columns: [
+                        { text: 'Order Date', cellsFormat: 'd', dataField: 'OrderDate', width: 200 },
+                        { text: 'Quantity', cellsAlign: 'right', dataField: 'Quantity', width: 200 },
+                        { text: 'Product Name', dataField: 'ProductName' }
+                    ]
+                });
+            }
+        }
+
+        function alertTest(str) {
+            alert(str);
+        }
+    </script>
+}
+
+<div style="display:none">
+    <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(vuln.VulnSeq)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="Items" source-total-records="TotalCount" source-url="@Url.Action("Index_03","Tvulns")" source-model="vuln">
+        <jqx-grid-columns>
+            <jqx-grid-column cells-renderer="cellsrenderer_default()" datafield-for="@(vuln.VulnSeq)" width="180" text="Default"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(vuln.VulnName)" width="150" text="MenuName"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(vuln.GroupSeq)" width="150" text="ParentMenu"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(vuln.ManageId)" width="150" text="Roll"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(vuln.Vulgroup)" width="150" text="Area"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(vuln.Vulno)" width="150" text="Controller"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(vuln.UpdateDt)" width="150" text="Action"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(vuln.CreateUserId)" width="60" text="UseYn"></jqx-grid-column>
+            <jqx-grid-column cells-renderer="cellsrenderer_btn()" datafield-for="@(vuln.SortOrder)" button-click="cellsbuttonclick_btn()" column-type="button" width="180" text="click"></jqx-grid-column>
+        </jqx-grid-columns>
+        <jqx-grid-column-groups>
+            <jqx-grid-column-group name="name1" text="group1"></jqx-grid-column-group>
+        </jqx-grid-column-groups>
+    </jqx-grid>
+</div>

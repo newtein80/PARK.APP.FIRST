@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PARK.APP.FIRST.Areas.VulnManage.Models.Vuln
 {
+    // https://docs.microsoft.com/en-us/dotnet/api/system.data.linq.mapping.columnattribute?redirectedfrom=MSDN&view=netframework-4.7.2
     public partial class Tvuln
     {
+        [Key]
         public long VulnSeq { get; set; }
         public long GroupSeq { get; set; }
         public string ManualYn { get; set; }

@@ -149,6 +149,9 @@ namespace PARK.APP.FIRST.Services
                 var objList = new List<T>();
                 var props = typeof(T).GetRuntimeProperties().ToList();
 
+                //var colMapping = dr.GetColumnSchema()
+                //    .Where(x => props.Any(y => y.Name.ToLower() == x.ColumnName.ToLower()))
+                //    .ToDictionary(key => key.ColumnName.ToLower());
                 var colMapping = dr.GetColumnSchema()
                     .Where(x => props.Any(y => y.Name.ToLower() == x.ColumnName.ToLower()))
                     .ToDictionary(key => key.ColumnName.ToLower());
