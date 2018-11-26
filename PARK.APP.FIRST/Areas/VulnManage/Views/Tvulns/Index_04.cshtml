@@ -1,259 +1,204 @@
-﻿@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.Tvuln>
+﻿@model PARK.APP.FIRST.Areas.VulnManage.Controllers.TvulnsController.ViewModels
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
 @{
     ViewData["Title"] = "Index_04";
+    ViewData["Theme"] = "metro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@{
+    var pageVuln = Model.PageVulns.FirstOrDefault();
+}
 <h2>Index_04</h2>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    @Html.ActionLink("Razor AtcionLink(Create)", "Create", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    @Html.ActionLink("Index_01", "Index_01", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    @Html.ActionLink("Index_02", "Index_02", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    @Html.ActionLink("Index_03", "Index_03", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    @Html.ActionLink("Index_04", "Index_04", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
+    <bootstrap-button type="button" class="btn btn-primary" bootstrap-toggle-modal="index_03_Modal">
+        Open sample modal
+    </bootstrap-button>
 </p>
+<bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
+    <bootstrap-modal-header>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sample modal header</h4>
+    </bootstrap-modal-header>
+    <bootstrap-modal-body>
+        <input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
+    </bootstrap-modal-body>
+</bootstrap-modal>
+@section scripts {
+    <script type="text/javascript">
+        var buttonclick = function (event) {
+            var id = event.target.id;
+            alert(id);
+        }
+
+        $("input[id^='file_']").jqxButton({ theme: 'metro' });
+
+        // https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-cellsrendering.htm
+        var cellsrenderer_default = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.VULN_SEQ;
+            return '<input class="btn btn-danger" style="width:100%; height:100%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VULN_SEQ + '" value="' + 'rowdata.VULN_NAME' + '"/>'
+        }
+
+        var cellsrenderer_default2 = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.VULN_SEQ;
+            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VULN_SEQ + '" value="' + rowdata.VULN_NAME + '"/>'
+        }
+
+        var cellsrenderer_default_fn = function (value) {
+            alert("rowdata.VulnSeq : " + value);
+        }
+
+        var cellsrenderer_btn = function (index, datafield, value, defaultvalue, column, rowdata) {
+            return 'Edit'
+        }
+
+        var cellsbuttonclick_btn = function () {
+            alert("xxx");
+        }
+
+        function cellsbuttonclick_btn2() {
+            alert("xxx");
+        }
+
+        function cloneObject(obj) {
+            if (obj == null || typeof (obj) != 'object')
+                return obj;
+
+            var temp = new obj.constructor();
+            for (var key in obj)
+                temp[key] = cloneObject(obj[key]);
+
+            return temp;
+        }
+
+        var template = { rowDetails: "<div style=\"margin: 10px;\"></div>", rowDetailsHeight: 220, rowDetailsHidden: true };
+        var initRowDetails = function (index, parentElement, gridElement, record) {
+            var id = record.uid.toString();
+            var grid = $($(parentElement).children()[0]);
+            var data = [];
+            var generaterow = function (i) {
+                var row = {};
+                row["OrderDate"] = new Date(2016, Math.floor(Math.random() * 11), Math.floor(Math.random() * 27))
+                row["Quantity"] = Math.floor(Math.random() * 50)
+                row["ProductName"] = record.ProductName;
+                return row;
+            }
+            for (var i = 0; i < Math.max(10, Math.floor(Math.random() * 20)); i++) {
+                var row = generaterow(i);
+                data[i] = row;
+            }
+            var source = {
+                datafields: [
+                    { name: 'OrderDate', type: 'date' },
+                    { name: 'Quantity', type: 'string' },
+                    { name: 'ProductName', type: 'string' }
+                ],
+                localdata: data
+            }
+            var nestedGridAdapter = new $.jqx.dataAdapter(source);
+            if (grid != null) {
+                grid.jqxGrid({
+                    source: nestedGridAdapter, width: 780, height: 200,
+                    columns: [
+                        { text: 'Order Date', cellsFormat: 'd', dataField: 'OrderDate', width: 200 },
+                        { text: 'Quantity', cellsAlign: 'right', dataField: 'Quantity', width: 200 },
+                        { text: 'Product Name', dataField: 'ProductName' }
+                    ]
+                });
+            }
+        }
+
+        function alertTest(str) {
+            alert(str);
+        }
+    </script>
+}
+
+<div id="grid"></div>
+<div style="display:none">
+    <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(pageVuln.VULN_SEQ)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="PageVulns" source-total-records="PageListTotalCount" source-url="@Url.Action("Index_04","Tvulns")" source-model="pageVuln">
+        <jqx-grid-columns>
+            <jqx-grid-column cells-renderer="cellsrenderer_default()" datafield-for="@(pageVuln.VULN_SEQ)" width="180" text="Default"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(pageVuln.VULN_NAME)" width="150" text="MenuName"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(pageVuln.GROUP_SEQ)" width="150" text="ParentMenu"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln.MANAGE_ID)" width="150" text="Roll"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln.VULGROUP)" width="150" text="Area"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln.VULNO)" width="150" text="Controller"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln.UPDATE_DT)" width="150" text="Action"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln.CREATE_USER_ID)" width="60" text="UseYn"></jqx-grid-column>
+            <jqx-grid-column cells-renderer="cellsrenderer_btn()" datafield-for="@(pageVuln.SORT_ORDER)" button-click="cellsbuttonclick_btn()" column-type="button" width="180" text="click"></jqx-grid-column>
+        </jqx-grid-columns>
+        <jqx-grid-column-groups>
+            <jqx-grid-column-group name="name1" text="group1"></jqx-grid-column-group>
+        </jqx-grid-column-groups>
+    </jqx-grid>
+</div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ManualYn)
+                @Html.DisplayNameFor(model => model.PageVulns[0].CREATE_USER_ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AutoYn)
+                @Html.DisplayNameFor(model => model.PageVulns[0].GROUP_SEQ)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ManageId)
+                @Html.DisplayNameFor(model => model.PageVulns[0].MANAGE_ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClientStandardId)
+                @Html.DisplayNameFor(model => model.PageVulns[0].SORT_ORDER)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VulnName)
+                @Html.DisplayNameFor(model => model.PageVulns[0].UPDATE_DT)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SortOrder)
+                @Html.DisplayNameFor(model => model.PageVulns[0].VULGROUP)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RuleYn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Score)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplyTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Detail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DetailPath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Judgement)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Effect)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Remedy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RemedyPath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Refrrence)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParserContents)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrgParserContents)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplyTarget)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UseYn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExceptCd)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExceptTermType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExceptTermFr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExceptTermTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExceptReason)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExceptUserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExceptDt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateUserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateDt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdateUserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdateDt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vulgroup)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vulno)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RemedyDetail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Overview)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ManagementVulnYn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GroupSeqNavigation)
+                @Html.DisplayNameFor(model => model.PageVulns[0].VULNO)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.PageVulns)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ManualYn)
+                    @Html.DisplayFor(modelItem => item.CREATE_USER_ID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AutoYn)
+                    @Html.DisplayFor(modelItem => item.GROUP_SEQ)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ManageId)
+                    @Html.DisplayFor(modelItem => item.MANAGE_ID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClientStandardId)
+                    @Html.DisplayFor(modelItem => item.SORT_ORDER)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VulnName)
+                    @Html.DisplayFor(modelItem => item.UPDATE_DT)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SortOrder)
+                    @Html.DisplayFor(modelItem => item.VULGROUP)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RuleYn)
+                    @Html.DisplayFor(modelItem => item.VULNO)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Rate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Score)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ApplyTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Detail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DetailPath)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Judgement)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Effect)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Remedy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RemedyPath)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Refrrence)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParserContents)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrgParserContents)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ApplyTarget)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UseYn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExceptCd)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExceptTermType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExceptTermFr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExceptTermTo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExceptReason)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExceptUserId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExceptDt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreateUserId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreateDt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdateUserId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdateDt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Vulgroup)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Vulno)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RemedyDetail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Overview)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ManagementVulnYn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GroupSeqNavigation.GroupType)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.VulnSeq">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.VulnSeq">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.VulnSeq">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.VULN_SEQ">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.VULN_SEQ">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.VULN_SEQ">Delete</a>
                 </td>
             </tr>
         }

@@ -155,6 +155,8 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             return View(viewModels);
         }
 
+        // google : asp.net core jqxgrid dapper
+        // https://stackoverflow.com/questions/49872246/understanding-async-await-using-dapper-repositories-in-asp-net-core
         [HttpGet]
         public IActionResult Index_04()
         {
@@ -191,22 +193,6 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 })
                 .ExecuteStoredProc((handler) =>
                 {
-                    // Column 명이 맞지않는 컬럼은 보이지 않는다.
-                    //vulns = handler.ReadToList<Tvuln>().ToList();
-
-                    //pageVulns = handler.ReadToList<PageVulns>().Select(u => new PageVulns
-                    //{
-                    //    GROUP_SEQ = u.GROUP_SEQ,
-                    //    VULN_SEQ = u.VULN_SEQ,
-                    //    CREATE_USER_ID = u.CREATE_USER_ID,
-                    //    MANAGE_ID = u.MANAGE_ID,
-                    //    SORT_ORDER = u.SORT_ORDER,
-                    //    UPDATE_DT = u.UPDATE_DT,
-                    //    VULGROUP = u.VULGROUP,
-                    //    VULNO = u.VULNO,
-                    //    VULN_NAME = u.VULN_NAME
-                    //}).ToList();
-
                     pageVulns = handler.ReadToList<PageVulns>().ToList();
 
                 });
@@ -220,6 +206,217 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             };
 
             return View(viewModels);
+        }
+
+        [HttpPost]
+        public string Index_04(string jsonData)
+        {
+            JToken token = JObject.Parse(jsonData);
+
+            List<JToken> filterGroups = token.SelectToken("filterGroups").Children().ToList();
+            int pageSize = (int)token.SelectToken("pagesize");
+            int pageNum = (int)token.SelectToken("pagenum");
+            string sortField = (string)token.SelectToken("sortdatafield");
+            string sortOrder = (string)token.SelectToken("sortorder");
+            int count = 0;
+            List<Tvuln> vulns = new List<Tvuln>();
+            List<Tvuln> allVulns = _context.Tvuln.ToList();
+            if (sortField != "")
+            {
+                if (sortOrder == "asc")
+                {
+                    allVulns = (from p in allVulns
+                                orderby (p.GetType().GetProperty(sortField).GetValue(p))
+                                select p).ToList();
+
+                }
+                else if (sortOrder == "desc")
+                {
+                    allVulns = (from p in allVulns
+                                orderby (p.GetType().GetProperty(sortField).GetValue(p)) descending
+                                select p).ToList();
+                }
+            }
+            if (filterGroups.Count > 0)
+            {
+                List<Tvuln> filteredVulns = allVulns;
+                for (int j = 0; j < filterGroups.Count; j++)
+                {
+                    List<JToken> filters = filterGroups[j].SelectToken("filters").Children().ToList();
+
+                    List<Tvuln> filterGroup = filteredVulns;
+                    List<Tvuln> filterGroupResult = new List<Tvuln>();
+                    for (int i = 0; i < filters.Count; i++)
+                    {
+                        string filterLabel = (string)filters[i].SelectToken("label");
+                        string filterValue = (string)filters[i].SelectToken("value");
+                        string filterDataField = (string)filters[i].SelectToken("field");
+                        string filterCondition = (string)filters[i].SelectToken("condition");
+                        string filterType = (string)filters[i].SelectToken("type");
+                        string filterOperator = (string)filters[i].SelectToken("operator");
+
+                        List<Tvuln> currentResult = new List<Tvuln>();
+
+                        switch (filterCondition)
+                        {
+                            case "NOT_EMPTY":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)) != null)
+                                                 select p).ToList();
+                                break;
+                            case "NOT_NULL":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString() != "")
+                                                 select p).ToList();
+                                break;
+                            case "NULL":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)) == null)
+                                                 select p).ToList();
+                                break;
+                            case "EMPTY":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString() == "")
+                                                 select p).ToList();
+                                break;
+                            case "CONTAINS_CASE_SENSITIVE":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString().Contains(filterValue))
+                                                 select p).ToList();
+                                break;
+                            case "CONTAINS":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString().IndexOf(filterValue, StringComparison.CurrentCultureIgnoreCase) != -1)
+                                                 select p).ToList();
+                                break;
+                            case "DOES_NOT_CONTAIN_CASE_SENSITIVE":
+                                currentResult = (from p in filterGroup
+                                                 where (!(p.GetType().GetProperty(filterDataField).GetValue(p)).ToString().Contains(filterValue))
+                                                 select p).ToList();
+                                break;
+                            case "DOES_NOT_CONTAIN":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString().IndexOf(filterValue, StringComparison.CurrentCultureIgnoreCase) == -1)
+                                                 select p).ToList();
+                                break;
+                            case "EQUAL_CASE_SENSITIVE":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString() == filterValue)
+                                                 select p).ToList();
+                                break;
+                            case "EQUAL":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString().IndexOf(filterValue, StringComparison.CurrentCultureIgnoreCase) == 0)
+                                                 select p).ToList();
+                                break;
+                            case "NOT_EQUAL_CASE_SENSITIVE":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString() != filterValue)
+                                                 select p).ToList();
+                                break;
+                            case "NOT_EQUAL":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString().IndexOf(filterValue, StringComparison.CurrentCultureIgnoreCase) != 0)
+                                                 select p).ToList();
+                                break;
+                            case "GREATER_THAN":
+                                currentResult = (from p in filterGroup
+                                                 where (float.Parse(p.GetType().GetProperty(filterDataField).GetValue(p).ToString()) > float.Parse(filterValue))
+                                                 select p).ToList();
+                                break;
+                            case "LESS_THAN":
+                                currentResult = (from p in filterGroup
+                                                 where (float.Parse(p.GetType().GetProperty(filterDataField).GetValue(p).ToString()) < float.Parse(filterValue))
+                                                 select p).ToList();
+                                break;
+                            case "GREATER_THAN_OR_EQUAL":
+                                currentResult = (from p in filterGroup
+                                                 where (float.Parse(p.GetType().GetProperty(filterDataField).GetValue(p).ToString()) >= float.Parse(filterValue))
+                                                 select p).ToList();
+                                break;
+                            case "LESS_THAN_OR_EQUAL":
+                                currentResult = (from p in filterGroup
+                                                 where (float.Parse(p.GetType().GetProperty(filterDataField).GetValue(p).ToString()) <= float.Parse(filterValue))
+                                                 select p).ToList();
+                                break;
+                            case "STARTS_WITH_CASE_SENSITIVE":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString().StartsWith(filterValue))
+                                                 select p).ToList();
+                                break;
+                            case "STARTS_WITH":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString().StartsWith(filterValue, StringComparison.CurrentCultureIgnoreCase))
+                                                 select p).ToList();
+                                break;
+                            case "ENDS_WITH_CASE_SENSITIVE":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString().EndsWith(filterValue))
+                                                 select p).ToList();
+                                break;
+                            case "ENDS_WITH":
+                                currentResult = (from p in filterGroup
+                                                 where ((p.GetType().GetProperty(filterDataField).GetValue(p)).ToString().EndsWith(filterValue, StringComparison.CurrentCultureIgnoreCase))
+                                                 select p).ToList();
+                                break;
+                        }
+
+                        if (filterOperator == "or")
+                        {
+                            filterGroupResult.AddRange(currentResult);
+                        }
+                        else
+                        {
+                            filterGroup = currentResult;
+                            filterGroupResult = currentResult;
+                        }
+                    }
+                    filteredVulns = filterGroupResult;
+                }
+                allVulns = filteredVulns;
+            }
+
+            for (int i = pageNum * pageSize; i < allVulns.Count && count < pageSize; i++)
+            {
+                vulns.Add(allVulns[i]);
+                count++;
+            }
+            PagedResults<Tvuln> data = new PagedResults<Tvuln>
+            {
+                TotalCount = allVulns.Count,
+                Items = vulns
+            };
+
+            //pageVulns = handler.ReadToList<PageVulns>().Select(u => new PageVulns
+            //{
+            //    GROUP_SEQ = u.GROUP_SEQ,
+            //    VULN_SEQ = u.VULN_SEQ,
+            //    CREATE_USER_ID = u.CREATE_USER_ID,
+            //    MANAGE_ID = u.MANAGE_ID,
+            //    SORT_ORDER = u.SORT_ORDER,
+            //    UPDATE_DT = u.UPDATE_DT,
+            //    VULGROUP = u.VULGROUP,
+            //    VULNO = u.VULNO,
+            //    VULN_NAME = u.VULN_NAME
+            //}).ToList();
+
+            ViewModels viewModels = new ViewModels
+            {
+                PageVulns = vulns.Select(r => new PageVulns {
+                    GROUP_SEQ = r.GroupSeq,
+                    VULN_SEQ = r.VulnSeq,
+                    CREATE_USER_ID = r.CreateUserId,
+                    MANAGE_ID = r.ManageId,
+                    SORT_ORDER = (long)r.SortOrder,
+                    UPDATE_DT = Convert.ToDateTime(r.UpdateDt),
+                    VULGROUP = 998,
+                    VULNO = "a",
+                    VULN_NAME = r.VulnName
+                }).ToList(),
+                PageDefault = new PageDefault(),
+                PageListTotalCount = allVulns.Count
+            };
+            return JsonConvert.SerializeObject(viewModels);
         }
 
         [HttpGet]
