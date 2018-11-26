@@ -219,8 +219,25 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             string sortField = (string)token.SelectToken("sortdatafield");
             string sortOrder = (string)token.SelectToken("sortorder");
             int count = 0;
-            List<Tvuln> vulns = new List<Tvuln>();
-            List<Tvuln> allVulns = _context.Tvuln.ToList();
+
+            //List<Tvuln> vulns = new List<Tvuln>();
+            List<PageVulns> vulns = new List<PageVulns>();
+
+            // 일단 Entity Framework 로 가져오는 부분을 바꿔야함!!
+            // List<Tvuln> allVulns = _context.Tvuln.ToList();
+            List<PageVulns> allVulns = _context.Tvuln.Select(r => new PageVulns
+            {
+                GROUP_SEQ = r.GroupSeq,
+                VULN_SEQ = r.VulnSeq,
+                CREATE_USER_ID = r.CreateUserId,
+                MANAGE_ID = r.ManageId,
+                SORT_ORDER = (long)r.SortOrder,
+                UPDATE_DT = Convert.ToDateTime(r.UpdateDt),
+                VULGROUP = 998,
+                VULNO = "a",
+                VULN_NAME = r.VulnName
+            }).ToList();
+
             if (sortField != "")
             {
                 if (sortOrder == "asc")
@@ -239,13 +256,18 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             }
             if (filterGroups.Count > 0)
             {
-                List<Tvuln> filteredVulns = allVulns;
+                //List<Tvuln> filteredVulns = allVulns;
+                List<PageVulns> filteredVulns = allVulns;
+
                 for (int j = 0; j < filterGroups.Count; j++)
                 {
                     List<JToken> filters = filterGroups[j].SelectToken("filters").Children().ToList();
 
-                    List<Tvuln> filterGroup = filteredVulns;
-                    List<Tvuln> filterGroupResult = new List<Tvuln>();
+                    //List<Tvuln> filterGroup = filteredVulns;
+                    //List<Tvuln> filterGroupResult = new List<Tvuln>();
+                    List<PageVulns> filterGroup = filteredVulns;
+                    List<PageVulns> filterGroupResult = new List<PageVulns>();
+
                     for (int i = 0; i < filters.Count; i++)
                     {
                         string filterLabel = (string)filters[i].SelectToken("label");
@@ -255,7 +277,8 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                         string filterType = (string)filters[i].SelectToken("type");
                         string filterOperator = (string)filters[i].SelectToken("operator");
 
-                        List<Tvuln> currentResult = new List<Tvuln>();
+                        //List<Tvuln> currentResult = new List<Tvuln>();
+                        List<PageVulns> currentResult = new List<PageVulns>();
 
                         switch (filterCondition)
                         {
@@ -381,11 +404,12 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 vulns.Add(allVulns[i]);
                 count++;
             }
-            PagedResults<Tvuln> data = new PagedResults<Tvuln>
-            {
-                TotalCount = allVulns.Count,
-                Items = vulns
-            };
+
+            //PagedResults<Tvuln> data = new PagedResults<Tvuln>
+            //{
+            //    TotalCount = allVulns.Count,
+            //    Items = vulns
+            //};
 
             //pageVulns = handler.ReadToList<PageVulns>().Select(u => new PageVulns
             //{
@@ -402,17 +426,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
 
             ViewModels viewModels = new ViewModels
             {
-                PageVulns = vulns.Select(r => new PageVulns {
-                    GROUP_SEQ = r.GroupSeq,
-                    VULN_SEQ = r.VulnSeq,
-                    CREATE_USER_ID = r.CreateUserId,
-                    MANAGE_ID = r.ManageId,
-                    SORT_ORDER = (long)r.SortOrder,
-                    UPDATE_DT = Convert.ToDateTime(r.UpdateDt),
-                    VULGROUP = 998,
-                    VULNO = "a",
-                    VULN_NAME = r.VulnName
-                }).ToList(),
+                PageVulns = vulns,
                 PageDefault = new PageDefault(),
                 PageListTotalCount = allVulns.Count
             };
