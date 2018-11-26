@@ -238,6 +238,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 VULN_NAME = r.VulnName
             }).ToList();
 
+            #region+ Sorting, Searching, Paging..--> 이부분을 Procedure 사용으로 바꿔서 Index_05 생성
             if (sortField != "")
             {
                 if (sortOrder == "asc")
@@ -404,25 +405,13 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 vulns.Add(allVulns[i]);
                 count++;
             }
+            #endregion
 
             //PagedResults<Tvuln> data = new PagedResults<Tvuln>
             //{
             //    TotalCount = allVulns.Count,
             //    Items = vulns
             //};
-
-            //pageVulns = handler.ReadToList<PageVulns>().Select(u => new PageVulns
-            //{
-            //    GROUP_SEQ = u.GROUP_SEQ,
-            //    VULN_SEQ = u.VULN_SEQ,
-            //    CREATE_USER_ID = u.CREATE_USER_ID,
-            //    MANAGE_ID = u.MANAGE_ID,
-            //    SORT_ORDER = u.SORT_ORDER,
-            //    UPDATE_DT = u.UPDATE_DT,
-            //    VULGROUP = u.VULGROUP,
-            //    VULNO = u.VULNO,
-            //    VULN_NAME = u.VULN_NAME
-            //}).ToList();
 
             ViewModels viewModels = new ViewModels
             {
