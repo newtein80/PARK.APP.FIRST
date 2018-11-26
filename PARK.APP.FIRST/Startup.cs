@@ -44,9 +44,11 @@ namespace PARK.APP.FIRST
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            // google : mssql 2008 skip take exception site:stackoverflow.com
+            // https://stackoverflow.com/questions/29995502/paging-with-entity-framework-7-and-sql-server-2008
             services.AddDbContext<VulnDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection"), opt => { opt.UseRowNumberForPaging(); }));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
