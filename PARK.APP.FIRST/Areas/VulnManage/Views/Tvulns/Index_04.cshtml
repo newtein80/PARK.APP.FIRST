@@ -1,0 +1,261 @@
+﻿@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.Tvuln>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+@{
+    ViewData["Title"] = "Index_04";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index_04</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ManualYn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutoYn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManageId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientStandardId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VulnName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SortOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RuleYn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplyTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DetailPath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Judgement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Effect)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remedy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RemedyPath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Refrrence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParserContents)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrgParserContents)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplyTarget)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseYn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExceptCd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExceptTermType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExceptTermFr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExceptTermTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExceptReason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExceptUserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExceptDt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateUserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateUserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateDt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vulgroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vulno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RemedyDetail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Overview)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManagementVulnYn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupSeqNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManualYn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AutoYn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManageId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientStandardId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VulnName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SortOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RuleYn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplyTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DetailPath)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Judgement)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Effect)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remedy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RemedyPath)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Refrrence)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParserContents)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrgParserContents)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplyTarget)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UseYn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExceptCd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExceptTermType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExceptTermFr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExceptTermTo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExceptReason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExceptUserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExceptDt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateUserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateUserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateDt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vulgroup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vulno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RemedyDetail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Overview)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManagementVulnYn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupSeqNavigation.GroupType)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.VulnSeq">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.VulnSeq">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.VulnSeq">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.Tvuln>
+﻿@*@model IEnumerable<PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.Tvuln>*@
+@model PARK.APP.FIRST.Areas.VulnManage.Controllers.TvulnsController.ViewModels
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
@@ -19,58 +20,58 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ManageId)
+                @Html.DisplayNameFor(model => model.PageVulns[0].CREATE_USER_ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VulnName)
+                @Html.DisplayNameFor(model => model.PageVulns[0].GROUP_SEQ)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SortOrder)
+                @Html.DisplayNameFor(model => model.PageVulns[0].MANAGE_ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateUserId)
+                @Html.DisplayNameFor(model => model.PageVulns[0].SORT_ORDER)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UpdateDt)
+                @Html.DisplayNameFor(model => model.PageVulns[0].UPDATE_DT)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Vulgroup)
+                @Html.DisplayNameFor(model => model.PageVulns[0].VULGROUP)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Vulno)
+                @Html.DisplayNameFor(model => model.PageVulns[0].VULNO)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.PageVulns)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ManageId)
+                    @Html.DisplayFor(modelItem => item.CREATE_USER_ID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VulnName)
+                    @Html.DisplayFor(modelItem => item.GROUP_SEQ)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SortOrder)
+                    @Html.DisplayFor(modelItem => item.MANAGE_ID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreateUserId)
+                    @Html.DisplayFor(modelItem => item.SORT_ORDER)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UpdateDt)
+                    @Html.DisplayFor(modelItem => item.UPDATE_DT)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Vulgroup)
+                    @Html.DisplayFor(modelItem => item.VULGROUP)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Vulno)
+                    @Html.DisplayFor(modelItem => item.VULNO)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.VulnSeq">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.VulnSeq">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.VulnSeq">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.VULN_SEQ">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.VULN_SEQ">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.VULN_SEQ">Delete</a>
                 </td>
             </tr>
         }

@@ -59,8 +59,9 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         // https://stackoverflow.com/questions/4764011/multiple-models-in-a-view
         public class ViewModels
         {
-            public PageVulns PageVulns { get; set; }
+            public List<PageVulns> PageVulns { get; set; }
             public PageDefault PageDefault { get; set; }
+            public int PageListTotalCount { get; set; }
         }
 
         public class PageVulns
@@ -68,9 +69,9 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             public Int64 VULN_SEQ { get; set; }
             public string VULN_NAME { get; set; }
             public Int64 GROUP_SEQ { get; set; }
-            public string MAANGE_ID { get; set; }
+            public string MANAGE_ID { get; set; }
             public Int64 VULGROUP { get; set; }
-            public Int64 VULNO { get; set; }
+            public string VULNO { get; set; }
             public DateTime UPDATE_DT { get; set; }
             public string CREATE_USER_ID { get; set; }
             public Int64 SORT_ORDER { get; set; }
@@ -81,7 +82,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             public string Theme { get; set; }
             public string Setting { get; set; }
 
-            public PageDefault(string theme, string setting)
+            public PageDefault()
             {
                 Theme = "metro";
                 Setting = "Controller Setting";
@@ -91,8 +92,8 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         public IActionResult Index_02()
         {
             // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
+            var pageVulns = new List<PageVulns>();
 
-            var vulns = new List<PageVulns>();
             DbParameter outputParam = null;
             // exec dbo.SP_VULN_LIST '', '', '', 0, '', 0, '', 0, '', '', 0, 0, '', '', '', '', 1, 10, 1, 1
             _context.LoadStoredProc("dbo.SP_VULN_LIST")
@@ -123,33 +124,108 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 })
                 .ExecuteStoredProc((handler) =>
                 {
-                    vulns = handler.ReadToList<PageVulns>().Select(u => new PageVulns
-                    {
-                        //GROUP_SEQ = u.GROUP_SEQ,
-                        //COMP_SEQ = u.COMP_SEQ,
-                        //CREATE_DT = u.CREATE_DT,
-                        //DIAG_KIND = u.DIAG_KIND,
-                        //DIAG_KIND_NAME = u.DIAG_KIND_NAME,
-                        //DIAG_TOOL = u.DIAG_TOOL,
-                        //DIAG_TOOL_NAME = u.DIAG_TOOL_NAME,
-                        //GROUP_ID = u.GROUP_ID,
-                        //GROUP_NAME = u.GROUP_NAME
-                        VULN_SEQ = u.VULN_SEQ
-                    }).ToList();
-
                     // Column 명이 맞지않는 컬럼은 보이지 않는다.
                     //vulns = handler.ReadToList<Tvuln>().ToList();
+
+                    //pageVulns = handler.ReadToList<PageVulns>().Select(u => new PageVulns
+                    //{
+                    //    GROUP_SEQ = u.GROUP_SEQ,
+                    //    VULN_SEQ = u.VULN_SEQ,
+                    //    CREATE_USER_ID = u.CREATE_USER_ID,
+                    //    MANAGE_ID = u.MANAGE_ID,
+                    //    SORT_ORDER = u.SORT_ORDER,
+                    //    UPDATE_DT = u.UPDATE_DT,
+                    //    VULGROUP = u.VULGROUP,
+                    //    VULNO = u.VULNO,
+                    //    VULN_NAME = u.VULN_NAME
+                    //}).ToList();
+
+                    pageVulns = handler.ReadToList<PageVulns>().ToList();
+                    
                 });
 
             int outputParamValue = (int)outputParam?.Value;
+            ViewModels viewModels = new ViewModels
+            {
+                PageVulns = pageVulns,
+                PageDefault = new PageDefault(),
+                PageListTotalCount = outputParamValue
+            };
 
-            return View(vulns);
+            return View(viewModels);
+        }
+
+        [HttpGet]
+        public IActionResult Index_04()
+        {
+            // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
+            var pageVulns = new List<PageVulns>();
+
+            DbParameter outputParam = null;
+            // exec dbo.SP_VULN_LIST '', '', '', 0, '', 0, '', 0, '', '', 0, 0, '', '', '', '', 1, 10, 1, 1
+            _context.LoadStoredProc("dbo.SP_VULN_LIST")
+                .WithSqlParam("gubun", "")
+                .WithSqlParam("diag_type", "")
+                .WithSqlParam("diag_kind", "")
+                .WithSqlParam("comp_seq", 0)
+                .WithSqlParam("comp_name", "")
+                .WithSqlParam("group_seq", 0)
+                .WithSqlParam("group_name", "")
+                .WithSqlParam("vuln_seq", 0)
+                .WithSqlParam("vuln_name", "")
+                .WithSqlParam("manage_id", "")
+                .WithSqlParam("rate", 0)
+                .WithSqlParam("score", 0)
+                .WithSqlParam("use_yn", "")
+                .WithSqlParam("exception_yn", "")
+                .WithSqlParam("user_id", "")
+                .WithSqlParam("sort_field", "")
+                .WithSqlParam("is_desc", 1)
+                .WithSqlParam("pagesize", 10)
+                .WithSqlParam("pageindex", 1)
+                .WithSqlParam("allCount", (dbParam) =>
+                {
+                    dbParam.Direction = System.Data.ParameterDirection.Output;
+                    dbParam.DbType = System.Data.DbType.Int32;
+                    outputParam = dbParam;
+                })
+                .ExecuteStoredProc((handler) =>
+                {
+                    // Column 명이 맞지않는 컬럼은 보이지 않는다.
+                    //vulns = handler.ReadToList<Tvuln>().ToList();
+
+                    //pageVulns = handler.ReadToList<PageVulns>().Select(u => new PageVulns
+                    //{
+                    //    GROUP_SEQ = u.GROUP_SEQ,
+                    //    VULN_SEQ = u.VULN_SEQ,
+                    //    CREATE_USER_ID = u.CREATE_USER_ID,
+                    //    MANAGE_ID = u.MANAGE_ID,
+                    //    SORT_ORDER = u.SORT_ORDER,
+                    //    UPDATE_DT = u.UPDATE_DT,
+                    //    VULGROUP = u.VULGROUP,
+                    //    VULNO = u.VULNO,
+                    //    VULN_NAME = u.VULN_NAME
+                    //}).ToList();
+
+                    pageVulns = handler.ReadToList<PageVulns>().ToList();
+
+                });
+
+            int outputParamValue = (int)outputParam?.Value;
+            ViewModels viewModels = new ViewModels
+            {
+                PageVulns = pageVulns,
+                PageDefault = new PageDefault(),
+                PageListTotalCount = outputParamValue
+            };
+
+            return View(viewModels);
         }
 
         [HttpGet]
         public async Task<IActionResult> Index_03()
         {
-            var vulnDbContext = _context.Tvuln.Include(t => t.GroupSeqNavigation);
+            var vulnDbContext = _context.Tvuln.Include(t => t.GroupSeqNavigation).Skip(1).Take(10);
             return View(await vulnDbContext.ToListAsync());
         }
 
