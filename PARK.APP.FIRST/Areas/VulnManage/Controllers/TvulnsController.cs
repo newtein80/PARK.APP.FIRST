@@ -158,7 +158,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         // google : asp.net core jqxgrid dapper
         // https://stackoverflow.com/questions/49872246/understanding-async-await-using-dapper-repositories-in-asp-net-core
         [HttpGet]
-        public IActionResult Index_04()
+        public IActionResult Index_04(string id)
         {
             // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
             var pageVulns = new List<PageVulns>();
@@ -209,7 +209,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         }
 
         [HttpPost]
-        public string Index_04(string jsonData)
+        public string Index_04(string id, string jsonData)
         {
             JToken token = JObject.Parse(jsonData);
 

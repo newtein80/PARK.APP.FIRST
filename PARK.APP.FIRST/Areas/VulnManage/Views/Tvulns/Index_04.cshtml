@@ -11,6 +11,15 @@
     var pageVuln = Model.PageVulns.FirstOrDefault();
 }
 <h2>Index_04</h2>
+<form asp-controller="Tvulns" asp-action="Index_04" method="get">
+    <p>
+        <input type="text" class="form-control" id="basic-url" />
+        <p></p>
+        <bootstrap-button type="submit" class="btn btn-primary">
+            Submit
+        </bootstrap-button>
+    </p>
+</form>
 <p>
     @Html.ActionLink("Razor AtcionLink(Create)", "Create", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
     @Html.ActionLink("Index_01", "Index_01", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default", @role = "button" })
