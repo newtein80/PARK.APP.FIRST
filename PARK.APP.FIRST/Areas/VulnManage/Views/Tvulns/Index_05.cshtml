@@ -1,0 +1,229 @@
+﻿@model PARK.APP.FIRST.Areas.VulnManage.Controllers.TvulnsController.ViewModels05
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+
+@{
+    ViewData["Title"] = "Index_05";
+    ViewData["Theme"] = "metro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var pageVuln05 = Model.PageVuln05s.FirstOrDefault();
+}
+<h2>https://www.learnrazorpages.com/</h2>
+<p>
+    https://jonhilton.net/2017/08/17/how-to-get-data-from-an-html-form-to-your-asp.net-mvc-core-controller/
+</p>
+<p>
+    google : asp.net core razor submit model controller
+</p>
+<bootstrap-panel class="panel-default">
+    <bootstrap-panel-header>
+        <h3 class="panel-title">Search</h3>
+    </bootstrap-panel-header>
+    <bootstrap-panel-body>
+        <form asp-controller="Tvulns" asp-action="Index_05" method="get">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    @Html.TextBox("name", null, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                </div>
+            </div>
+            <fieldset class="form-group">
+                <div class="row">
+                    <label class="col-form-label col-sm-2 pt-0">Radios</label>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                            <label class="form-check-label" for="gridRadios1">
+                                First radio
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                            <label class="form-check-label" for="gridRadios2">
+                                Second radio
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+                            <label class="form-check-label" for="gridRadios3">
+                                Third disabled radio
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    @*<jqx-drop-down-list for="@employee.Name" value-for="@employee.ID" selected-index="0" theme="@ViewData["Theme"]" width="250" height="30" source="Model"></jqx-drop-down-list>*@
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">Checkbox</div>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck1">
+                        <label class="form-check-label" for="gridCheck1">
+                            Example checkbox
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </bootstrap-panel-body>
+    <bootstrap-panel-footer>
+        @Html.ActionLink("Razor AtcionLink(Create)", "Create", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+        @Html.ActionLink("Index_01", "Index_01", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+        @Html.ActionLink("Index_02", "Index_02", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+        @Html.ActionLink("Index_03", "Index_03", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+        @Html.ActionLink("Index_04", "Index_04", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+        @Html.ActionLink("Index_05", "Index_05", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+        <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
+            Open sample modal
+        </bootstrap-button>
+        <bootstrap-button type="submit" class="btn btn-primary btn-sm">
+            Submit
+        </bootstrap-button>
+    </bootstrap-panel-footer>
+</bootstrap-panel>
+<p>
+    <input type="text" id="input03" value="느려....."/>
+</p>
+<p>
+    @Html.TextBox("name1", null, new { @class = "form-control" })
+</p>
+<bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
+    <bootstrap-modal-header>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sample modal header</h4>
+    </bootstrap-modal-header>
+    <bootstrap-modal-body>
+        <input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
+    </bootstrap-modal-body>
+</bootstrap-modal>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#input03").jqxInput({ width: '250px', height: '25px', theme: 'bootstrap' });
+        });
+
+        var buttonclick = function (event) {
+            var id = event.target.id;
+            alert(id);
+        }
+
+        $("input[id^='file_']").jqxButton({ theme: 'metro' });
+
+        // https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-cellsrendering.htm
+        var cellsrenderer_default = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.VULN_SEQ;
+            return '<input class="btn btn-danger" style="width:100%; height:100%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VULN_SEQ + '" value="' + 'rowdata.VULN_NAME' + '"/>'
+        }
+
+        var cellsrenderer_default2 = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.VULN_SEQ;
+            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VULN_SEQ + '" value="' + rowdata.VULN_NAME + '"/>'
+        }
+
+        var cellsrenderer_default_fn = function (value) {
+            alert("rowdata.VulnSeq : " + value);
+        }
+
+        var cellsrenderer_btn = function (index, datafield, value, defaultvalue, column, rowdata) {
+            return 'Edit'
+        }
+
+        var cellsbuttonclick_btn = function () {
+            alert("xxx");
+        }
+
+        function cellsbuttonclick_btn2() {
+            alert("xxx");
+        }
+
+        function cloneObject(obj) {
+            if (obj == null || typeof (obj) != 'object')
+                return obj;
+
+            var temp = new obj.constructor();
+            for (var key in obj)
+                temp[key] = cloneObject(obj[key]);
+
+            return temp;
+        }
+
+        var template = { rowDetails: "<div style=\"margin: 10px;\"></div>", rowDetailsHeight: 220, rowDetailsHidden: true };
+        var initRowDetails = function (index, parentElement, gridElement, record) {
+            var id = record.uid.toString();
+            var grid = $($(parentElement).children()[0]);
+            var data = [];
+            var generaterow = function (i) {
+                var row = {};
+                row["OrderDate"] = new Date(2016, Math.floor(Math.random() * 11), Math.floor(Math.random() * 27))
+                row["Quantity"] = Math.floor(Math.random() * 50)
+                row["ProductName"] = record.ProductName;
+                return row;
+            }
+            for (var i = 0; i < Math.max(10, Math.floor(Math.random() * 20)); i++) {
+                var row = generaterow(i);
+                data[i] = row;
+            }
+            var source = {
+                datafields: [
+                    { name: 'OrderDate', type: 'date' },
+                    { name: 'Quantity', type: 'string' },
+                    { name: 'ProductName', type: 'string' }
+                ],
+                localdata: data
+            }
+            var nestedGridAdapter = new $.jqx.dataAdapter(source);
+            if (grid != null) {
+                grid.jqxGrid({
+                    source: nestedGridAdapter, width: 780, height: 200,
+                    columns: [
+                        { text: 'Order Date', cellsFormat: 'd', dataField: 'OrderDate', width: 200 },
+                        { text: 'Quantity', cellsAlign: 'right', dataField: 'Quantity', width: 200 },
+                        { text: 'Product Name', dataField: 'ProductName' }
+                    ]
+                });
+            }
+        }
+
+        function alertTest(str) {
+            alert(str);
+        }
+    </script>
+}
+
+<div id="grid" style="width:100%"></div>
+<div style="display:none">
+    <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(pageVuln05.VULN_SEQ)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="PageVuln05s" source-total-records="PageListTotalCount" source-url="@Url.Action("Index_05","Tvulns")" source-model="pageVuln05">
+        <jqx-grid-columns>
+            <jqx-grid-column cells-renderer="cellsrenderer_default()" datafield-for="@(pageVuln05.VULN_SEQ)" width="180" text="Default"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(pageVuln05.VULN_NAME)" width="150" text="MenuName"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(pageVuln05.GROUP_SEQ)" width="150" text="ParentMenu"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln05.MANAGE_ID)" width="150" text="Roll"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln05.VULGROUP)" width="150" text="Area"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln05.VULNO)" width="150" text="Controller"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln05.UPDATE_DT)" width="150" text="Action"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln05.CREATE_USER_ID)" width="60" text="UseYn"></jqx-grid-column>
+            <jqx-grid-column cells-renderer="cellsrenderer_btn()" datafield-for="@(pageVuln05.SORT_ORDER)" button-click="cellsbuttonclick_btn()" column-type="button" width="180" text="click"></jqx-grid-column>
+        </jqx-grid-columns>
+        <jqx-grid-column-groups>
+            <jqx-grid-column-group name="name1" text="group1"></jqx-grid-column-group>
+        </jqx-grid-column-groups>
+    </jqx-grid>
+</div>

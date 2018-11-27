@@ -65,3 +65,8 @@ INSERT [dbo].[MenuMaster] ([MenuId], [MenuName], [Parent_MenuId], [User_Roll], [
 VALUES
 (N'index04', N'test 04', N'index01', N'admin', NULL, NULL, N'VulnManage', N'Tvulns', N'Index_04', N'Y', 16, GETDATE(), N'')
 GO
+
+INSERT [dbo].[MenuMaster] ([MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass])
+VALUES
+(N'index05', N'test 05', N'index01', N'admin', NULL, NULL, N'VulnManage', N'Tvulns', N'Index_05', N'Y', 17, GETDATE(), N'')
+GO
