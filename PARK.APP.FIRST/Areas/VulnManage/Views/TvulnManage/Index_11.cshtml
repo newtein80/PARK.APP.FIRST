@@ -1,0 +1,159 @@
+﻿@model PARK.APP.FIRST.Areas.VulnManage.Controllers.TvulnManageController.ViewModel11
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+
+@{
+    ViewData["Title"] = "Index_11";
+    ViewData["Theme"] = "metro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var pageVuln11 = Model.PageVuln11s.FirstOrDefault();
+    // 제일 중요!!!!!!!!!!! get 에 의해서 가져온 모델을 지역변수로 선언!!!
+    var pageSearch11 = Model.PageSearchModel11s;
+}
+
+<h2>Index_11</h2>
+@*나중에 html.BeginForm 에서 submit 할 때 form 의 내용만 담긴 model 만! 넘길 수 있는지 찾아봐야 함!!!!*@
+@using (Html.BeginForm("Index_11", "TvulnManage", FormMethod.Post))
+{
+    @Html.LabelFor(m => m.PageSearchModel11s.Vuln_name)
+    @Html.TextBoxFor(m => m.PageSearchModel11s.Vuln_name, new { placeholder = "ViewModel11.Vuln_name", @class = "form-control" })
+    @Html.LabelFor(m => m.PageSearchModel11s.Comp_name)
+    @Html.TextBoxFor(m => m.PageSearchModel11s.Comp_name, new { placeholder = "ViewModel11.Comp_name", @class = "form-control" })
+    <bootstrap-button type="submit" class="btn btn-primary btn-sm">
+        Submit
+    </bootstrap-button>
+}
+<p>
+    @Html.ActionLink("Razor AtcionLink(Create)", "Create", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+    @Html.ActionLink("Index_06", "Index_06", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+    @Html.ActionLink("Index_11", "Index_11", "TvulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+    <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
+        Open sample modal
+    </bootstrap-button>
+</p>
+<bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
+    <bootstrap-modal-header>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sample modal header</h4>
+    </bootstrap-modal-header>
+    <bootstrap-modal-body>
+        <input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
+    </bootstrap-modal-body>
+</bootstrap-modal>
+@section scripts {
+    <script type="text/javascript">
+        var buttonclick = function (event) {
+            var id = event.target.id;
+            alert(id);
+        }
+
+        $("input[id^='file_']").jqxButton({ theme: 'metro' });
+
+        // https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-cellsrendering.htm
+        var cellsrenderer_default = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.VULN_SEQ;
+            return '<input class="btn btn-danger" style="width:100%; height:100%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VULN_SEQ + '" value="' + 'rowdata.VULN_NAME' + '"/>'
+        }
+
+        var cellsrenderer_default2 = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.VULN_SEQ;
+            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VULN_SEQ + '" value="' + rowdata.VULN_NAME + '"/>'
+        }
+
+        var cellsrenderer_default_fn = function (value) {
+            alert("rowdata.VulnSeq : " + value);
+        }
+
+        var cellsrenderer_btn = function (index, datafield, value, defaultvalue, column, rowdata) {
+            return 'Edit'
+        }
+
+        var cellsbuttonclick_btn = function () {
+            alert("xxx");
+        }
+
+        function cellsbuttonclick_btn2() {
+            alert("xxx");
+        }
+
+        function cloneObject(obj) {
+            if (obj == null || typeof (obj) != 'object')
+                return obj;
+
+            var temp = new obj.constructor();
+            for (var key in obj)
+                temp[key] = cloneObject(obj[key]);
+
+            return temp;
+        }
+
+        var template = { rowDetails: "<div style=\"margin: 10px;\"></div>", rowDetailsHeight: 220, rowDetailsHidden: true };
+        var initRowDetails = function (index, parentElement, gridElement, record) {
+            var id = record.uid.toString();
+            var grid = $($(parentElement).children()[0]);
+            var data = [];
+            var generaterow = function (i) {
+                var row = {};
+                row["OrderDate"] = new Date(2016, Math.floor(Math.random() * 11), Math.floor(Math.random() * 27))
+                row["Quantity"] = Math.floor(Math.random() * 50)
+                row["ProductName"] = record.ProductName;
+                return row;
+            }
+            for (var i = 0; i < Math.max(10, Math.floor(Math.random() * 20)); i++) {
+                var row = generaterow(i);
+                data[i] = row;
+            }
+            var source = {
+                datafields: [
+                    { name: 'OrderDate', type: 'date' },
+                    { name: 'Quantity', type: 'string' },
+                    { name: 'ProductName', type: 'string' }
+                ],
+                localdata: data
+            }
+            var nestedGridAdapter = new $.jqx.dataAdapter(source);
+            if (grid != null) {
+                grid.jqxGrid({
+                    source: nestedGridAdapter, width: 780, height: 200,
+                    columns: [
+                        { text: 'Order Date', cellsFormat: 'd', dataField: 'OrderDate', width: 200 },
+                        { text: 'Quantity', cellsAlign: 'right', dataField: 'Quantity', width: 200 },
+                        { text: 'Product Name', dataField: 'ProductName' }
+                    ]
+                });
+            }
+        }
+
+        function alertTest(str) {
+            alert(str);
+        }
+    </script>
+}
+
+<div id="grid" style="width:100%"></div>
+<div style="display:none">
+    @*제일 중요!!! source-url="Url.Action("GetData","Tvulns", pageSearchs)" 은 jqx grid 의 ajax  호출 url을 생성한다!!!*@
+    <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(pageVuln11.VULN_SEQ)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="PageVuln11s" source-total-records="PageListTotalCount" source-url="@Url.Action("GetData11","TvulnManage", pageSearch11)" source-model="pageVuln11">
+        <jqx-grid-columns>
+            <jqx-grid-column cells-renderer="cellsrenderer_default()" datafield-for="@(pageVuln11.VULN_SEQ)" width="180" text="Default"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(pageVuln11.VULN_NAME)" width="150" text="MenuName"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(pageVuln11.GROUP_SEQ)" width="150" text="ParentMenu"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln11.MANAGE_ID)" width="150" text="Roll"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln11.VULGROUP)" width="150" text="Area"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln11.VULNO)" width="150" text="Controller"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln11.UPDATE_DT)" width="150" text="Action"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageVuln11.CREATE_USER_ID)" width="60" text="UseYn"></jqx-grid-column>
+            <jqx-grid-column cells-renderer="cellsrenderer_btn()" datafield-for="@(pageVuln11.SORT_ORDER)" button-click="cellsbuttonclick_btn()" column-type="button" width="180" text="click"></jqx-grid-column>
+        </jqx-grid-columns>
+        <jqx-grid-column-groups>
+            <jqx-grid-column-group name="name1" text="group1"></jqx-grid-column-group>
+        </jqx-grid-column-groups>
+    </jqx-grid>
+</div>
