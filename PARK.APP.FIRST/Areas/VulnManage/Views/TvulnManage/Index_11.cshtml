@@ -33,6 +33,11 @@
     <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
         Open sample modal
     </bootstrap-button>
+    @*<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">*@
+    <button type="button" class="btn btn-primary btn-sm" id="partialView11">
+        Open PartialView
+    </button>
+    <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage")"></div>
 </p>
 <bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
     <bootstrap-modal-header>
@@ -47,6 +52,16 @@
 </bootstrap-modal>
 @section scripts {
     <script type="text/javascript">
+        $(document).ready(function () {
+            $('#partialView11').click(function () {
+                var url = $('#myModal').data('url');
+                $.get(url, function (data) {
+                    $("#myModal").html(data);
+                    $("#myModal").modal('show');
+                });
+            });
+        });
+
         var buttonclick = function (event) {
             var id = event.target.id;
             alert(id);
@@ -136,7 +151,15 @@
         }
     </script>
 }
-
+    <p>
+        https://www.pluralsight.com/guides/asp-net-mvc-using-javascript-with-ajax-and-razor-partial-views
+    </p>
+    <p>
+        https://codemagik.wordpress.com/2015/04/07/render-mvc-partial-view-inside-bootstrap-modal-dialog/
+    </p>
+    <p>
+        https://forums.asp.net/t/1968642.aspx?MVC+5+Bootstrap+Modal+popup+with+different+page
+    </p>
 <div id="grid" style="width:100%"></div>
 <div style="display:none">
     @*제일 중요!!! source-url="Url.Action("GetData","Tvulns", pageSearchs)" 은 jqx grid 의 ajax  호출 url을 생성한다!!!*@

@@ -446,5 +446,17 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             return items;
         }
         #endregion
+
+        [HttpGet]
+        public ActionResult PopupTvulnManageCreate()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult PopupTvulnManageCreate(Tvuln tvuln)
+        {
+            return View();
+        }
     }
 }
