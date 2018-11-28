@@ -10,13 +10,19 @@
 }
 @{
     var pageVuln06 = Model.PageVuln06s.FirstOrDefault();
+    // 제일 중요!!!!!!!!!!! get 에 의해서 가져온 모델을 지역변수로 선언!!!
+    var pageSearchs = Model.PageSearchModels;
 }
 <h2>https://www.learnrazorpages.com/</h2>
 
-@using (Html.BeginForm("Index_06", "Tvulns", FormMethod.Get))
+
+@*나중에 html.BeginForm 에서 submit 할 때 form 의 내용만 담긴 model 만! 넘길 수 있는지 찾아봐야 함!!!!*@
+@using (Html.BeginForm("Index_06", "Tvulns", FormMethod.Post))
 {
-    @Html.TextBoxFor(m => m.PageSearchModels.Vuln_name, new { placeholder = "tttt" , @class = "form-control" })
-    @Html.TextBoxFor(m => m.PageSearchModels.Comp_name, new { @class = "form-control" })
+    @Html.LabelFor(m => m.PageSearchModels.Vuln_name)
+    @Html.TextBoxFor(m => m.PageSearchModels.Vuln_name, new { placeholder = "ViewModels06.Vuln_name", @class = "form-control" })
+    @Html.LabelFor(m => m.PageSearchModels.Comp_name)
+    @Html.TextBoxFor(m => m.PageSearchModels.Comp_name, new { placeholder = "ViewModels06.Comp_name", @class = "form-control" })
     <bootstrap-button type="submit" class="btn btn-primary btn-sm">
         Submit
     </bootstrap-button>
@@ -217,7 +223,8 @@
 
 <div id="grid" style="width:100%"></div>
 <div style="display:none">
-    <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(pageVuln06.VULN_SEQ)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="PageVuln06s" source-total-records="PageListTotalCount" source-url="@Url.Action("Index_06","Tvulns")" source-model="pageVuln06">
+    @*제일 중요!!! source-url="Url.Action("GetData","Tvulns", pageSearchs)" 은 jqx grid 의 ajax  호출 url을 생성한다!!!*@
+    <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(pageVuln06.VULN_SEQ)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="PageVuln06s" source-total-records="PageListTotalCount" source-url="@Url.Action("GetData","Tvulns", pageSearchs)" source-model="pageVuln06">
         <jqx-grid-columns>
             <jqx-grid-column cells-renderer="cellsrenderer_default()" datafield-for="@(pageVuln06.VULN_SEQ)" width="180" text="Default"></jqx-grid-column>
             <jqx-grid-column column-group="name1" datafield-for="@(pageVuln06.VULN_NAME)" width="150" text="MenuName"></jqx-grid-column>

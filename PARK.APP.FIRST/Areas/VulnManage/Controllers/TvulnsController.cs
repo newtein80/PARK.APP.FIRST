@@ -972,7 +972,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         // google : asp.net core jqxgrid dapper
         // https://stackoverflow.com/questions/49872246/understanding-async-await-using-dapper-repositories-in-asp-net-core
         [HttpGet]
-        public IActionResult Index_06(ViewModels06 searchModel)
+        public IActionResult Index_06()
         {
             // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
             var pageVulns = new List<PageVuln06>();
@@ -984,11 +984,64 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 .WithSqlParam("diag_type", "")
                 .WithSqlParam("diag_kind", "")
                 .WithSqlParam("comp_seq", 0)
-                .WithSqlParam("comp_name", searchModel.PageSearchModels == null ? "" : searchModel.PageSearchModels.Comp_name.Trim())
+                .WithSqlParam("comp_name", "")
                 .WithSqlParam("group_seq", 0)
                 .WithSqlParam("group_name", "")
                 .WithSqlParam("vuln_seq", 0)
-                .WithSqlParam("vuln_name", searchModel.PageSearchModels == null ? "" : searchModel.PageSearchModels.Vuln_name.Trim())
+                .WithSqlParam("vuln_name", "")
+                .WithSqlParam("manage_id", "")
+                .WithSqlParam("rate", 0)
+                .WithSqlParam("score", 0)
+                .WithSqlParam("use_yn", "")
+                .WithSqlParam("exception_yn", "")
+                .WithSqlParam("user_id", "")
+                .WithSqlParam("sort_field", "")
+                .WithSqlParam("is_desc", 1)
+                .WithSqlParam("pagesize", 10)
+                .WithSqlParam("pageindex", 1)
+                .WithSqlParam("allCount", (dbParam) =>
+                {
+                    dbParam.Direction = System.Data.ParameterDirection.Output;
+                    dbParam.DbType = System.Data.DbType.Int32;
+                    outputParam = dbParam;
+                })
+                .ExecuteStoredProc((handler) =>
+                {
+                    pageVulns = handler.ReadToList<PageVuln06>().ToList();
+
+                });
+
+            int outputParamValue = (int)outputParam?.Value;
+
+            ViewModels06 viewModel06s = new ViewModels06
+            {
+                PageVuln06s = pageVulns,
+                PageDefault06s = new PageDefault06(),
+                PageListTotalCount = outputParamValue,
+                PageSearchModels = new PageSearchModel()//초기값
+            };
+
+            return View(viewModel06s);
+        }
+
+        [HttpPost]
+        public IActionResult Index_06(ViewModels06 viewModels)
+        {
+            // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
+            var pageVulns = new List<PageVuln06>();
+
+            DbParameter outputParam = null;
+            // exec dbo.SP_VULN_LIST '', '', '', 0, '', 0, '', 0, '', '', 0, 0, '', '', '', '', 1, 10, 1, 1
+            _context.LoadStoredProc("dbo.SP_VULN_LIST")
+                .WithSqlParam("gubun", "")
+                .WithSqlParam("diag_type", "")
+                .WithSqlParam("diag_kind", "")
+                .WithSqlParam("comp_seq", 0)
+                .WithSqlParam("comp_name", "")
+                .WithSqlParam("group_seq", 0)
+                .WithSqlParam("group_name", "")
+                .WithSqlParam("vuln_seq", 0)
+                .WithSqlParam("vuln_name", viewModels.PageSearchModels.Vuln_name ?? "")
                 .WithSqlParam("manage_id", "")
                 .WithSqlParam("rate", 0)
                 .WithSqlParam("score", 0)
@@ -1017,14 +1070,14 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 PageVuln06s = pageVulns,
                 PageDefault06s = new PageDefault06(),
                 PageListTotalCount = outputParamValue,
-                PageSearchModels = new PageSearchModel()
+                PageSearchModels = viewModels.PageSearchModels//중요!!!!!!!!! 검색 submit 후 의 값
             };
 
             return View(viewModel06s);
         }
 
         [HttpPost]
-        public string Index_06(string jsonData)
+        public string GetData(string jsonData, PageSearchModel viewModels)
         {
             int count = 0;
 
