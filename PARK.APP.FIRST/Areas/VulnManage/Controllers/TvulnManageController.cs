@@ -171,7 +171,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 });
 
             int outputParamValue = (int)outputParam?.Value;
-            ViewModel11 viewModel06s = new ViewModel11
+            ViewModel11 viewModel11s = new ViewModel11
             {
                 PageVuln11s = pageVulns,
                 PageDefault11s = new PageDefault11(),
@@ -179,35 +179,87 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 PageSearchModel11s = viewModels.PageSearchModel11s//중요!!!!!!!!! 검색 submit 후 의 값
             };
 
-            return View(viewModel06s);
+            return View(viewModel11s);
         }
 
         [HttpPost]
         public string GetData11(string jsonData, PageSearchModel11 viewModels)
         {
-            int count = 0;
+            #region+ EF 사용
+            //int count = 0;
 
-            List<PageVuln11> allVulns = _context.Tvuln.Select(r => new PageVuln11
-            {
-                GROUP_SEQ = r.GroupSeq,
-                VULN_SEQ = r.VulnSeq,
-                CREATE_USER_ID = r.CreateUserId,
-                MANAGE_ID = r.ManageId,
-                SORT_ORDER = (long)r.SortOrder,
-                UPDATE_DT = Convert.ToDateTime(r.UpdateDt),
-                VULGROUP = 998,
-                VULNO = "a",
-                VULN_NAME = r.VulnName
-            }).ToList();
+            //List<PageVuln11> allVulns = _context.Tvuln.Select(r => new PageVuln11
+            //{
+            //    GROUP_SEQ = r.GroupSeq,
+            //    VULN_SEQ = r.VulnSeq,
+            //    CREATE_USER_ID = r.CreateUserId,
+            //    MANAGE_ID = r.ManageId,
+            //    SORT_ORDER = (long)r.SortOrder,
+            //    UPDATE_DT = Convert.ToDateTime(r.UpdateDt),
+            //    VULGROUP = 998,
+            //    VULNO = "a",
+            //    VULN_NAME = r.VulnName
+            //}).ToList();
 
-            ViewModel11 viewModel06s = new ViewModel11
+            //ViewModel11 viewModel11s = new ViewModel11
+            //{
+            //    PageVuln11s = FilterItems(jsonData, allVulns, ref count),
+            //    PageDefault11s = new PageDefault11(),
+            //    PageListTotalCount = count,
+            //    PageSearchModel11s = new PageSearchModel11()
+            //};
+            //return JsonConvert.SerializeObject(viewModel11s);
+            #endregion
+
+            #region+ Test.01 - SP 사용 (하지만 위와 다를바 없음. SP로 전체를 가져옴)
+            // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
+            var pageVulns = new List<PageVuln11>();
+
+            DbParameter outputParam = null;
+            // exec dbo.SP_VULN_LIST '', '', '', 0, '', 0, '', 0, '', '', 0, 0, '', '', '', '', 1, 10, 1, 1
+            _context.LoadStoredProc("dbo.SP_VULN_LIST")
+                .WithSqlParam("gubun", "")
+                .WithSqlParam("diag_type", "")
+                .WithSqlParam("diag_kind", "")
+                .WithSqlParam("comp_seq", 0)
+                .WithSqlParam("comp_name", "")
+                .WithSqlParam("group_seq", 0)
+                .WithSqlParam("group_name", "")
+                .WithSqlParam("vuln_seq", 0)
+                .WithSqlParam("vuln_name", viewModels.Vuln_name ?? "")
+                .WithSqlParam("manage_id", "")
+                .WithSqlParam("rate", 0)
+                .WithSqlParam("score", 0)
+                .WithSqlParam("use_yn", "")
+                .WithSqlParam("exception_yn", "")
+                .WithSqlParam("user_id", "")
+                .WithSqlParam("sort_field", "")
+                .WithSqlParam("is_desc", 1)
+                .WithSqlParam("pagesize", 1000000)
+                .WithSqlParam("pageindex", 1)
+                .WithSqlParam("allCount", (dbParam) =>
+                {
+                    dbParam.Direction = System.Data.ParameterDirection.Output;
+                    dbParam.DbType = System.Data.DbType.Int32;
+                    outputParam = dbParam;
+                })
+                .ExecuteStoredProc((handler) =>
+                {
+                    pageVulns = handler.ReadToList<PageVuln11>().ToList();
+
+                });
+
+            int outputParamValue = (int)outputParam?.Value;
+
+            ViewModel11 viewModel11s = new ViewModel11
             {
-                PageVuln11s = FilterItems(jsonData, allVulns, ref count),
+                PageVuln11s = FilterItems(jsonData, pageVulns, ref outputParamValue),
                 PageDefault11s = new PageDefault11(),
-                PageListTotalCount = count,
+                PageListTotalCount = outputParamValue,
                 PageSearchModel11s = new PageSearchModel11()
             };
-            return JsonConvert.SerializeObject(viewModel06s);
+            return JsonConvert.SerializeObject(viewModel11s);
+            #endregion
         }
         #endregion
 
