@@ -26,19 +26,23 @@
         Submit
     </bootstrap-button>
 }
-<p>
-    @Html.ActionLink("Razor AtcionLink(Create)", "Create", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
-    @Html.ActionLink("Index_06", "Index_06", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
-    @Html.ActionLink("Index_11", "Index_11", "TvulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
-    <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
-        Open sample modal
-    </bootstrap-button>
-    @*<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">*@
-    <button type="button" class="btn btn-primary btn-sm" id="partialView11">
-        Open PartialView
-    </button>
-    <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage")"></div>
-</p>
+    <p>
+        @Html.ActionLink("Razor AtcionLink(Create)", "Create", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+        @Html.ActionLink("Index_06", "Index_06", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+        @Html.ActionLink("Index_11", "Index_11", "TvulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+        <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
+            Open sample modal
+        </bootstrap-button>
+        @*<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">*@
+        <button type="button" class="btn btn-primary btn-sm" id="partialView11">
+            Open PartialView
+        </button>
+        <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage")"></div>
+        <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#popupVulnEdit" data-url="@Url.Action("PopupTvulnManageEdit", "TvulnManage", new { id = 2001 })">
+            Add contact
+        </button>
+        <div id="modal-placeholder"></div>
+    </p>
 <bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
     <bootstrap-modal-header>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

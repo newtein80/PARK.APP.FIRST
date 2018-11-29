@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PARK.APP.FIRST.Areas.VulnManage.Models.Vuln;
@@ -457,6 +458,63 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         public ActionResult PopupTvulnManageCreate(Tvuln tvuln)
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult PopupTvulnManageEdit(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var tvuln = _context.Tvuln.Find(id);
+            if (tvuln == null)
+            {
+                return NotFound();
+            }
+
+            //ViewData["GroupSeq"] = new SelectList(_context.TvulnGroup, "GroupSeq", "GroupType", tvuln.GroupSeq);
+
+            return PartialView("PopupTvulnManageEdit", tvuln);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PopupTvulnManageEditAsync(long id, [Bind("VulnSeq,GroupSeq,ManualYn,AutoYn,ManageId,ClientStandardId,VulnName,SortOrder,RuleYn,Rate,Score,ApplyTime,Detail,DetailPath,Judgement,Effect,Remedy,RemedyPath,Refrrence,ParserContents,OrgParserContents,ApplyTarget,UseYn,ExceptCd,ExceptTermType,ExceptTermFr,ExceptTermTo,ExceptReason,ExceptUserId,ExceptDt,CreateUserId,CreateDt,UpdateUserId,UpdateDt,Vulgroup,Vulno,RemedyDetail,Overview,ManagementVulnYn")] Tvuln tvuln)
+        {
+            if (id != tvuln.VulnSeq)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(tvuln);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TvulnExists(tvuln.VulnSeq))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return PartialView("PopupTvulnManageEdit", tvuln);
+            }
+
+            return PartialView("PopupTvulnManageEdit", tvuln);
+        }
+
+        private bool TvulnExists(long id)
+        {
+            return _context.Tvuln.Any(e => e.VulnSeq == id);
         }
     }
 }

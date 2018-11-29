@@ -4,8 +4,7 @@
 @addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-4"></div>
+    <div class="modal fade" id="popupVulnEdit" tabindex="-1" role="dialog" aria-labelledby="addContactLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -13,16 +12,14 @@
                     <h4 class="modal-title" id="myModal-label">https://www.youtube.com/watch?v=oHWEs8XWA2U</h4>
                 </div>
                 <div class="modal-body">
-                    <form asp-action="PopupTvulnManageCreate">
+                    <form asp-action="PopupTvulnManageEdit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                            <label asp-for="VulnSeq" class="control-label"></label>
-                            <input asp-for="VulnSeq" class="form-control" />
-                            <span asp-validation-for="VulnSeq" class="text-danger"></span>
-                        </div>
+                        <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                        <input type="hidden" asp-for="VulnSeq" />
                         <div class="form-group">
                             <label asp-for="GroupSeq" class="control-label"></label>
                             <select asp-for="GroupSeq" class="form-control" asp-items="ViewBag.GroupSeq"></select>
+                            <span asp-validation-for="GroupSeq" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="ManualYn" class="control-label"></label>
@@ -185,6 +182,16 @@
                             <span asp-validation-for="UpdateDt" class="text-danger"></span>
                         </div>
                         <div class="form-group">
+                            <label asp-for="Vulgroup" class="control-label"></label>
+                            <input asp-for="Vulgroup" class="form-control" />
+                            <span asp-validation-for="Vulgroup" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Vulno" class="control-label"></label>
+                            <input asp-for="Vulno" class="form-control" />
+                            <span asp-validation-for="Vulno" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
                             <label asp-for="RemedyDetail" class="control-label"></label>
                             <input asp-for="RemedyDetail" class="form-control" />
                             <span asp-validation-for="RemedyDetail" class="text-danger"></span>
@@ -200,7 +207,8 @@
                             <span asp-validation-for="ManagementVulnYn" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <input type="submit" value="Save" class="btn btn-default" />
+                            <button type="button" class="btn btn-primary" data-save="modal">Modal Save</button>
                         </div>
                     </form>
                 </div>
