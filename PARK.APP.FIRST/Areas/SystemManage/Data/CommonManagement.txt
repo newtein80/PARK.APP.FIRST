@@ -1,0 +1,1031 @@
+﻿USE [PJSWORK]
+GO
+/****** Object:  Table [dbo].[TCommonCode]    Script Date: 2018-11-29 오후 8:07:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TCommonCode](
+	[CodeType] [nvarchar](32) NOT NULL,
+	[CodeTypeName] [nvarchar](128) NOT NULL,
+	[CodeId] [nvarchar](32) NOT NULL,
+	[CodeName] [nvarchar](128) NOT NULL,
+	[CodeVal] [int] NULL,
+	[SortOrder] [int] NULL,
+	[UseYn] [char](1) NULL,
+	[CodeComment] [nvarchar](128) NULL,
+	[CreateUserId] [nvarchar](16) NULL,
+	[CreateDt] [datetime] NULL,
+ CONSTRAINT [PK_TCommonCode] PRIMARY KEY CLUSTERED 
+(
+	[CodeType] ASC,
+	[CodeId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ACTIVE_YN', N'동작 여부', N'N', N'폐기', 1, 1, N'Y', N'폐기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ACTIVE_YN', N'동작 여부', N'Y', N'사용', 0, 0, N'Y', N'사용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPLY_TIME', N'적용 시기', N'0', N'N/A', 0, 0, N'Y', N'0-해당없음(N/A)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPLY_TIME', N'적용 시기', N'1', N'즉시적용', 1, 1, N'Y', N'1-즉시적용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPLY_TIME', N'적용 시기', N'2', N'주기적 적용', 2, 2, N'Y', N'2-주기적 적용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPLY_TIME', N'적용 시기', N'3', N'단기', 3, 3, N'Y', N'3-단기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPLY_TIME', N'적용 시기', N'4', N'중기', 4, 4, N'Y', N'4-중기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPLY_TIME', N'적용 시기', N'5', N'장기', 5, 5, N'Y', N'5-장기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_ENABLE_YN', N'결재 적용 여부', N'N', N'결재미적용', 2, 2, N'Y', N'결재미적용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_ENABLE_YN', N'결재 적용 여부', N'Y', N'결재적용', 1, 1, N'Y', N'결재적용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_STATUS', N'승인 상태', N'0', N'작성중', 0, 0, N'Y', N'점검그룹 등록할 때 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_STATUS', N'승인 상태', N'1', N'점검대기', 1, 1, N'N', N'미사용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_STATUS', N'승인 상태', N'2', N'점검신청/승인', 2, 2, N'N', N'미사용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_STATUS', N'승인 상태', N'3', N'점검중', 3, 3, N'Y', N'점검계획공지 후', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_STATUS', N'승인 상태', N'4', N'조치이행중', 4, 4, N'N', N'미사용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_STATUS', N'승인 상태', N'5', N'조치완료', 5, 5, N'N', N'미사용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_STATUS', N'승인 상태', N'6', N'이행점검중', 6, 6, N'N', N'미사용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_STATUS', N'승인 상태', N'7', N'확정대기', 7, 7, N'N', N'미사용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPROVAL_STATUS', N'승인 상태', N'9', N'점검완료', 8, 8, N'Y', N'점검팀장 최종 점검승인 후', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPSCAN_RESULT_FILE_TYPE', N'앱스캔 결과파일 형식', N'SCAN', N'SCAN 확장자', 1, 1, N'Y', N'SCAN 확장자 형식 파일', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPSCAN_RESULT_FILE_TYPE', N'앱스캔 결과파일 형식', N'XML', N'XML 확장자', 2, 2, N'Y', N'XML 확장자 형식 파일', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPSCAN_RULE_IMPORTANCE', N'앱스캔 룰셋 중요도', N'1', N'상', 1, 1, N'Y', N'상', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPSCAN_RULE_IMPORTANCE', N'앱스캔 룰셋 중요도', N'2', N'중', 2, 2, N'Y', N'중', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPSCAN_RULE_IMPORTANCE', N'앱스캔 룰셋 중요도', N'3', N'하', 3, 3, N'Y', N'하', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPSCAN_RULE_IMPORTANCE', N'앱스캔 룰셋 중요도', N'4', N'정보', 4, 4, N'Y', N'정보', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPSCAN_RULE_LEVEL', N'앱스캔 룰셋 수준', N'High', N'상', 1, 1, N'Y', N'상', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPSCAN_RULE_LEVEL', N'앱스캔 룰셋 수준', N'Informational', N'정보', 4, 4, N'Y', N'정보', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPSCAN_RULE_LEVEL', N'앱스캔 룰셋 수준', N'Low', N'하', 3, 3, N'Y', N'하', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'APPSCAN_RULE_LEVEL', N'앱스캔 룰셋 수준', N'Medium', N'중', 2, 2, N'Y', N'중-Middle or Medium', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ARBITRARY_ENABLE_YN', N'대결 가능 여부', N'N', N'대결불가', 2, 2, N'Y', N'대결불가', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ARBITRARY_ENABLE_YN', N'대결 가능 여부', N'Y', N'대결가능', 1, 1, N'Y', N'대결가능', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ARBITRARY_YN', N'대결 여부', N'N', N'대결미처리', 2, 2, N'Y', N'대결미처리', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ARBITRARY_YN', N'대결 여부', N'S', N'대결선택가능', 3, 3, N'Y', N'대결선택가능', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ARBITRARY_YN', N'대결 여부', N'Y', N'대결처리', 1, 1, N'Y', N'대결처리', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_DUTY_REG_YN', N'업무 담당자 등록 여부', N'N', N'미등록', 2, 2, N'Y', N'업무 담당(책임)자 등록 여부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_DUTY_REG_YN', N'업무 담당자 등록 여부', N'Y', N'등록', 1, 1, N'Y', N'업무 담당(책임)자 등록 여부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_DUTY_SEARCH_TYPE', N'업무 담당자 검색 구분', N'USER_ID', N'사용자ID', 2, 2, N'Y', N'사용자ID', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_DUTY_SEARCH_TYPE', N'업무 담당자 검색 구분', N'USER_NAME', N'사용자명', 1, 1, N'Y', N'사용자명', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_DUTY_TYPE', N'업무 직책 구분', N'1', N'담당', 2, 2, N'Y', N'담당', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_DUTY_TYPE', N'업무 직책 구분', N'3', N'책임', 1, 1, N'Y', N'책임', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND', N'자산 유형', N'DB', N'DBMS', 3, 3, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND', N'자산 유형', N'MAPP', N'모바일앱', 9, 9, N'Y', N'모바일앱 서비스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND', N'자산 유형', N'NW', N'NETWORK', 7, 7, N'Y', N'네트워크장비', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND', N'자산 유형', N'SC', N'보안장비', 4, 4, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND', N'자산 유형', N'UNIX', N'UNIX', 1, 1, N'Y', N'유닉스/리눅스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND', N'자산 유형', N'WAP', N'웹', 8, 8, N'Y', N'웹취약점', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND', N'자산 유형', N'WAS', N'WAS', 6, 6, N'Y', N'농협에선 OS점검에 포함', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND', N'자산 유형', N'WEB', N'WEB', 5, 5, N'Y', N'농협에선 OS점검에 포함', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND', N'자산 유형', N'WIN', N'WINDOWS', 2, 2, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'DBE', N'DBMS(ETC)', 25, 25, N'Y', N'2018.05.23.추가', N'nhadmin', CAST(N'2018-06-11T17:47:14.923' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'DBI', N'인포믹스', 9, 9, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'DBM', N'MS-SQL', 12, 12, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'DBO', N'오라클', 8, 8, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'DBS', N'사이베이스', 11, 11, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'DBT', N'티베로', 10, 10, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'DBY', N'MySQL', 13, 13, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'MAPP', N'모바일앱', 14, 14, N'Y', N'모바일앱 서비스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'NWA', N'네트워크(ALTEON)', 4, 4, N'Y', N'네트워크(ALTEON)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'NWC', N'네트워크(CISCO)', 5, 5, N'Y', N'네트워크(CISCO)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'NWE', N'네트워크(ETC)', 23, 23, N'Y', N'2018.05.23.추가', N'nhadmin', CAST(N'2018-05-23T11:30:24.737' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'NWP', N'네트워크(PIOLINK)', 20, 20, N'Y', N'20180125추가', N'nhadmin', CAST(N'2018-02-01T14:20:31.953' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'SC', N'보안장비', 3, 3, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'TOM', N'TOMCAT', 19, 19, N'Y', N'20180125추가', N'nhadmin', CAST(N'2018-01-29T22:26:59.863' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'UNIX', N'유닉스', 1, 1, N'Y', N'유닉스/리눅스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'WAE', N'웹응용프로그램(ETC)', 24, 24, N'Y', N'2018.05.23.추가', N'nhadmin', CAST(N'2018-06-11T17:47:14.900' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'WAL', N'웹로직(WEBLOGIC)', 20, 20, N'Y', N'2018.03.05.추가', N'nhadmin', CAST(N'2018-03-05T14:00:18.927' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'WAP', N'WEB', 15, 15, N'Y', N'웹취약점', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'WAS', N'웹응용프로그램', 7, 7, N'Y', N'농협에선 OS점검에 포함', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'WEB', N'웹서버', 6, 6, N'Y', N'농협에선 OS점검에 포함', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'WEE', N'웹서버(ETC)', 26, 26, N'Y', N'2018.05.23.추가', N'nhadmin', CAST(N'2018-06-11T17:47:14.930' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'WIN', N'윈도우', 2, 2, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'WJB', N'JBOSS', 22, 22, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-02T10:12:46.660' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND_DETAIL', N'자산 유형 상세', N'WTR', N'웹티어(WEBTIER)', 21, 21, N'Y', N'2018.03.05.추가', N'nhadmin', CAST(N'2018-03-05T14:00:18.933' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_KIND2', N'자산 유형2', N'WAP', N'WEB', 9, 9, N'Y', N'웹취약점', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_RATE', N'자산중요도', N'1', N'1', 1, 1, N'Y', N'1', N'', CAST(N'2018-03-28T14:34:05.720' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_RATE', N'자산중요도', N'2', N'2', 2, 2, N'Y', N'2', N'', CAST(N'2018-03-28T14:34:05.723' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_RATE', N'자산중요도', N'3', N'3', 3, 3, N'Y', N'3', N'', CAST(N'2018-03-28T14:34:05.723' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_RATE', N'자산중요도', N'4', N'4', 4, 4, N'Y', N'4', N'', CAST(N'2018-03-28T14:34:05.723' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_RATE', N'자산중요도', N'5', N'5', 5, 5, N'Y', N'5', N'', CAST(N'2018-03-28T14:34:05.723' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_RATE', N'자산중요도', N'6', N'6', 6, 6, N'Y', N'6', N'', CAST(N'2018-03-28T14:34:05.727' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_RATE', N'자산중요도', N'7', N'7', 7, 7, N'Y', N'7', N'', CAST(N'2018-03-28T14:34:05.727' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_RATE', N'자산중요도', N'8', N'8', 8, 8, N'Y', N'8', N'', CAST(N'2018-03-28T14:34:05.727' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_RATE', N'자산중요도', N'9', N'9', 9, 9, N'Y', N'9', N'', CAST(N'2018-03-28T14:34:05.727' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_TYPE', N'자산 구분', N'01', N'시스템 자산', 1, 1, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_TYPE', N'자산 구분', N'02', N'소프트웨어 자산', 2, 2, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSET_TYPE', N'자산 구분', N'03', N'웹모의해킹 자산', 3, 3, N'Y', N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSIGNED_IP_TYPE', N'IP 지정 구분', N'N', N'미지정', 0, 0, N'Y', N'미지정', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ASSIGNED_IP_TYPE', N'IP 지정 구분', N'Y', N'지정', 1, 1, N'Y', N'지정', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'ADMIN', N'관리자메뉴', 9, 9, N'Y', N'관리자메뉴', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'BBS', N'정보센터', 8, 8, N'Y', N'정보센터', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'DIAG_GROUP', N'점검 그룹', 11, 11, N'Y', N'점검 그룹', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'DIAG_MANR', N'수동 정기 취약점 점검', 2, 2, N'Y', N'수동 정기 취약점 점검', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'DIAG_MANT', N'수동 수시 취약점 점검', 3, 3, N'Y', N'수동 수시 취약점 점검', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'DIAG_SCRIPT', N'스크립트 취약점 점검', 4, 4, N'Y', N'스크립트 취약점 점검', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'DIAG_SYSTEM', N'점검 업무', 12, 12, N'Y', N'점검 업무', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'DIAG_WEBVULN', N'웹취약점 취약점 점검', 5, 5, N'Y', N'웹취약점 취약점 점검', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'ETC', N'기타', 10, 10, N'Y', N'기타-자동화 포함한 기타 작업', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'LOGIN', N'로그인/로그아웃', 1, 1, N'Y', N'로그인/로그아웃', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'MANAGE', N'기본관리', 7, 7, N'Y', N'기본관리', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_TYPE', N'감사 구분', N'STAT', N'취약점 통계', 6, 6, N'Y', N'취약점 통계', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'AP', N'승인', 11, 11, N'Y', N'승인', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'C', N'입력', 2, 2, N'Y', N'Create', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'CK', N'검증', 10, 10, N'Y', N'check', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'D', N'삭제', 5, 5, N'Y', N'Delete', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'ED', N'엑셀다운', 7, 7, N'Y', N'Excel Down', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'EU', N'엑셀업로드', 8, 8, N'Y', N'Excel Upload', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'FD', N'파일다운로드', 9, 9, N'Y', N'엑셀파일이 아닌 다른 형식의 파일 다운로드(보고서,결과파일등)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'P', N'출력', 6, 6, N'Y', N'Print', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'R', N'조회', 3, 3, N'Y', N'Read', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'RJ', N'반려', 12, 12, N'Y', N'반려', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'S', N'검색', 1, 1, N'Y', N'Search', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUDIT_WORK_TYPE', N'감사 작업 구분', N'U', N'수정', 4, 4, N'Y', N'Update', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUTOMATION_YN', N'작업자동화 연동 여부', N'N', N'부', 1, 1, N'Y', N'미사용', N'', CAST(N'2018-02-01T21:03:44.203' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'AUTOMATION_YN', N'작업자동화 연동 여부', N'Y', N'여', 0, 0, N'Y', N'사용', N'', CAST(N'2018-02-01T21:03:44.203' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'BBS_TYPE', N'게시판 구분', N'E', N'기타 점검 결과', 4, 4, N'Y', N'기타 게시판-기타 점검 결과', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'BBS_TYPE', N'게시판 구분', N'N', N'게시판', 1, 1, N'Y', N'Notice', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'BBS_TYPE', N'게시판 구분', N'Q', N'Q & A', 3, 3, N'Y', N'QandA', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'BBS_TYPE', N'게시판 구분', N'R', N'보안파일', 2, 2, N'Y', N'Reference', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'CHARGE_TYPE', N'담당 구분', N'D', N'점검', 1, 1, N'Y', N'점검(Diagnosis)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'CHARGE_TYPE', N'담당 구분', N'R', N'조치', 2, 2, N'Y', N'조치(Remedy)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'CHART_TYPE', N'차트 구분', N'BAR', N'막대 그래프', 2, 2, N'Y', N'BAR', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'CHART_TYPE', N'차트 구분', N'PIE', N'파이 차트', 1, 1, N'Y', N'PIE', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'CHECKOUT_STATUS_TYPE', N'미점검/미조치 구분', N'NOT_DIAG', N'미점검', 0, 1, N'Y', N'점검을 하지 않은 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'CHECKOUT_STATUS_TYPE', N'미점검/미조치 구분', N'NOT_MEASURE', N'미조치', 1, 2, N'Y', N'조치를 하지 않은 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_CONFIRM_YN', N'컴플라이언스 확정 여부', N'N', N'미확정', 1, 1, N'Y', N'미확정', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_CONFIRM_YN', N'컴플라이언스 확정 여부', N'Y', N'확정', 0, 0, N'Y', N'확정', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'DBI', N'DBMS(INFOMIX)', 8, 8, N'Y', N'DBMS(INFOMIX)', N'', CAST(N'2018-04-11T20:52:14.193' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'DBM', N'DBMS(MSSQL)', 5, 5, N'Y', N'DBMS(MSSQL)', N'', CAST(N'2018-04-11T20:52:14.193' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'DBO', N'DBMS(ORACLE)', 3, 3, N'Y', N'DBMS(ORACLE)', N'', CAST(N'2018-04-11T20:52:14.193' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'DBS', N'DBMS(SYBASE)', 6, 6, N'Y', N'DBMS(SYBASE)', N'', CAST(N'2018-04-11T20:52:14.193' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'DBT', N'DBMS(TIBERO)', 4, 4, N'Y', N'DBMS(TIBERO)', N'', CAST(N'2018-04-11T20:52:14.193' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'DBY', N'DBMS(MySQL)', 7, 7, N'Y', N'DBMS(MySQL)', N'', CAST(N'2018-04-11T20:52:14.193' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'MAPP', N'모바일앱', 23, 23, N'Y', N'모바일앱', N'', CAST(N'2018-04-11T20:52:14.200' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'NWA', N'NETWORK(ALTEON)', 18, 18, N'Y', N'NETWORK(ALTEON)', N'', CAST(N'2018-04-11T20:52:14.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'NWC', N'NETWORK(CISCO)', 17, 17, N'Y', N'NETWORK(CISCO)', N'', CAST(N'2018-04-11T20:52:14.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'NWP', N'NETWORK(PIOLINK)', 19, 19, N'Y', N'NETWORK(PIOLINK)', N'', CAST(N'2018-04-11T20:52:14.200' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'SCC', N'보안장비', 20, 20, N'Y', N'보안장비', N'', CAST(N'2018-04-11T20:52:14.200' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'SCP', N'보안정책', 21, 21, N'Y', N'보안정책', N'', CAST(N'2018-04-11T20:52:14.200' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'TOM', N'WAS(TOMCAT)', 14, 14, N'Y', N'WAS(TOMCAT)', N'nhadmin', CAST(N'2018-04-11T20:52:14.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'UNIX', N'UNIX/LINUX', 1, 1, N'Y', N'UNIX/LINUX', N'', CAST(N'2018-04-11T20:52:14.190' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'WAJ', N'WAS(JEUS)', 13, 13, N'Y', N'WAS(JEUS)', N'nhadmin', CAST(N'2018-04-11T20:52:14.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'WAL', N'WAS(WEBLOGIC)', 15, 15, N'Y', N'WAS(WEBLOGIC)', N'', CAST(N'2018-04-11T20:52:14.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'WAP', N'웹취약점', 22, 22, N'Y', N'웹취약점', N'', CAST(N'2018-04-11T20:52:14.200' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'WAS', N'WAS', 12, 12, N'Y', N'WAS', N'', CAST(N'2018-04-11T20:52:14.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'WEB', N'WEB', 9, 9, N'Y', N'WEB', N'', CAST(N'2018-04-11T20:52:14.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'WIN', N'WINDOWS', 2, 2, N'Y', N'WINDOWS', N'', CAST(N'2018-04-11T20:52:14.193' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'WJB', N'WAS(JBOSS)', 16, 16, N'Y', N'WAS(JBOSS)', N'nhadmin', CAST(N'2018-04-11T20:52:14.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'WTB', N'WEB(WEBTOB)', 10, 10, N'Y', N'WEB(WEBTOB)', N'nhadmin', CAST(N'2018-04-11T20:52:14.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_DIAG_KIND', N'컴플라이언스 점검 유형', N'WTR', N'WEB(WEBTIER)', 11, 11, N'Y', N'WEB(WEBTIER)', N'nhadmin', CAST(N'2018-04-11T20:52:14.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_INSTITUTION', N'컴플라이언스 기관', N'01', N'NH농협은행 IT보안단', 1, 1, N'Y', N'컴플라이언스 주관 기관-농협 IT보안단 보안대응팀', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_INSTITUTION', N'컴플라이언스 기관', N'02', N'안전행정부', 2, 2, N'Y', N'컴플라이언스 주관 기관', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_INSTITUTION', N'컴플라이언스 기관', N'03', N'금융보안원', 3, 3, N'Y', N'컴플라이언스 주관 기관', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_INSTITUTION', N'컴플라이언스 기관', N'04', N'농협중앙회', 4, 4, N'Y', N'컴플라이언스 주관 기관', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_INSTITUTION', N'컴플라이언스 기관', N'05', N'농협금융지주', 5, 5, N'Y', N'컴플라이언스 주관 기관', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COMP_INSTITUTION', N'컴플라이언스 기관', N'06', N'외부기관', 6, 6, N'Y', N'컴플라이언스 주관 기관', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'CONF_AREA', N'웹앱분류', N'IN', N'내부서비스', 2, 2, N'Y', N'웹애플리케이션 분류', N'nhadmin', CAST(N'2018-02-07T13:45:36.100' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'CONF_AREA', N'웹앱분류', N'OUT', N'공개웹', 1, 1, N'Y', N'웹애플리케이션 분류', N'nhadmin', CAST(N'2018-02-07T13:45:36.133' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COR_TYPE', N'법인구분', N'B', N'은행', 2, 2, N'Y', N'은행', N'', CAST(N'2018-03-23T15:02:45.560' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COR_TYPE', N'법인구분', N'C', N'공통', 1, 1, N'Y', N'공통', N'', CAST(N'2018-03-23T15:02:45.560' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'COR_TYPE', N'법인구분', N'S', N'중앙회', 3, 3, N'Y', N'중앙회', N'', CAST(N'2018-03-23T15:02:45.563' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DB_TYPE', N'DBMS 구분', N'INFORMIX', N'INFORMIX', 2, 2, N'Y', N'인포믹스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DB_TYPE', N'DBMS 구분', N'MSSQL', N'MS-SQL', 5, 5, N'Y', N'MS-SQL', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DB_TYPE', N'DBMS 구분', N'MySQL', N'MySQL', 6, 6, N'Y', N'MySQL', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DB_TYPE', N'DBMS 구분', N'ORACLE', N'ORACLE', 1, 1, N'Y', N'오라클', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DB_TYPE', N'DBMS 구분', N'SYBASE', N'SYBASE', 4, 4, N'Y', N'사이베이스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DB_TYPE', N'DBMS 구분', N'TIBERO', N'TIBERO', 3, 3, N'Y', N'티베로', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DEV_OPR_STATUS', N'개발운영여부', N'DEV', N'개발', 1, 1, N'Y', N'개발', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DEV_OPR_STATUS', N'개발운영여부', N'DEVOPR', N'개발/운영', 3, 3, N'N', N'개발/운영', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DEV_OPR_STATUS', N'개발운영여부', N'N', N'N/A', 4, 4, N'N', N'N/A', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DEV_OPR_STATUS', N'개발운영여부', N'OPR', N'운영', 2, 2, N'Y', N'운영', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_AUTO_STATUS', N'자동 점검 상태', N'0', N'미점검', 0, 1, N'Y', N'자산별 자동 점검 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_AUTO_STATUS', N'자동 점검 상태', N'1', N'점검대기', 1, 2, N'Y', N'자산별 자동 점검 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_AUTO_STATUS', N'자동 점검 상태', N'3', N'점검중', 3, 3, N'Y', N'자산별 자동 점검 상태 - 점검시작 및 점검중', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_AUTO_STATUS', N'자동 점검 상태', N'5', N'장애발생', 5, 4, N'Y', N'자산별 자동 점검 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_AUTO_STATUS', N'자동 점검 상태', N'7', N'점검중지', 7, 5, N'Y', N'자산별 자동 점검 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_AUTO_STATUS', N'자동 점검 상태', N'9', N'점검완료', 9, 6, N'Y', N'자산별 자동 점검 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_FAULT_YN', N'오탐 여부', N'E', N'예외', 3, 3, N'Y', N'예외(EXCEPTION)', N'nhadmin', CAST(N'2018-02-19T10:51:13.763' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_FAULT_YN', N'오탐 여부', N'F', N'오탐', 1, 1, N'Y', N'오탐(Fault)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_FAULT_YN', N'오탐 여부', N'N', N'N/A', 2, 2, N'Y', N'정상(Normal)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_GROUP_REG_STATUS', N'점검요청서 진행현황', N'complete', N'점검 완료', 3, 3, N'Y', N'2018.06.26.추가', N'nhadmin', CAST(N'2018-06-26T18:33:47.340' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_GROUP_REG_STATUS', N'점검요청서 진행현황', N'ing', N'점검 진행중', 2, 2, N'Y', N'2018.06.26.추가', N'nhadmin', CAST(N'2018-06-26T18:33:47.330' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_GROUP_REG_STATUS', N'점검요청서 진행현황', N'waiting', N'계획등록 대기중', 1, 1, N'Y', N'2018.06.26.추가', N'nhadmin', CAST(N'2018-06-26T18:33:47.307' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'DBE', N'DBMS(ETC)', 26, 26, N'Y', N'DBMS(ETC)', N'', CAST(N'2018-04-25T16:17:54.577' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'DBI', N'인포믹스', 10, 10, N'Y', N'인포믹스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'DBM', N'MS-SQL', 13, 13, N'Y', N'MS-SQL', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'DBO', N'오라클', 9, 9, N'Y', N'오라클', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'DBS', N'사이베이스', 12, 12, N'Y', N'사이베이스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'DBT', N'티베로', 11, 11, N'Y', N'티베로', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'DBY', N'MySQL', 14, 14, N'Y', N'MySQL', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'MAPP', N'모바일앱', 15, 15, N'Y', N'모바일앱 서비스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'NWA', N'네트워크(ALTEON)', 5, 5, N'Y', N'네트워크(ALTEON)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'NWC', N'네트워크(CISCO)', 6, 6, N'Y', N'네트워크(CISCO)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'NWE', N'네트워크(ETC)', 23, 23, N'Y', N'네트워크(ETC)', N'', CAST(N'2018-04-25T16:06:52.093' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'NWP', N'네트워크(PIOLINK)', 19, 19, N'Y', N'20180125추가', N'nhadmin', CAST(N'2018-02-01T14:20:31.990' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'SCC', N'보안장비', 4, 4, N'Y', N'보안설정', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'SCP', N'보안정책', 3, 3, N'Y', N'보안정책', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'TOM', N'TOMCAT', 19, 19, N'Y', N'20180125추가', N'nhadmin', CAST(N'2018-01-29T22:27:07.957' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'UNIX', N'유닉스', 1, 1, N'Y', N'유닉스/리눅스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'WAE', N'웹응용프로그램(ETC)', 25, 25, N'Y', N'웹응용프로그램(ETC)', N'', CAST(N'2018-04-25T16:06:52.100' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'WAL', N'웹로직(WEBLOGIC)', 20, 20, N'Y', N'2018.03.05.추가', N'nhadmin', CAST(N'2018-03-05T14:00:18.883' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'WAP', N'WEB', 16, 16, N'Y', N'웹취약점', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'WAS', N'웹응용프로그램', 8, 8, N'Y', N'농협에선 OS점검에 포함', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'WEB', N'웹서버', 7, 7, N'Y', N'농협에선 OS점검에 포함', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'WEE', N'웹서버(ETC)', 24, 24, N'Y', N'웹서버(ETC)', N'', CAST(N'2018-04-25T16:06:52.097' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'WIN', N'윈도우', 2, 2, N'Y', N'윈도우', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'WJB', N'JBOSS', 22, 22, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-02T10:12:36.827' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_KIND', N'점검 유형', N'WTR', N'웹티어(WEBTIER)', 21, 21, N'Y', N'2018.03.05.추가', N'nhadmin', CAST(N'2018-03-05T14:00:18.913' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_MAN_STATUS', N'수동 점검 상태', N'0', N'대기', 0, 1, N'Y', N'자산별 수동 점검 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_MAN_STATUS', N'수동 점검 상태', N'9', N'점검완료', 9, 2, N'Y', N'자산별 자동 점검 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_METHOD', N'점검 방법', N'A', N'자동점검', 2, 2, N'Y', N'점검 방법 - 자동', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_METHOD', N'점검 방법', N'M', N'수동점검', 1, 1, N'Y', N'점검 방법 - 수동', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_RESULT_FILE_TYPE', N'점검 결과파일 구분', N'REPORT', N'요약 보고서', 1, 1, N'Y', N'요약보고서', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_RESULT_FILE_TYPE', N'점검 결과파일 구분', N'SCAN', N'스캔원본', 2, 2, N'Y', N'스캔원본', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_RESULT_TYPE', N'점검 결과 구분', N'F', N'사전점검', 1, 1, N'Y', N'사전점검-First', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_RESULT_TYPE', N'점검 결과 구분', N'N', N'이행점검', 2, 2, N'Y', N'이행점검-Next', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_STATUS_TYPE', N'점검 상태 구분', N'0', N'미점검', 0, 1, N'Y', N'자동점검에서의 점검상태구분으로 미점검된 모든 것으로(not 9인 상태)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_STATUS_TYPE', N'점검 상태 구분', N'9', N'점검완료', 9, 2, N'Y', N'자동점검에서의 점검상태구분으로 점검완료된 모든 것', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TARGET_TYPE', N'점검 대상 구분', N'DA', N'위험수용', 3, 3, N'Y', N'위험수용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TARGET_TYPE', N'점검 대상 구분', N'N', N'비대상', 0, 0, N'Y', N'비대상', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TARGET_TYPE', N'점검 대상 구분', N'NA', N'N/A', 2, 2, N'Y', N'N/A', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TARGET_TYPE', N'점검 대상 구분', N'Y', N'점검대상', 1, 1, N'Y', N'점검대상', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TERM', N'점검 주기', N'R', N'정기', 1, 1, N'Y', N'Regular', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TERM', N'점검 주기', N'T', N'수시', 2, 2, N'Y', N'Temporary', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TOOL', N'점검 도구', N'APPSCAN', N'APP 스캔', 2, 2, N'Y', N'점검도구 종류, 룰셋과 연동하기 위함', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TOOL', N'점검 도구', N'N', N'없음', 1, 1, N'N', N'점검도구 종류-룰셋과 연동없음', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TOOL', N'점검 도구', N'NSE', N'네트워크 스캐너', 3, 3, N'Y', N'점검도구 종류, NSE와 연동하기 위함', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TYPE', N'점검 구분', N'MAN', N'수동', 2, 2, N'Y', N'수동점검일괄', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TYPE', N'점검 구분', N'SCRIPT', N'자동', 1, 1, N'Y', N'스크립트', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TYPE', N'점검 구분', N'WEB_VULN', N'웹취약점', 3, 3, N'Y', N'웹취약점', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TYPE_DETAIL', N'점검 구분 상세', N'MANT', N'수동', 2, 2, N'Y', N'수동점검일괄', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TYPE_DETAIL', N'점검 구분 상세', N'SCRIPT', N'자동', 1, 1, N'Y', N'스크립트', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_TYPE_DETAIL', N'점검 구분 상세', N'WEB_VULN', N'웹취약점', 3, 3, N'Y', N'웹취약점', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_VULN_APPLY_TIME', N'취약 적용 시기', N'0', N'N/A', 0, 0, N'N', N'0-해당없음(N/A)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_VULN_APPLY_TIME', N'취약 적용 시기', N'3', N'단기', 3, 3, N'Y', N'3-단기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_VULN_APPLY_TIME', N'취약 적용 시기', N'4', N'중기', 4, 4, N'Y', N'4-중기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_VULN_APPLY_TIME', N'취약 적용 시기', N'5', N'장기', 5, 5, N'Y', N'5-장기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_VULN_APPLY_TIME', N'취약 적용 시기', N'6', N'위험수용', 6, 6, N'N', N'6-영구위험수용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_VULN_APPLY_TIME', N'취약 적용 시기', N'7', N'조치불가', 7, 7, N'Y', N'7-조치불가', N'', CAST(N'2018-07-16T14:28:36.260' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_VULN_YN', N'점검 취약 여부', N'0', N'미점검', 0, 0, N'Y', N'점검한 결과 취약점 여부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_VULN_YN', N'점검 취약 여부', N'N', N'양호', 1, 1, N'Y', N'점검한 결과 취약점 여부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_VULN_YN', N'점검 취약 여부', N'Y', N'취약', 2, 2, N'Y', N'점검한 결과 취약점 여부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_YN', N'점검 여부', N'N', N'미점검', 2, 2, N'Y', N'점검결과 없음', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DIAG_YN', N'점검 여부', N'Y', N'점검', 1, 1, N'Y', N'점검결과 존재', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DUTY_TYPE', N'직책 구분', N'0', N'개발자', 7, 7, N'N', N'개발자', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DUTY_TYPE', N'직책 구분', N'1', N'담당', 5, 5, N'Y', N'담당', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DUTY_TYPE', N'직책 구분', N'10', N'본부장', 1, 1, N'Y', N'본부장', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DUTY_TYPE', N'직책 구분', N'20', N'기타', 6, 6, N'Y', N'기타-그외의 사용자(준법감시인)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DUTY_TYPE', N'직책 구분', N'3', N'책임', 4, 4, N'Y', N'책임', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DUTY_TYPE', N'직책 구분', N'5', N'팀장', 3, 3, N'Y', N'팀장', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DUTY_TYPE', N'직책 구분', N'7', N'부장', 2, 2, N'Y', N'부장', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'DUTY_TYPE', N'직책 구분', N'99', N'전체', 0, 0, N'N', N'모든 직책', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EMAIL_SEND_ENABLE_YN', N'우편 송부 가능 여부', N'N', N'송부불가', 2, 2, N'Y', N'송부불가', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EMAIL_SEND_ENABLE_YN', N'우편 송부 가능 여부', N'S', N'송부선택가능', 3, 3, N'Y', N'송부선택가능', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EMAIL_SEND_ENABLE_YN', N'우편 송부 가능 여부', N'Y', N'송부가능', 1, 1, N'Y', N'송부가능', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EMAIL_SEND_YN', N'우편 송부 여부', N'N', N'미송부', 2, 2, N'Y', N'미송부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EMAIL_SEND_YN', N'우편 송부 여부', N'Y', N'송부', 1, 1, N'Y', N'송부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ERROR_CODE', N'에러코드', N'DELETE_FAIL_CHILD_EXIST', N'삭제에러-자식 정보 존재', -7777, 1, N'Y', N'자식정보 존재하여 삭제 불가처리할 경우', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ERROR_CODE', N'에러코드', N'INSERT_FAIL_DUPLICATE', N'입력에러-중복 데이터 존재', -2627, 2, N'Y', N'중복 데이터 존재하여 입력 불가처리할 경우-SQL 오류(2627)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ERROR_CODE', N'에러코드', N'INSERT_FAIL_DUPLICATE2', N'입력에러-중복 데이터 존재', -5555, 3, N'Y', N'중복 데이터 존재하여 입력 불가처리할 경우-사용자 정의 오류코드', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPT_CD', N'제외 코드', N'DA', N'위험수용', 2, 2, N'Y', N'Dangerous Accept', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPT_CD', N'제외 코드', N'N', N'점검대상', 0, 0, N'Y', N'제외아님-포함', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPT_CD', N'제외 코드', N'NA', N'N/A', 1, 1, N'Y', N'Not Applicable', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPT_TERM_TYPE', N'제외 기간 구분', N'E', N'영구', 2, 2, N'Y', N'Eternity', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPT_TERM_TYPE', N'제외 기간 구분', N'T', N'임시', 1, 1, N'Y', N'Temporary', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPT_WORK_TYPE', N'제외 작업 구분', N'ADD', N'대기', 1, 1, N'Y', N'Add', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPT_WORK_TYPE', N'제외 작업 구분', N'APPROVE', N'승인', 2, 2, N'Y', N'Approve', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPT_WORK_TYPE', N'제외 작업 구분', N'CANCEL', N'취소', 3, 3, N'Y', N'Cancel', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPTION_CD', N'예외 상태 여부', N'ADD', N'선택', 4, 4, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-02T09:43:54.390' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPTION_CD', N'예외 상태 여부', N'APPLY', N'예외승인대기', 1, 1, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-02T09:43:54.360' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPTION_CD', N'예외 상태 여부', N'APPROVE', N'예외승인', 2, 2, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-02T09:43:54.377' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPTION_CD', N'예외 상태 여부', N'CANCEL', N'취소', 3, 3, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-02T09:43:54.383' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'EXCEPTION_CD', N'예외 상태 여부', N'REJECT', N'반려', 5, 5, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-02T09:43:54.393' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'F_MEASURE_STATUS', N'조치이행 상태', N'0', N'양호', 0, 0, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'F_MEASURE_STATUS', N'조치이행 상태', N'1', N'취약', 1, 1, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'F_MEASURE_STATUS', N'조치이행 상태', N'2', N'현장점검', 2, 2, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'F_MEASURE_STATUS', N'조치이행 상태', N'3', N'추가점검', 3, 3, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'F_MEASURE_STATUS', N'조치이행 상태', N'5', N'N/A', 5, 5, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'F_MEASURE_STATUS', N'조치이행 상태', N'6', N'위험수용', 6, 6, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'FILE_ATTACH_YN', N'파일 첨부 여부', N'N', N'첨부불가', 2, 2, N'Y', N'첨부불가', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'FILE_ATTACH_YN', N'파일 첨부 여부', N'Y', N'첨부가능', 1, 1, N'Y', N'첨부가능', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'GRANT_TYPE', N'승인 구분', N'A', N'대리자', 2, 2, N'Y', N'대리자(Agent)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'GRANT_TYPE', N'승인 구분', N'G', N'승인자', 1, 1, N'Y', N'승인자(Grantor)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'GRANT_YN', N'승인 여부', N'N', N'승인대기', 2, 2, N'Y', N'승인대기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'GRANT_YN', N'승인 여부', N'Y', N'승인완료', 1, 1, N'Y', N'승인완료', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'GROUP_TYPE', N'그룹 구분', N'C', N'컴플라이언스', 1, 1, N'Y', N'취약점 그룹에 사용 - Compliance', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'GROUP_TYPE', N'그룹 구분', N'G', N'항목그룹', 3, 3, N'Y', N'취약점 그룹에 사용 - Ggroup', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'GROUP_TYPE', N'그룹 구분', N'K', N'점검유형', 2, 2, N'Y', N'취약점 그룹에 사용 - Kind', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'GROUP_TYPE', N'그룹 구분', N'V', N'항목', 4, 4, N'Y', N'취약점 그룹에 사용 - Vulnenability', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'LOCK_YN', N'잠김 여부', N'N', N'계정사용중', 2, 2, N'Y', N'계정사용중', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'LOCK_YN', N'잠김 여부', N'Y', N'계정잠김', 1, 1, N'Y', N'계정잠김', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'LOGIN_YN', N'로그인 여부', N'N', N'로그아웃', 2, 2, N'Y', N'로그아웃', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'LOGIN_YN', N'로그인 여부', N'Y', N'로그인중', 1, 1, N'Y', N'로그인중', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MANDATORY_YN', N'필수 여부', N'N', N'미필', 2, 2, N'Y', N'미필(N)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MANDATORY_YN', N'필수 여부', N'S', N'선택', 3, 3, N'Y', N'선택(S)-화면에 사용하지 않으면 폐기처리할 것', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MANDATORY_YN', N'필수 여부', N'Y', N'필수', 1, 1, N'Y', N'필수(Y)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MEASURE_STATUS', N'조치 상태', N'0', N'양호', 0, 0, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MEASURE_STATUS', N'조치 상태', N'1', N'취약', 1, 1, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MEASURE_STATUS', N'조치 상태', N'2', N'현장점검', 2, 2, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MEASURE_STATUS', N'조치 상태', N'3', N'추가점검', 3, 3, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MEASURE_STATUS', N'조치 상태', N'5', N'N/A', 5, 5, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MEASURE_STATUS', N'조치 상태', N'6', N'위험수용', 6, 6, N'Y', N'점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MEASURE_STAUS_TYPE', N'조치 상태 구분', N'0', N'미조치', 0, 1, N'Y', N'자동점검에서의 조치상태구분으로 미조치된 모든 것(조치이행상태 0인것)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'MEASURE_STAUS_TYPE', N'조치 상태 구분', N'1', N'조치', 1, 2, N'Y', N'자동점검에서의 조치상태구분으로 미조치된가아닌 모든 것(조치이행상태 0이 아닌것)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'N_DIAG_VULN_REJECT_YN', N'이행점검 취약 반려 여부', N'A', N'적용', 2, 2, N'Y', N'적용(A-Accept)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'N_DIAG_VULN_REJECT_YN', N'이행점검 취약 반려 여부', N'R', N'반려', 1, 1, N'Y', N'반려(R-Reject)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'N_MEASURE_STATUS', N'이행점검 상태', N'0', N'양호', 0, 0, N'Y', N'취약한 것을 더 이상 조치할 수 없는 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'N_MEASURE_STATUS', N'이행점검 상태', N'1', N'취약', 1, 1, N'Y', N'이행점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'N_MEASURE_STATUS', N'이행점검 상태', N'2', N'현장점검', 2, 2, N'Y', N'이행점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'N_MEASURE_STATUS', N'이행점검 상태', N'3', N'추가점검', 3, 3, N'Y', N'이행점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'N_MEASURE_STATUS', N'이행점검 상태', N'5', N'N/A', 5, 5, N'Y', N'이행점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'N_MEASURE_STATUS', N'이행점검 상태', N'6', N'위험수용', 6, 6, N'Y', N'이행점검 결과에 대한 조치 상태', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'NW_TYPE', N'네트워크장비 구분', N'ROUTER', N'라우터', 2, 2, N'Y', N'라우터', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'NW_TYPE', N'네트워크장비 구분', N'SWITCH', N'스위치', 1, 1, N'Y', N'스위치', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ORG_LEVEL', N'조직 수준', N'1', N'은행', 1, 1, N'N', N'은행', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ORG_LEVEL', N'조직 수준', N'2', N'본부', 2, 2, N'Y', N'본부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ORG_LEVEL', N'조직 수준', N'3', N'부/단', 3, 3, N'Y', N'단/부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'ORG_LEVEL', N'조직 수준', N'4', N'팀', 4, 4, N'Y', N'팀', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'POSITION_TYPE', N'직급 구분', N'1', N'3급', 5, 1, N'Y', N'3급', N'', CAST(N'2017-12-10T15:31:37.430' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'POSITION_TYPE', N'직급 구분', N'2', N'4급', 3, 2, N'Y', N'4급', N'', CAST(N'2017-12-10T15:31:37.430' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'POSITION_TYPE', N'직급 구분', N'3', N'5급', 1, 3, N'Y', N'5급', N'', CAST(N'2017-12-10T15:31:37.427' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'POSITION_TYPE', N'직급 구분', N'4', N'M급', 1, 4, N'Y', N'M급', N'', CAST(N'2017-12-11T20:39:04.477' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'POSITION_TYPE', N'직급 구분', N'5', N'기간제근로자', 1, 5, N'Y', N'기간제근로자', N'', CAST(N'2017-12-11T20:39:38.140' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'RATE', N'위험등급', N'0', N'N/A', 0, 0, N'Y', N'N/A', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'RATE', N'위험등급', N'1', N'상', 1, 1, N'Y', N'상', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'RATE', N'위험등급', N'2', N'중', 2, 2, N'Y', N'중', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'RATE', N'위험등급', N'3', N'하', 3, 3, N'Y', N'하', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'RATE', N'위험등급', N'4', N'정보', 4, 4, N'Y', N'정보', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REGULAR_SEARCH_ASSET_GROUP', N'상시점검 검색그룹1', N'AUTOMATION', N'작업자동화연동', 1, 1, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-10T16:02:45.090' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REGULAR_SEARCH_ASSET_GROUP', N'상시점검 검색그룹1', N'CRITICAL_INFO', N'주요정보통신기반시설', 2, 2, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-10T16:02:45.113' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REGULAR_SEARCH_ASSET_GROUP', N'상시점검 검색그룹1', N'ELECTRONIC_FIN', N'전자금융기반시설', 5, 5, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-10T16:02:45.130' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REGULAR_SEARCH_ASSET_GROUP', N'상시점검 검색그룹1', N'ISMS', N'ISMS', 3, 3, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-10T16:02:45.120' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REGULAR_SEARCH_ASSET_GROUP', N'상시점검 검색그룹1', N'ISO27001', N'ISO27001', 6, 6, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-10T16:02:45.130' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REGULAR_SEARCH_ASSET_GROUP', N'상시점검 검색그룹1', N'STATS_MANAGEMENT', N'통계관리대상', 4, 4, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-10T16:02:45.127' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REPORT_RESULT_COUNT', N'보고서 결과 건수', N'10', N'10', 10, 2, N'Y', N'10', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REPORT_RESULT_COUNT', N'보고서 결과 건수', N'15', N'15', 15, 3, N'Y', N'15', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REPORT_RESULT_COUNT', N'보고서 결과 건수', N'20', N'20', 20, 4, N'Y', N'20', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REPORT_RESULT_COUNT', N'보고서 결과 건수', N'30', N'30', 30, 5, N'Y', N'30', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REPORT_RESULT_COUNT', N'보고서 결과 건수', N'5', N'5', 5, 1, N'Y', N'5', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REPORT_RESULT_COUNT', N'보고서 결과 건수', N'50', N'50', 50, 6, N'Y', N'50', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REPORT_TEMPLATE', N'보고서 템플릿', N'ReportAssetVulnCount_RPT', N'자산별 취약점 발생 보고서', 1, 1, N'Y', N'자산별 취약점 발생 보고서', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REPORT_TEMPLATE', N'보고서 템플릿', N'ReportOrgVulnCount_RPT', N'조직별 항목별 발생 보고서', 3, 3, N'Y', N'조직별 항목별 발생 보고서', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'REPORT_TEMPLATE', N'보고서 템플릿', N'ReportVulnCount_RPT', N'취약점 항목별 발생 보고서', 2, 2, N'Y', N'취약점 항목별 발생 보고서', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'RULE_YN', N'룰셋 적용 여부', N'N', N'미적용', 2, 2, N'Y', N'룰셋 미적용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'RULE_YN', N'룰셋 적용 여부', N'Y', N'적용', 1, 1, N'Y', N'룰셋 적용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'계정접근통제관리Gateway', N'계정접근통제관리Gateway', 13, 13, N'Y', N'계정접근통제관리Gateway', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'로그세이버', N'로그세이버', 31, 31, N'Y', N'로그세이버', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'무선랜인증', N'무선랜인증', 24, 24, N'Y', N'무선랜인증', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'미분류', N'미분류', 33, 33, N'Y', N'미분류', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'보안스위치', N'보안스위치', 26, 26, N'Y', N'보안스위치', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'서버보안', N'서버보안', 32, 32, N'Y', N'서버보안', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'원장변경기록관리시스템', N'원장변경기록관리시스템', 14, 14, N'Y', N'원장변경기록관리시스템', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'원장변환시스템', N'원장변환시스템', 15, 15, N'Y', N'원장변환시스템', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'유해사이트차단', N'유해사이트차단', 27, 27, N'Y', N'유해사이트차단', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'접근통제시스템', N'접근통제시스템', 11, 11, N'Y', N'접근통제시스템', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'차세대FW', N'차세대FW', 25, 25, N'Y', N'차세대FW', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'차세대FW관리장비', N'차세대FW관리장비', 16, 16, N'Y', N'차세대FW관리장비', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'차세대FW로그분석기', N'차세대FW로그분석기', 17, 17, N'Y', N'차세대FW로그분석기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'차세대FW인증장비', N'차세대FW인증장비', 28, 28, N'Y', N'차세대FW인증장비', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'특수계정비밀번호관리시스템', N'특수계정비밀번호관리시스템', 18, 18, N'Y', N'특수계정비밀번호관리시스템', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'APC(백신정책관리서버)', N'APC(백신정책관리서버)', 29, 29, N'Y', N'APC(백신정책관리서버)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'APT', N'APT', 19, 19, N'Y', N'APT', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'DB접근제어', N'DB접근제어', 12, 12, N'Y', N'DB접근제어', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'DDos', N'DDos', 8, 8, N'Y', N'DDos', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'FW', N'방화벽', 4, 4, N'Y', N'방화벽', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'FW_', N'FW_', 7, 7, N'Y', N'FW_', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'HSM', N'HSM', 21, 21, N'Y', N'HSM', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'IDS', N'침입탐지', 3, 3, N'Y', N'침입탐지', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'IPS', N'침입방지', 2, 2, N'Y', N'침입방지', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'NAC(네트워크접근통제)', N'NAC(네트워크 접근통제)', 30, 30, N'Y', N'NAC(네트워크 접근통제)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'SC_ALL', N'보안장비', 1, 1, N'Y', N'보안장비(전체)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'SSL가속기', N'SSL가속기', 10, 10, N'Y', N'SSL가속기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'SSLVPN', N'SSL VPN', 22, 22, N'Y', N'SSL VPN', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'VPN_', N'VPN_', 6, 6, N'Y', N'VPN_', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'WAF', N'웹방화벽', 5, 5, N'Y', N'웹방화벽', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'WEBFW', N'WEB FW', 9, 9, N'Y', N'WEB FW', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'WEBFW분석기', N'WEB FW 분석기', 20, 20, N'Y', N'WEB FW 분석기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SC_TYPE', N'보안장비 구분', N'WIPS', N'WIPS', 23, 23, N'Y', N'WIPS', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SCAN_INFO_REG_YN', N'앱스캔 정보 등록 여부', N'N', N'미등록', 2, 2, N'Y', N'웹자산에 대한 앱스캔 환경설정 정보 등록 여부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SCAN_INFO_REG_YN', N'앱스캔 정보 등록 여부', N'Y', N'등록', 1, 1, N'Y', N'웹자산에 대한 앱스캔 환경설정 정보 등록 여부', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SECURITY_MONITORING_YN', N'통합보안관제 연동 여부', N'N', N'부', 1, 1, N'Y', N'미사용', N'', CAST(N'2018-02-01T21:03:44.203' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SECURITY_MONITORING_YN', N'통합보안관제 연동 여부', N'Y', N'여', 0, 0, N'Y', N'사용', N'', CAST(N'2018-02-01T21:03:44.207' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'1Day', N'1 일', 11, 11, N'Y', N'1 일', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'1Month', N'1 월', 13, 13, N'Y', N'1 월', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'1Quater', N'1 분기', 14, 14, N'Y', N'1 분기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'1Week', N'1 주', 12, 12, N'Y', N'1 주', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'1Year', N'1 년', 15, 15, N'Y', N'1 년', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'ALL', N'전체', 16, 16, N'N', N'전체', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'LastMonth', N'전월', 3, 3, N'Y', N'전월', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'LastQuater', N'전분기', 4, 4, N'Y', N'전분기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'LastWeek', N'전주', 2, 2, N'Y', N'전주', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'LastYear', N'전년', 5, 5, N'Y', N'전년', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'SelectTerm', N'기간 선택', 0, 0, N'Y', N'기간 선택', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'ThisMonth', N'금월', 8, 8, N'Y', N'금월', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'ThisQuater', N'금분기', 9, 9, N'Y', N'금분기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'ThisWeek', N'금주', 7, 7, N'Y', N'금주', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'ThisYear', N'금년', 10, 10, N'Y', N'금년', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'Today', N'금일', 6, 6, N'Y', N'금일', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SELECT_TERM', N'기간 선택', N'Yesterday', N'전일', 1, 1, N'Y', N'전일', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SMS_SEND_ENABLE_YN', N'SMS 송부 가능 여부', N'N', N'송부불가', 2, 2, N'Y', N'송부불가', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SMS_SEND_ENABLE_YN', N'SMS 송부 가능 여부', N'S', N'송부선택가능', 3, 3, N'Y', N'송부선택가능', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SMS_SEND_ENABLE_YN', N'SMS 송부 가능 여부', N'Y', N'송부가능', 1, 1, N'Y', N'송부가능', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SORT_TYPE', N'정렬 구분', N'BOTTOM', N'하위', 2, 2, N'Y', N'BOTTOM', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SORT_TYPE', N'정렬 구분', N'TOP', N'상위', 1, 1, N'Y', N'TOP', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SSO_YN', N'SSO 연동 여부', N'N', N'부', 1, 1, N'Y', N'미사용', N'', CAST(N'2018-02-12T12:45:34.317' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SSO_YN', N'SSO 연동 여부', N'Y', N'여', 0, 0, N'Y', N'사용', N'', CAST(N'2018-02-12T12:45:34.317' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'계정접근통제관리Gateway', N'계정접근통제관리Gateway', 40, 40, N'N', N'계정접근통제관리Gateway', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'로그세이버', N'로그세이버', 58, 58, N'N', N'로그세이버', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'무선랜인증', N'무선랜인증', 51, 51, N'N', N'무선랜인증', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'미분류', N'미분류', 60, 60, N'N', N'미분류', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'보안스위치', N'보안스위치', 53, 53, N'N', N'보안스위치', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'서버보안', N'서버보안', 59, 59, N'N', N'서버보안', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'원장변경기록관리시스템', N'원장변경기록관리시스템', 41, 41, N'N', N'원장변경기록관리시스템', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'원장변환시스템', N'원장변환시스템', 42, 42, N'N', N'원장변환시스템', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'유해사이트차단', N'유해사이트차단', 54, 54, N'N', N'유해사이트차단', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'접근통제시스템', N'접근통제시스템', 38, 38, N'N', N'접근통제시스템', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'차세대FW', N'차세대FW', 52, 52, N'N', N'차세대FW', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'차세대FW관리장비', N'차세대FW관리장비', 43, 43, N'N', N'차세대FW관리장비', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'차세대FW로그분석기', N'차세대FW로그분석기', 44, 44, N'N', N'차세대FW로그분석기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'차세대FW인증장비', N'차세대FW인증장비', 55, 55, N'N', N'차세대FW인증장비', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'특수계정비밀번호관리시스템', N'특수계정비밀번호관리시스템', 45, 45, N'N', N'특수계정비밀번호관리시스템', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'AIX', N'AIX', 1, 1, N'Y', N'AIX', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'ALTEON', N'ALTEON', 30, 30, N'Y', N'ALTEON', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'ANDROID', N'ANDROID', 28, 28, N'Y', N'ANDROID', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'APACHE', N'APACHE', 16, 16, N'N', N'APACHE', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'APC(백신정책관리서버)', N'APC(백신정책관리서버)', 56, 56, N'N', N'APC(백신정책관리서버)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'APT', N'APT', 46, 46, N'N', N'APT', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'CISCO', N'CISCO', 31, 31, N'Y', N'CISCO', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'DB접근제어', N'DB접근제어', 39, 39, N'N', N'DB접근제어', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'DBMS ETC', N'DBMS ETC', 68, 68, N'Y', N'DBMS ETC', N'', CAST(N'2018-04-25T16:17:54.577' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'DDos', N'DDos', 35, 35, N'N', N'DDos', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'FW', N'방화벽', 10, 10, N'N', N'FW', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'FW_', N'FW_', 34, 34, N'N', N'FW_', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'HP-UX', N'HP-UX', 2, 2, N'Y', N'HP-UX', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'HSM', N'HSM', 48, 48, N'N', N'HSM', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'IDS', N'침입탐지', 12, 12, N'N', N'IDS', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'INFORMIX', N'INFORMIX', 25, 25, N'Y', N'INFORMIX', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'IOS', N'IOS', 27, 27, N'Y', N'IOS', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'IPS', N'침입방지', 11, 11, N'N', N'IPS', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'IRIX', N'IRIX', 6, 6, N'N', N'IRIX', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'JBOSS', N'JBOSS', 62, 62, N'Y', N'2018.03.28.추가', N'nhadmin', CAST(N'2018-04-02T10:12:54.470' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'JEUS', N'JEUS', 18, 18, N'Y', N'JEUS', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'LINUX', N'LINUX', 8, 8, N'Y', N'LINUX', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'MSSQL', N'MS-SQL', 23, 23, N'Y', N'MS-SQL', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'MySQL', N'MySQL', 24, 24, N'Y', N'MySQL', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'NAC(네트워크접근통제)', N'NAC(네트워크 접근통제)', 57, 57, N'N', N'NAC(네트워크 접근통제)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'NETWORK ETC', N'NETWORK ETC', 65, 65, N'Y', N'NETWORK ETC', N'', CAST(N'2018-04-25T16:06:52.093' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'ORACLE', N'ORACLE', 21, 21, N'Y', N'ORACLE', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'OSF/1', N'OSF/1', 5, 5, N'N', N'OSF/1', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'PIOLINK', N'PIOLINK', 50, 50, N'Y', N'20180125추가', N'nhadmin', CAST(N'2018-02-01T16:35:39.853' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'ROUTER', N'라우터', 15, 15, N'N', N'ROUTER', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'SC_ALL', N'보안장비', 32, 32, N'Y', N'보안장비(전체)', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'SCOUNIX', N'SCOUNIX', 7, 7, N'N', N'SCOUNIX', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'SOLARIS', N'SOLARIS', 3, 3, N'N', N'SOLARIS', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'SSL가속기', N'SSL가속기', 37, 37, N'N', N'SSL가속기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'SSLVPN', N'SSL VPN', 49, 49, N'N', N'SSL VPN', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'SUNOS', N'SUNOS', 4, 4, N'Y', N'SUNOS', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'SWITCH', N'스위치', 14, 14, N'N', N'SWITCH', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'SYBASE', N'SYBASE', 26, 26, N'Y', N'SYBASE', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'TIBERO', N'TIBERO', 22, 22, N'Y', N'TIBERO', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'TOMCAT', N'TOMCAT', 19, 19, N'Y', N'TOMCAT', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'UNIX ETC', N'UNIX ETC', 63, 63, N'Y', N'UNIX ETC', N'', CAST(N'2018-04-25T16:06:52.090' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'VPN_', N'VPN_', 33, 33, N'N', N'VPN_', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WAF', N'웹방화벽', 13, 13, N'N', N'WAF', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WAP', N'WEB', 29, 29, N'Y', N'웹취약점', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WAS ETC', N'WAS ETC', 67, 67, N'Y', N'WAS ETC', N'', CAST(N'2018-04-25T16:06:52.100' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WEB ETC', N'WEB ETC', 66, 66, N'Y', N'WEB ETC', N'', CAST(N'2018-04-25T16:06:52.097' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WEBFW', N'WEB FW', 36, 36, N'N', N'WEB FW', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WEBFW분석기', N'WEB FW 분석기', 47, 47, N'N', N'WEB FW 분석기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WEBLOGIC', N'WEBLOGIC', 61, 61, N'Y', N'WEBLOGIC', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WEBTIER', N'WEBTIER', 17, 17, N'Y', N'WEBTIER', N'', CAST(N'2018-02-28T13:33:31.713' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WEBTOB', N'WEBTOB', 16, 16, N'Y', N'WEBTOB', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WINDOWS', N'WINDOWS', 9, 9, N'Y', N'WINDOWS', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WINDOWS ETC', N'WINDOWS ETC', 64, 64, N'Y', N'WINDOWS ETC', N'', CAST(N'2018-04-25T16:06:52.093' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'SW_TYPE', N'SW 구분', N'WIPS', N'WIPS', 50, 50, N'N', N'WIPS', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'UPPER_APPROVAL_YN', N'결재 상신 여부', N'N', N'비대상', 2, 2, N'Y', N'비대상', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'UPPER_APPROVAL_YN', N'결재 상신 여부', N'Y', N'대상', 1, 1, N'Y', N'대상', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'USE_YN', N'사용 여부', N'N', N'폐기', 1, 1, N'Y', N'폐기', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'USE_YN', N'사용 여부', N'Y', N'사용', 0, 0, N'Y', N'사용', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'USER_AUTH', N'사용자 권한', N'1', N'기타사용자', 5, 5, N'Y', N'기타사용자', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'USER_AUTH', N'사용자 권한', N'3', N'일반사용자', 4, 4, N'Y', N'일반사용자-운영팀', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'USER_AUTH', N'사용자 권한', N'7', N'보안사용자', 3, 3, N'Y', N'보안사용자-보안팀', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'USER_AUTH', N'사용자 권한', N'8', N'최고 관리자', 2, 2, N'Y', N'최고 관리자', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'USER_AUTH', N'사용자 권한', N'9', N'수퍼 관리자', 1, 1, N'N', N'수퍼 관리자', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'USER_TYPE', N'사용자 구분', N'A', N'관리자 그룹', 1, 1, N'Y', N'ADMIN', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'USER_TYPE', N'사용자 구분', N'S', N'시스템 그룹', 3, 3, N'Y', N'SYSTEM - 자동처리 계정', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'USER_TYPE', N'사용자 구분', N'U', N'사용자 그룹', 2, 2, N'Y', N'USER', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'VULN_TEMP_KIND', N'취약점 템플릿 유형', N'GROUP', N'항목 그룹', 1, 1, N'Y', N'항목 그룹', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'VULN_TEMP_KIND', N'취약점 템플릿 유형', N'ITEM', N'항목', 2, 2, N'Y', N'항목', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WAS_TYPE', N'WAS 구분', N'JEUS', N'JEUS', 2, 2, N'Y', N'제우스', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WAS_TYPE', N'WAS 구분', N'TOMCAT', N'TOMCAT', 1, 1, N'Y', N'톰캣', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WEB_DEVELOP_LANG', N'앱스캔 점검 대상 서버의 웹 개발 언어', N'ASP', N'ASP', 7, 2, N'Y', N'ASP', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WEB_DEVELOP_LANG', N'앱스캔 점검 대상 서버의 웹 개발 언어', N'ASP.NET', N'ASP.NET', 6, 1, N'Y', N'ASP.NET', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WEB_DEVELOP_LANG', N'앱스캔 점검 대상 서버의 웹 개발 언어', N'JAVA', N'JAVA', 8, 3, N'Y', N'JAVA', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WEB_DEVELOP_LANG', N'앱스캔 점검 대상 서버의 웹 개발 언어', N'JSP', N'JSP', 9, 4, N'Y', N'JSP', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WEB_DEVELOP_LANG', N'앱스캔 점검 대상 서버의 웹 개발 언어', N'PHP', N'PHP', 10, 5, N'Y', N'PHP', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WEB_TYPE', N'WEB 구분', N'APPACHE', N'APPACHE', 1, 1, N'Y', N'아파치', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WEB_TYPE', N'WEB 구분', N'WEBLOGIC', N'WEBLOGIC', 2, 2, N'Y', N'웹로직', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WEB_TYPE', N'WEB 구분', N'WEBTOB', N'WEBTOB', 3, 3, N'Y', N'웹투비', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WORK_RESULT_TYPE', N'작업 결과 구분', N'E', N'장애', 3, 3, N'Y', N'Error', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WORK_RESULT_TYPE', N'작업 결과 구분', N'F', N'실패', 2, 2, N'Y', N'Fail', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'WORK_RESULT_TYPE', N'작업 결과 구분', N'S', N'성공', 1, 1, N'Y', N'Success', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'YN', N'여부', N'N', N'부', 1, 1, N'Y', N'미사용', N'', CAST(N'2018-03-28T14:19:51.197' AS DateTime))
+GO
+INSERT [dbo].[TCommonCode] ([CodeType], [CodeTypeName], [CodeId], [CodeName], [CodeVal], [SortOrder], [UseYn], [CodeComment], [CreateUserId], [CreateDt]) VALUES (N'YN', N'여부', N'Y', N'여', 0, 0, N'Y', N'사용', N'', CAST(N'2018-03-28T14:19:51.200' AS DateTime))
+GO
