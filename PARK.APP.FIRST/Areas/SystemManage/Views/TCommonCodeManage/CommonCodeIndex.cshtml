@@ -1,0 +1,78 @@
+﻿@model IEnumerable<PARK.APP.FIRST.Areas.SystemManage.Models.System.TcommonCode>
+
+@{
+    ViewData["Title"] = "CommonCodeIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CommonCodeIndex</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeVal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SortOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseYn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeComment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateUserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeVal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SortOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UseYn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeComment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateUserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDt)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

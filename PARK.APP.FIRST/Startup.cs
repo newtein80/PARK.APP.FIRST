@@ -18,6 +18,7 @@ using PARK.APP.FIRST.Services;
 using System.Net;
 using PARK.APP.FIRST.Areas.VulnManage.Models.Vuln;
 using PARK.APP.FIRST.Areas.VulnManage.Repositories;
+using PARK.APP.FIRST.Areas.SystemManage.Models.System;
 
 namespace PARK.APP.FIRST
 {
@@ -47,6 +48,10 @@ namespace PARK.APP.FIRST
             // google : mssql 2008 skip take exception site:stackoverflow.com
             // https://stackoverflow.com/questions/29995502/paging-with-entity-framework-7-and-sql-server-2008
             services.AddDbContext<VulnDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection"), opt => { opt.UseRowNumberForPaging(); }));
+
+            services.AddDbContext<SystemDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"), opt => { opt.UseRowNumberForPaging(); }));
 

@@ -1,0 +1,161 @@
+﻿USE [PJSWORK]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_COMMON_CODE_LIST]    Script Date: 2018-11-29 오후 11:26:33 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE procedure [dbo].[SSP_COMMON_CODE_LIST]
+    @gubun					nvarchar(8)
+    ,   @code_type			nvarchar(32)
+    ,   @code_type_name		nvarchar(128)
+	,	@code_id			nvarchar(32)
+	,	@code_name			nvarchar(128)
+	,	@code_val			int
+	,	@use_yn				char(1)
+	,   @sort_field			nvarchar(50)
+    ,   @is_desc			tinyint = 1
+	,   @pagesize			int
+    ,   @pageindex			int
+    ,   @allCount			bigint output
+as
+	
+set transaction isolation level read uncommitted
+set nocount on
+
+begin
+    declare  
+        @SQLString      nvarchar(max) = ''
+        ,   @wheredata  nvarchar(max) = ''
+        ,   @orderby    varchar(500) = ' order by CodeType asc'
+        ,   @subquery   varchar(max) = ''
+        ,	@is_desc_title varchar(10)   = ''
+
+
+	if '' = @gubun or '' = isnull(@gubun, '') begin
+        set @gubun = null;
+    end
+
+	if '' = @code_type or '' = isnull(@code_type, '') begin
+        set @code_type = null;
+    end
+
+    if '' = @code_type_name or '' = isnull(@code_type_name, '') begin
+        set @code_type_name = null;
+    end
+
+	if '' = @code_id or '' = isnull(@code_id, '') begin
+        set @code_id = null;
+    end
+
+	if '' = @code_name or '' = isnull(@code_name, '') begin
+        set @code_name = null;
+    end
+
+	if 'all' = @use_yn or '' = @use_yn or '' = isnull(@use_yn, '') begin
+		set @use_yn = null;
+    end
+
+    if(@code_type is not null) begin
+	    set @wheredata =  @wheredata + ' and CodeType like ''%' + @code_type + '%'' '
+    end
+    
+    if(@code_type_name is not null) begin
+		set @wheredata = @wheredata + ' and CodeTypeName like ''%' + @code_type_name + '%'' '
+    end
+
+	if(@code_id is not null) begin
+		set @wheredata = @wheredata + ' and CodeId like ''%' + @code_id + '%'' '
+    end
+
+	if(@code_name is not null) begin
+		set @wheredata = @wheredata + ' and CodeName like ''%' + @code_name + '%'' '
+    end
+
+	if(@use_yn is not null) begin
+	    set @wheredata =  @wheredata + ' and UseYn = ''' + @use_yn + ''' '
+    end
+
+    if '' = @sort_field or '' = isnull(@sort_field, '') begin
+        set @orderby = ' order by CodeType asc '
+    end
+    else begin
+        if 1 = @is_desc begin
+           set @is_desc_title = 'DESC'
+        end
+        else begin
+           set @is_desc_title = 'ASC'
+        end
+
+        set @orderby = ' order by ' + @sort_field + ' ' + @is_desc_title
+    end
+
+    declare @fromidx int
+    declare @toidx   int
+    set @fromidx = ((@pageindex - 1) * @pagesize) + 1
+    set @toidx = @pageindex * @pagesize
+
+    set @SQLString = ' 
+declare @T_TEMP table 
+(
+    TEMP_SEQ 	    bigint identity primary key
+    ,   Codetype   nvarchar(32)
+	,	CodeId		nvarchar(32)
+)
+
+insert into @T_TEMP(Codetype, CodeId)  
+select
+	CodeType
+	, CodeId
+from
+(
+	select
+		*
+	from dbo.TCommonCode with(nolock)
+) as t0
+where 1=1
+
+'
+    set @subquery = 
+'
+select  
+    @p_value = count(*) 
+from @T_TEMP
+
+select 
+    t3.*
+from 
+(
+    select 
+        *
+    from dbo.TCommonCode with(nolock)
+) as t3
+inner join @T_TEMP as t4
+on
+(
+    t3.CodeType = t4.Codetype
+	, t3.CodeId = t4.CodeId
+)
+'
+    set @subquery = @subquery + ' where t4.TEMP_SEQ >= @fromidx and t4.TEMP_SEQ <= @toidx '     
+    set @SQLString = @SQLString + @wheredata + @orderby + @subquery
+
+    declare @params nvarchar(200)
+    set   @params  ='@p_value int output , @toidx int, @fromidx int'
+    
+    exec sp_executesql  @SQLString
+                      , @params
+                      , @p_value = @allCount OUTPUT
+                      , @fromidx = @fromidx
+                      , @toidx = @toidx
+                  
+    select @allCount as TotCnt
+end
+
+GO
+
+
