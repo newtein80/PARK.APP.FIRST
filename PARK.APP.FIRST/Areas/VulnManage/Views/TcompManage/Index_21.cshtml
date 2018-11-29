@@ -1,0 +1,200 @@
+﻿@model PARK.APP.FIRST.Areas.VulnManage.Controllers.TcompManageController.PageViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+
+@{
+    ViewData["Title"] = "Index_21";
+    ViewData["Theme"] = "metro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var vm_PageComp = Model._PageCompModels.FirstOrDefault();
+
+    //if(vm_PageComp == null)
+    //{
+    //    vm_PageComp = new PARK.APP.FIRST.Areas.VulnManage.Controllers.TcompManageController.PageCompModel();
+    //}
+    var vm_PageSearch = Model._PageCompSearch;
+}
+
+<h2>Index_11</h2>
+@*나중에 html.BeginForm 에서 submit 할 때 form 의 내용만 담긴 model 만! 넘길 수 있는지 찾아봐야 함!!!!*@
+<!-- Search Form -->
+@using (Html.BeginForm("Index_21", "TcompManage", FormMethod.Post))
+{
+    @Html.LabelFor(m => m._PageCompSearch.Comp_name)
+    @Html.TextBoxFor(m => m._PageCompSearch.Comp_name, new { placeholder = "_PageCompSearch.Comp_name", @class = "form-control" })
+    @Html.LabelFor(m => m._PageCompSearch.Create_user_id)
+    @Html.TextBoxFor(m => m._PageCompSearch.Create_user_id, new { placeholder = "_PageCompSearch.Create_user_id", @class = "form-control" })
+    @Html.LabelFor(m => m._PageCompSearch.Diag_type)
+    @Html.TextBoxFor(m => m._PageCompSearch.Diag_type, new { placeholder = "_PageCompSearch.Diag_type", @class = "form-control" })
+    @Html.LabelFor(m => m._PageCompSearch.Use_yn)
+    @Html.TextBoxFor(m => m._PageCompSearch.Use_yn, new { placeholder = "_PageCompSearch.Use_yn", @class = "form-control" })
+    <bootstrap-button type="submit" class="btn btn-primary btn-sm">
+        Submit
+    </bootstrap-button>
+}
+<p>
+    @Html.ActionLink("Razor AtcionLink(Create)", "Create", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+    
+    @Html.ActionLink("Index_11", "Index_11", "TvulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+    @Html.ActionLink("Index_21", "Index_21", "TcompManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+    <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
+        Open sample modal
+    </bootstrap-button>
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="ajax-modal" data-target="#popupVulnEdit" data-url="@Url.Action("PopupTvulnManageEdit", "TvulnManage", new { id = 2001 })">
+        Modal
+    </button>
+    <div id="modal-placeholder"></div>
+</p>
+<bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
+    <bootstrap-modal-header>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sample modal header</h4>
+    </bootstrap-modal-header>
+    <bootstrap-modal-body>
+        <input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
+    </bootstrap-modal-body>
+</bootstrap-modal>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#partialView11').click(function () {
+                var url = $('#myModal').data('url');
+                $.get(url, function (data) {
+                    $("#myModal").html(data);
+                    $("#myModal").modal('show');
+                });
+            });
+        });
+
+        var buttonclick = function (event) {
+            var id = event.target.id;
+            alert(id);
+        }
+
+        $("input[id^='file_']").jqxButton({ theme: 'metro' });
+
+        // https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-cellsrendering.htm
+        var cellsrenderer_default = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.COMP_SEQ;
+            return '<input class="btn btn-danger" style="width:100%; height:100%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.COMP_SEQ + '" value="' + 'rowdata.COMP_NAME' + '"/>'
+        }
+
+        var cellsrenderer_default2 = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.COMP_SEQ;
+            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.COMP_SEQ + '" value="' + rowdata.COMP_NAME + '"/>'
+        }
+
+        var cellsrenderer_default_fn = function (value) {
+            alert("rowdata.COMP_SEQ : " + value);
+        }
+
+        var cellsrenderer_btn = function (index, datafield, value, defaultvalue, column, rowdata) {
+            return 'Edit'
+        }
+
+        var cellsbuttonclick_btn = function () {
+            alert("xxx");
+        }
+
+        function cellsbuttonclick_btn2() {
+            alert("xxx");
+        }
+
+        function cloneObject(obj) {
+            if (obj == null || typeof (obj) != 'object')
+                return obj;
+
+            var temp = new obj.constructor();
+            for (var key in obj)
+                temp[key] = cloneObject(obj[key]);
+
+            return temp;
+        }
+
+        var template = { rowDetails: "<div style=\"margin: 10px;\"></div>", rowDetailsHeight: 220, rowDetailsHidden: true };
+        var initRowDetails = function (index, parentElement, gridElement, record) {
+            var id = record.uid.toString();
+            var grid = $($(parentElement).children()[0]);
+            var data = [];
+            var generaterow = function (i) {
+                var row = {};
+                row["OrderDate"] = new Date(2016, Math.floor(Math.random() * 11), Math.floor(Math.random() * 27))
+                row["Quantity"] = Math.floor(Math.random() * 50)
+                row["ProductName"] = record.ProductName;
+                return row;
+            }
+            for (var i = 0; i < Math.max(10, Math.floor(Math.random() * 20)); i++) {
+                var row = generaterow(i);
+                data[i] = row;
+            }
+            var source = {
+                datafields: [
+                    { name: 'OrderDate', type: 'date' },
+                    { name: 'Quantity', type: 'string' },
+                    { name: 'ProductName', type: 'string' }
+                ],
+                localdata: data
+            }
+            var nestedGridAdapter = new $.jqx.dataAdapter(source);
+            if (grid != null) {
+                grid.jqxGrid({
+                    source: nestedGridAdapter, width: 780, height: 200,
+                    columns: [
+                        { text: 'Order Date', cellsFormat: 'd', dataField: 'OrderDate', width: 200 },
+                        { text: 'Quantity', cellsAlign: 'right', dataField: 'Quantity', width: 200 },
+                        { text: 'Product Name', dataField: 'ProductName' }
+                    ]
+                });
+            }
+        }
+
+        function alertTest(str) {
+            alert(str);
+        }
+    </script>
+}
+<div id="grid" style="width:100%"></div>
+<div style="display:none">
+    @*제일 중요!!! source-url="Url.Action("GetData","Tvulns", pageSearchs)" 은 jqx grid 의 ajax  호출 url을 생성한다!!!*@
+    <jqx-grid
+            id="grid"
+            show-empty-row="true"
+            row-details="true"
+            show-filter-row="true"
+            row-details-template="{{template}}"
+            init-row-details="initRowDetails()"
+            server-processing="true"
+            alt-rows="true"
+            filterable="true"
+            pageable="true"
+            auto-height="true"
+            source-id="@(vm_PageComp.COMP_SEQ)"
+            theme="@ViewData["Theme"]"
+            sortable="true" width="100%"
+            source-root="_PageCompModels"
+            source-total-records="_PageListTotalCount"
+            source-url="@Url.Action("GetGridCompData","TcompManage", vm_PageSearch)"
+            source-model="vm_PageComp"
+        >
+        <jqx-grid-columns>
+            <jqx-grid-column cells-renderer="cellsrenderer_default()" datafield-for="@(vm_PageComp.COMP_SEQ)" width="180" text="COMP_SEQ"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(vm_PageComp.DIAG_TYPE)" width="150" text="COMP_NAME"></jqx-grid-column>
+            <jqx-grid-column column-group="name1" datafield-for="@(vm_PageComp.COMP_DETAIL_GUBUN)" width="150" text="DIAG_TYPE"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(vm_PageComp.COMP_NAME)" width="150" text="Roll"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(vm_PageComp.COMP_DESCRIPTION)" width="150" text="Area"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(vm_PageComp.CONFIRM_YN)" width="150" text="Controller"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(vm_PageComp.CREATE_DT)" width="150" text="Action"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(vm_PageComp.USE_YN)" width="60" text="UseYn"></jqx-grid-column>
+            <jqx-grid-column cells-renderer="cellsrenderer_btn()" datafield-for="@(vm_PageComp.CREATE_USER_ID)" button-click="cellsbuttonclick_btn()" column-type="button" width="180" text="click"></jqx-grid-column>
+        </jqx-grid-columns>
+        <jqx-grid-column-groups>
+            <jqx-grid-column-group name="name1" text="group1"></jqx-grid-column-group>
+        </jqx-grid-column-groups>
+    </jqx-grid>
+</div>
