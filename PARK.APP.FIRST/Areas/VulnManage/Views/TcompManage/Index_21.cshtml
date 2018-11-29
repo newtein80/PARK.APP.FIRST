@@ -8,12 +8,16 @@
     ViewData["Theme"] = "metro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    // ##########################################################
+    // grid의 각 컬럼의 속성을 설정하기 위해 필요한 것일뿐, first row 의 실제 데이터는 사용하지 않는다!!!!!!!!!
+    // ##########################################################
     var vm_PageComp = Model._PageCompModels.FirstOrDefault();
 
     //if(vm_PageComp == null)
     //{
     //    vm_PageComp = new PARK.APP.FIRST.Areas.VulnManage.Controllers.TcompManageController.PageCompModel();
     //}
+
     var vm_PageSearch = Model._PageCompSearch;
 }
 
