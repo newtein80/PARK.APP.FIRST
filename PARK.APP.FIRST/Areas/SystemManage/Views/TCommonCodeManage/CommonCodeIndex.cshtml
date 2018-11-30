@@ -39,14 +39,19 @@
         Open sample modal
     </bootstrap-button>
 
+    @*<button type="button" class="btn btn-primary btn-sm" id="partialView11" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage", new { Area = "VulnManage" })">
+            Open PartialView
+        </button>
+        <div class="modal fade" id="myModal" role="dialog"></div>*@
     <button type="button" class="btn btn-primary btn-sm" id="partialView11">
         Open PartialView
     </button>
+    <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage", new { Area = "VulnManage" })"></div>
 
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="ajax-modal" data-target="#popupVulnEdit" data-url="@Url.Action("PopupTvulnManageEdit", "TvulnManage", new { id = 2001 })">
+
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="ajax-modal" data-target="#popupVulnEdit" data-url="@Url.Action("PopupTvulnManageEdit", "TvulnManage", new { Area="VulnManage", id = 2001 })">
         Add contact
     </button>
-    <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage")"></div>
     <div id="modal-placeholder"></div>
 </p>
 
@@ -63,7 +68,7 @@
 </bootstrap-modal>
 
 @section scripts {
-    <script type="text/javascript">
+<script type="text/javascript">
         $(document).ready(function () {
             $('#partialView11').click(function () {
                 var url = $('#myModal').data('url');
@@ -71,6 +76,11 @@
                     $("#myModal").html(data);
                     $("#myModal").modal('show');
                 });
+                //var url = $(this).data('url');
+                //$.get(url, function (data) {
+                //    $("#myModal").html(data);
+                //    $("#myModal").modal('show');
+                //});
             });
         });
 
@@ -88,6 +98,12 @@
             return '<input class="btn btn-danger" style="width:100%; height:100%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VULN_SEQ + '" value="' + index + '"/>'
         }
 
+        var cellsrenderer_p01 = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.CodeType + "}|{" + rowdata.CodeId;
+            return '<div style="text-align:center;"><input class="btn btn-info" style="width:80%; height:50%;" type="button" onClick="cellsrenderer_default_fn01(\'' + str_args + '\')" id="btn_' + rowdata.VULN_SEQ + '" value="info"/></div>'
+        }
+
         var cellsrenderer_default2 = function (index, datafield, value, defaultvalue, column, rowdata) {
             var rowdataObject = JSON.stringify(rowdata);
             var str_args = rowdata.VULN_SEQ;
@@ -98,15 +114,31 @@
             alert("rowdata.Key : " + value);
         }
 
+        var cellsrenderer_default_fn01 = function (value) {
+            var url = $('#myModal').data('url');
+            $.get(url, function (data) {
+                $("#myModal").html(data);
+                $("#myModal").modal('show');
+            });
+        }
+
         var cellsrenderer_btn = function (index, datafield, value, defaultvalue, column, rowdata) {
             return 'Edit'
         }
 
-        var cellsbuttonclick_btn = function () {
-            alert("xxx");
-        }
+        //var createWidget = function (row, column, value, htmlElement) {
+        //    var button = $("<div style='border:none;'><div class='buttonValue'>" + value + "</div></div>");
+        //    $(htmlElement).append(button);
 
-        function cellsbuttonclick_btn2() {
+        //    button.jqxButton({ template: "primary", height: '80%', width: '80%' });
+
+        //    button.click(function (event) {
+        //        var clickedButton = button.find(".buttonValue")[0].innerHTML;//value
+        //        alert(clickedButton);
+        //    });
+        //}
+
+        var cellsbuttonclick_btn = function (rowdata) {
             alert("xxx");
         }
 
@@ -161,21 +193,38 @@
         function alertTest(str) {
             alert(str);
         }
-    </script>
+
+        // bind cellclick to grid
+        $("#grid").bind('cellclick', function (event) {
+            if (event.args.columnindex == 2) {
+                editrow = event.args.rowindex;
+                alert(editrow);
+            };
+        });
+</script>
 }
 
 <div id="grid" style="width:100%"></div>
+<div id="jqxmenu">
+    <ul>
+        <li>Edit</li>
+        <li>Delete</li>
+    </ul>
+</div>
 <div style="display:none">
     <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(pageTcommonCode.CodeType)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="_TcommonCodes" source-total-records="_PageListTotalCoutn" source-url="@Url.Action("GetGridData_CommonCode","TCommonCodeManage", pageSearchModel)" source-model="pageTcommonCode">
         <jqx-grid-columns>
-            <jqx-grid-column datafield-for="@(pageTcommonCode.TEMP_SEQ)" width="180" text="TEMP_SEQ" cells-renderer="cellsrenderer_default()"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageTcommonCode.TEMP_SEQ)" width="80" text="TEMP_SEQ" cells-renderer="cellsrenderer_default()"></jqx-grid-column>
+            @*<jqx-grid-column create-widget="createWidget()" width="80" text="click" cells-renderer="cellsrenderer_btn()"></jqx-grid-column>*@
+            <jqx-grid-column width="80" text="click" cells-renderer="cellsrenderer_btn()" column-type="button"></jqx-grid-column>
+            <jqx-grid-column width="80" text="test1" cells-renderer="cellsrenderer_p01()"></jqx-grid-column>
+            <jqx-grid-column width="80" text="test2" cells-renderer="cellsrenderer_p01()"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(pageTcommonCode.CodeType)" width="150" text="CodeType"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(pageTcommonCode.CodeTypeName)" width="150" text="CodeTypeName"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(pageTcommonCode.CodeId)" width="150" text="CodeId"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(pageTcommonCode.CodeName)" width="150" text="CodeName"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(pageTcommonCode.CodeVal)" width="150" text="CodeVal"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(pageTcommonCode.UseYn)" width="150" text="UseYn"></jqx-grid-column>
-            <jqx-grid-column datafield-for="@(pageTcommonCode.CodeComment)" width="180" text="click" cells-renderer="cellsrenderer_btn()" button-click="cellsbuttonclick_btn()" column-type="button"></jqx-grid-column>
         </jqx-grid-columns>
     </jqx-grid>
 </div>
@@ -184,3 +233,34 @@
 @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
     @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+<p style="display:none;">
+    https://www.jqwidgets.com/community/topic/grid-with-a-menu-column/
+    https://www.jqwidgets.com/community/topic/edit-imagebutton-in-grid/
+    https://www.jqwidgets.com/community/topic/strange-z-index-problem-with-grid-and-bootstrap-modal/
+    http://jsfiddle.net/35kU5/67/
+    jqx grid bootstrap toggle modal site:www.jqwidgets.com
+
+    jqx grid bootstrap toggle modal
+
+    jqx-grid-column button-click column-type="button"
+
+    jqx-grid-column button-click column-type="button" site:www.jqwidgets.com
+
+    https://www.jqwidgets.com/asp.net-core-mvc-tag-helpers/asp.net-core-mvc-grid-tag-helper/index.htm#https://aspcore.jqwidgets.com/mvc/TagHelpers/GridRowDetails
+
+    https://www.jqwidgets.com/asp.net-core-mvc-tag-helpers/asp.net-core-mvc-grid-tag-helper/index.htm
+
+    jqx grid tag helper button click
+
+    https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/customwidgetscolumn.htm?light
+    https://www.jqwidgets.com/community/topic/how-to-bind-button-inside-column-of-gird-generated-by-tag-helper/
+    https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/popupediting.htm?classic
+
+    view-source:https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/popupediting.htm?classic
+
+    https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/popupediting.htm?light
+
+    https://www.jqwidgets.com/community/topic/multiple-buttons-in-a-grid-column/
+
+    https://www.jqwidgets.com/asp.net-core-mvc-tag-helpers-documentation/documentation/jqxgrid/asp-net-core-tag-helper-grid-api.htm?search=
+</p>
