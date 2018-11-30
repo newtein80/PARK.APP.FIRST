@@ -123,9 +123,10 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             //return View(pageViewModel);
             #endregion
 
-            var pageComps = new List<PageCompModel>();
-
-            pageComps.Add(new PageCompModel());
+            var pageComps = new List<PageCompModel>
+            {
+                new PageCompModel()
+            };
 
             PageViewModel pageViewModel = new PageViewModel
             {
@@ -414,5 +415,10 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             return items;
         }
         #endregion
+
+        public IActionResult CompCreate()
+        {
+            return View();
+        }
     }
 }

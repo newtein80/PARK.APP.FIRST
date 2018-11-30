@@ -1,0 +1,82 @@
+﻿@model PARK.APP.FIRST.Areas.SystemManage.Models.System.TcommonCode
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+
+@{
+    ViewData["Title"] = "CommonCodeCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CommonCodeCreate</h2>
+
+<h4>TcommonCode</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CommonCodeCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CodeType" class="control-label"></label>
+                <input asp-for="CodeType" class="form-control" />
+                <span asp-validation-for="CodeType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodeTypeName" class="control-label"></label>
+                <input asp-for="CodeTypeName" class="form-control" />
+                <span asp-validation-for="CodeTypeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodeId" class="control-label"></label>
+                <input asp-for="CodeId" class="form-control" />
+                <span asp-validation-for="CodeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodeName" class="control-label"></label>
+                <input asp-for="CodeName" class="form-control" />
+                <span asp-validation-for="CodeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodeVal" class="control-label"></label>
+                <input asp-for="CodeVal" class="form-control" />
+                <span asp-validation-for="CodeVal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SortOrder" class="control-label"></label>
+                <input asp-for="SortOrder" class="form-control" />
+                <span asp-validation-for="SortOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UseYn" class="control-label"></label>
+                <input asp-for="UseYn" class="form-control" />
+                <span asp-validation-for="UseYn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodeComment" class="control-label"></label>
+                <input asp-for="CodeComment" class="form-control" />
+                <span asp-validation-for="CodeComment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateUserId" class="control-label"></label>
+                <input asp-for="CreateUserId" class="form-control" />
+                <span asp-validation-for="CreateUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateDt" class="control-label"></label>
+                <input asp-for="CreateDt" class="form-control" />
+                <span asp-validation-for="CreateDt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -367,5 +367,11 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
             return items;
         }
         #endregion
+
+
+        public IActionResult CommonCodeCreate()
+        {
+            return View();
+        }
     }
 }
