@@ -9,7 +9,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE procedure [dbo].[SSP_COMMON_CODE_LIST]
+CREATE procedure [dbo].[SP_COMMON_CODE_LIST]
     @gubun					nvarchar(8)
     ,   @code_type			nvarchar(32)
     ,   @code_type_name		nvarchar(128)
@@ -138,7 +138,7 @@ inner join @T_TEMP as t4
 on
 (
     t3.CodeType = t4.Codetype
-	, t3.CodeId = t4.CodeId
+	and t3.CodeId = t4.CodeId
 )
 '
     set @subquery = @subquery + ' where t4.TEMP_SEQ >= @fromidx and t4.TEMP_SEQ <= @toidx '     

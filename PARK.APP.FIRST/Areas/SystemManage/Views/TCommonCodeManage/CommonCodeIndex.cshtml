@@ -1,78 +1,186 @@
-﻿@model IEnumerable<PARK.APP.FIRST.Areas.SystemManage.Models.System.TcommonCode>
-
+﻿@model PARK.APP.FIRST.Areas.SystemManage.Controllers.TCommonCodeManageController.PageViewModel_CommonCode
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
 @{
     ViewData["Title"] = "CommonCodeIndex";
+    ViewData["Theme"] = Model._PageDefault.Theme;//"metro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>CommonCodeIndex</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CodeTypeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodeVal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SortOrder)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UseYn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodeComment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateUserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateDt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodeTypeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodeVal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SortOrder)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UseYn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodeComment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateUserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDt)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+@{
+    var pageTcommonCode = Model._TcommonCodes.FirstOrDefault();
+    var pageSearchModel = Model._PageSearchMdoel;
 }
-    </tbody>
-</table>
+
+<h2>@ViewData["Title"]</h2>
+
+@using (Html.BeginForm("CommonCodeIndex", "TCommonCodeManage", FormMethod.Post))
+{
+    @Html.LabelFor(m => m._PageSearchMdoel.CodeId)
+    @Html.TextBoxFor(m => m._PageSearchMdoel.CodeId, new { placeholder = "ViewModel11.Vuln_name", @class = "form-control" })
+    @Html.LabelFor(m => m._PageSearchMdoel.CodeName)
+    @Html.TextBoxFor(m => m._PageSearchMdoel.CodeName, new { placeholder = "ViewModel11.Comp_name", @class = "form-control" })
+    @Html.LabelFor(m => m._PageSearchMdoel.CodeType)
+    @Html.TextBoxFor(m => m._PageSearchMdoel.CodeType, new { placeholder = "ViewModel11.Comp_name", @class = "form-control" })
+    @Html.LabelFor(m => m._PageSearchMdoel.CodeTypeName)
+    @Html.TextBoxFor(m => m._PageSearchMdoel.CodeTypeName, new { placeholder = "ViewModel11.Comp_name", @class = "form-control" })
+    <p></p>
+    <bootstrap-button type="submit" class="btn btn-primary btn-sm">
+        Submit
+    </bootstrap-button>
+}
+<p></p>
+<p>
+    @Html.ActionLink("Razor AtcionLink(Create)", "Create", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+    @Html.ActionLink("Index_06", "Index_06", "Tvulns", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+    @Html.ActionLink("Index_11", "Index_11", "TvulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+
+    <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
+        Open sample modal
+    </bootstrap-button>
+
+    <button type="button" class="btn btn-primary btn-sm" id="partialView11">
+        Open PartialView
+    </button>
+
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="ajax-modal" data-target="#popupVulnEdit" data-url="@Url.Action("PopupTvulnManageEdit", "TvulnManage", new { id = 2001 })">
+        Add contact
+    </button>
+    <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage")"></div>
+    <div id="modal-placeholder"></div>
+</p>
+
+<bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
+    <bootstrap-modal-header>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Sample modal header</h4>
+    </bootstrap-modal-header>
+    <bootstrap-modal-body>
+        <input type="button" onclick="alertTest('Test')" id="file_AlertTest" value="Test" />
+    </bootstrap-modal-body>
+</bootstrap-modal>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#partialView11').click(function () {
+                var url = $('#myModal').data('url');
+                $.get(url, function (data) {
+                    $("#myModal").html(data);
+                    $("#myModal").modal('show');
+                });
+            });
+        });
+
+        var buttonclick = function (event) {
+            var id = event.target.id;
+            alert(id);
+        }
+
+        $("input[id^='file_']").jqxButton({ theme: 'metro' });
+
+        // https://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxgrid/jquery-grid-cellsrendering.htm
+        var cellsrenderer_default = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.CodeType + "}|{" + rowdata.CodeId;
+            return '<input class="btn btn-danger" style="width:100%; height:100%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VULN_SEQ + '" value="' + index + '"/>'
+        }
+
+        var cellsrenderer_default2 = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.VULN_SEQ;
+            return '<input class="btn btn-danger" style="width:80%; height:80%;" type="button" onClick="cellsrenderer_default_fn(\'' + str_args + '\')" id="btn_' + rowdata.VULN_SEQ + '" value="' + rowdata.VULN_NAME + '"/>'
+        }
+
+        var cellsrenderer_default_fn = function (value) {
+            alert("rowdata.Key : " + value);
+        }
+
+        var cellsrenderer_btn = function (index, datafield, value, defaultvalue, column, rowdata) {
+            return 'Edit'
+        }
+
+        var cellsbuttonclick_btn = function () {
+            alert("xxx");
+        }
+
+        function cellsbuttonclick_btn2() {
+            alert("xxx");
+        }
+
+        function cloneObject(obj) {
+            if (obj == null || typeof (obj) != 'object')
+                return obj;
+
+            var temp = new obj.constructor();
+            for (var key in obj)
+                temp[key] = cloneObject(obj[key]);
+
+            return temp;
+        }
+
+        var template = { rowDetails: "<div style=\"margin: 10px;\"></div>", rowDetailsHeight: 220, rowDetailsHidden: true };
+        var initRowDetails = function (index, parentElement, gridElement, record) {
+            var id = record.uid.toString();
+            var grid = $($(parentElement).children()[0]);
+            var data = [];
+            var generaterow = function (i) {
+                var row = {};
+                row["OrderDate"] = new Date(2016, Math.floor(Math.random() * 11), Math.floor(Math.random() * 27))
+                row["Quantity"] = Math.floor(Math.random() * 50)
+                row["ProductName"] = record.ProductName;
+                return row;
+            }
+            for (var i = 0; i < Math.max(10, Math.floor(Math.random() * 20)); i++) {
+                var row = generaterow(i);
+                data[i] = row;
+            }
+            var source = {
+                datafields: [
+                    { name: 'OrderDate', type: 'date' },
+                    { name: 'Quantity', type: 'string' },
+                    { name: 'ProductName', type: 'string' }
+                ],
+                localdata: data
+            }
+            var nestedGridAdapter = new $.jqx.dataAdapter(source);
+            if (grid != null) {
+                grid.jqxGrid({
+                    source: nestedGridAdapter, width: 780, height: 200,
+                    columns: [
+                        { text: 'Order Date', cellsFormat: 'd', dataField: 'OrderDate', width: 200 },
+                        { text: 'Quantity', cellsAlign: 'right', dataField: 'Quantity', width: 200 },
+                        { text: 'Product Name', dataField: 'ProductName' }
+                    ]
+                });
+            }
+        }
+
+        function alertTest(str) {
+            alert(str);
+        }
+    </script>
+}
+
+<div id="grid" style="width:100%"></div>
+<div style="display:none">
+    <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(pageTcommonCode.CodeType)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="_TcommonCodes" source-total-records="_PageListTotalCoutn" source-url="@Url.Action("GetGridData_CommonCode","TCommonCodeManage", pageSearchModel)" source-model="pageTcommonCode">
+        <jqx-grid-columns>
+            <jqx-grid-column datafield-for="@(pageTcommonCode.TEMP_SEQ)" width="180" text="TEMP_SEQ" cells-renderer="cellsrenderer_default()"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageTcommonCode.CodeType)" width="150" text="CodeType"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageTcommonCode.CodeTypeName)" width="150" text="CodeTypeName"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageTcommonCode.CodeId)" width="150" text="CodeId"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageTcommonCode.CodeName)" width="150" text="CodeName"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageTcommonCode.CodeVal)" width="150" text="CodeVal"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageTcommonCode.UseYn)" width="150" text="UseYn"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(pageTcommonCode.CodeComment)" width="180" text="click" cells-renderer="cellsrenderer_btn()" button-click="cellsbuttonclick_btn()" column-type="button"></jqx-grid-column>
+        </jqx-grid-columns>
+    </jqx-grid>
+</div>
+
+
+@* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@

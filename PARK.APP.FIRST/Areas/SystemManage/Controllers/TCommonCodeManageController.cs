@@ -43,6 +43,7 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
             public int? CodeVal { get; set; }
             public string UseYn { get; set; }
             public string CodeComment { get; set; }
+            public Int64 TEMP_SEQ { get; set; }
         }
 
         public class PageSearchMdoel
@@ -95,7 +96,7 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
 
             DbParameter outputParam = null;
 
-            _systemDbContext.LoadStoredProc("dbo.SP_COMP_LIST")
+            _systemDbContext.LoadStoredProc("dbo.SP_COMMON_CODE_LIST")
                 .WithSqlParam("gubun", "")
                 .WithSqlParam("code_type", pageViewModel_CommonCode._PageSearchMdoel.CodeType ?? "")
                 .WithSqlParam("code_type_name", pageViewModel_CommonCode._PageSearchMdoel.CodeTypeName ?? "")
@@ -139,13 +140,13 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
         }
 
         [HttpPost]
-        public string GetGridCompData(string jsonData, PageSearchMdoel searchModel)
+        public string GetGridData_CommonCode(string jsonData, PageSearchMdoel searchModel)
         {
             var compModels = new List<PageCommonCodeModel>();
 
             DbParameter outputParam = null;
 
-            _systemDbContext.LoadStoredProc("dbo.SP_COMP_LIST")
+            _systemDbContext.LoadStoredProc("dbo.SP_COMMON_CODE_LIST")
                 .WithSqlParam("gubun", "")
                 .WithSqlParam("code_type", searchModel.CodeType ?? "")
                 .WithSqlParam("code_type_name", searchModel.CodeTypeName ?? "")
@@ -155,7 +156,7 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Controllers
                 .WithSqlParam("use_yn", "")
                 .WithSqlParam("sort_field", "")
                 .WithSqlParam("is_desc", 1)
-                .WithSqlParam("pagesize", 10)
+                .WithSqlParam("pagesize", 100000)
                 .WithSqlParam("pageindex", 1)
                 .WithSqlParam("allCount", (dbParam) =>
                 {
