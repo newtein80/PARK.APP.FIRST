@@ -94,3 +94,8 @@ INSERT [dbo].[MenuMaster] ([MenuId], [MenuName], [Parent_MenuId], [User_Roll], [
 VALUES
 (N'CommonCodeManage', N'Common Code Manage', N'', N'admin', NULL, NULL, N'SystemManage', N'TCommonCodeManage', N'CommonCodeIndex', N'Y', 21, GETDATE(), N'')
 GO
+
+INSERT [dbo].[MenuMaster] ([MenuId], [MenuName], [Parent_MenuId], [User_Roll], [User_Auth], [User_Duty], [MenuArea], [MenuController], [MenuAction], [Use_Yn], [Sort_Order], [CreatedDate], [CssClass])
+VALUES
+(N'CreateTest01', N'항목관리', N'', N'admin', NULL, NULL, N'VulnManage', N'VulnManage', N'VulnList', N'Y', 22, GETDATE(), N'')
+GO

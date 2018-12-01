@@ -1,0 +1,561 @@
+﻿USE [PJSWORK]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_VULN_LIST_02]    Script Date: 2018-12-01 오후 6:22:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+CREATE procedure [dbo].[SP_VULN_LIST_02]
+    @gubun				nvarchar(8)
+    ,   @diag_type      nvarchar(32)
+    ,   @diag_kind      nvarchar(32)
+	,	@comp_seq		bigint
+    ,   @comp_name		nvarchar(128)
+	,	@group_seq		bigint
+	,	@group_name		nvarchar(18)
+	,	@vuln_seq		bigint
+	,	@vuln_name		nvarchar(128)
+	,	@manage_id		nvarchar(128)
+	,	@rate			int
+	,	@score			int
+	,	@use_yn			char(1)
+	,	@exception_yn	char(1)
+	,   @user_id		nvarchar(16)
+	,   @sort_field		nvarchar(50)
+    ,   @is_desc		tinyint = 1
+	,   @pagesize		int
+    ,   @pageindex		int
+    ,   @allCount		bigint output
+as
+	
+set transaction isolation level read uncommitted
+set nocount on
+
+begin
+    declare  
+        @SQLString      nvarchar(max) = ''
+        ,   @wheredata  nvarchar(max) = ''
+        ,   @orderby    varchar(500) = ' order by CREATE_DE desc'
+        ,   @subquery   varchar(max) = ''
+        ,	@is_desc_title varchar(10)   = ''
+
+
+	if 'all' = @gubun or '' = @gubun or '' = isnull(@gubun, '') begin
+        set @gubun = null;
+    end
+
+	if 'all' = @diag_type or '' = @diag_type or '' = isnull(@diag_type, '') begin
+		set @diag_type = null;
+    end
+
+    if 'all' = @diag_kind or '' = @diag_kind or '' = isnull(@diag_kind, '') begin
+		set @diag_kind = null;
+    end
+
+    if 1 > @comp_seq begin
+        set @comp_seq = null;
+    end
+
+    if '' = @comp_name or '' = isnull(@comp_name, '') begin
+        set @comp_name = null;
+    end
+
+	if 1 > @group_seq begin
+		set @group_seq = null;
+	end
+
+    if '' = @group_name or '' = isnull(@group_name, '') begin
+        set @group_name = null;
+    end
+
+	if 1 > @vuln_seq begin
+		set @vuln_seq = null;
+	end
+
+    if '' = @vuln_name or '' = isnull(@vuln_name, '') begin
+        set @vuln_name = null;
+    end
+
+	if '' = @manage_id or '' = isnull(@manage_id, '') begin
+        set @manage_id = null;
+    end
+
+	if 1 > @rate begin
+		set @rate = null;
+	end
+
+	if 1 > @score begin
+		set @score = null;
+	end
+
+	if 'all' = @use_yn or '' = @use_yn or '' = isnull(@use_yn, '') begin
+		set @use_yn = null;
+    end
+
+	if 'all' = @exception_yn or '' = @exception_yn or '' = isnull(@exception_yn, '') begin
+		set @use_yn = null;
+    end
+
+    if(@comp_seq is not null) begin
+	    set @wheredata =  @wheredata + ' and COMP_SEQ = ''' + @comp_seq + ''' '
+    end
+
+    if(@diag_type is not null) begin
+	    set @wheredata =  @wheredata + ' and DIAG_TYPE = ''' + @diag_type + ''' '
+    end
+
+    if(@diag_kind is not null) begin
+	    set @wheredata =  @wheredata + ' and DIAG_KIND = ''' + @diag_kind + ''' '
+    end
+    
+    if(@vuln_name is not null) begin
+	    set @wheredata =  @wheredata + ' and VULN_NAME like ''%' + @vuln_name + '%'' '
+    end
+
+    if(@group_name is not null) begin
+	    set @wheredata =  @wheredata + ' and GROUP_NAME like ''%' + @group_name + '%'' '
+    end
+    
+    if '' = @sort_field or '' = isnull(@sort_field, '') begin
+        set @orderby = ' order by CREATE_DE desc '
+    end
+    else begin
+        if 1 = @is_desc begin
+           set @is_desc_title = 'DESC'
+        end
+        else begin
+           set @is_desc_title = 'ASC'
+        end
+
+        set @orderby = ' order by ' + @sort_field + ' ' + @is_desc_title
+    end
+
+    declare @fromidx int
+    declare @toidx   int
+    set @fromidx = ((@pageindex - 1) * @pagesize) + 1
+    set @toidx = @pageindex * @pagesize
+
+    set @SQLString = ' 
+declare @T_TEMP table 
+(
+    TEMP_SEQ 	    bigint identity primary key
+    ,   VULN_SEQ   bigint
+)
+
+insert into @T_TEMP(VULN_SEQ)  
+select
+	VULN_SEQ
+from
+(
+	select
+		t1.*
+		, t2.COMP_NAME
+		, t2.COMP_SEQ
+		, t2.DIAG_KIND
+		, t2.DIAG_TYPE
+		, t2.GROUP_NAME
+		, t2.[LEVEL]
+	from dbo.TVuln as t1 with(nolock)
+	left outer join
+	(
+		select
+			t21.GROUP_SEQ
+			, t21.GROUP_NAME
+			, t21.DIAG_KIND
+			, t21.[LEVEL]
+			, t22.DIAG_TYPE
+			, t22.COMP_NAME
+			, t22.COMP_SEQ
+		from dbo.TVulnGroup as t21 with(nolock)
+		left outer join
+		(
+			select
+				COMP_SEQ
+				, COMP_NAME
+				, DIAG_TYPE
+			from dbo.TCompInfo with(nolock)
+		) as t22
+		on
+		(
+			t21.COMP_SEQ = t22.COMP_SEQ
+		)
+	) as t2
+	on
+	(
+		t1.GROUP_SEQ = t2.GROUP_SEQ
+	)
+) as t0
+where 1=1
+
+'
+    set @subquery = 
+'
+select  
+    @p_value = count(*) 
+from @T_TEMP
+
+select 
+    select 
+    t3.APPLY_TARGET as ''ApplyTarget''
+	, t3.APPLY_TIME as ''ApplyTime''
+	, t3.AUTO_YN as ''AutoYn''
+	, t3.CLIENT_STANDARD_ID as ''ClientStandardId''
+	, t3.CREATE_DT as ''CreateDt''
+	, t3.CREATE_USER_ID as ''CreateUserId''
+	, t3.DETAIL as ''Detail''
+	, t3.DETAIL_PATH as ''DetailPath''
+	, t3.EFFECT as ''Effect''
+	, t3.EXCEPT_CD as ''ExceptCd''
+	, t3.EXCEPT_DT as ''ExceptDt''
+	, t3.EXCEPT_REASON as ''ExceptReason''
+	, t3.EXCEPT_TERM_FR as ''ExceptTermFr''
+	, t3.EXCEPT_TERM_TO as ''ExceptTermTo''
+	, t3.EXCEPT_TERM_TYPE as ''ExceptTermType''
+	, t3.EXCEPT_USER_ID as ''ExceptUserId''
+	, t3.GROUP_SEQ as ''GroupSeq''
+	, t3.JUDGEMENT as ''Judgement''
+	, t3.MANAGE_ID as ''ManageId''
+	, t3.MANAGEMENT_VULN_YN as ''ManagementVulnYn''
+	, t3.MANUAL_YN as ''ManualYn''
+	, t3.ORG_PARSER_CONTENTS as ''OrgParserContents''
+	, t3.OVERVIEW as ''Overview''
+	, t3.RATE as ''Rate''
+	, t3.PARSER_CONTENTS as ''ParserContents''
+	, t3.REFRRENCE as ''Refrrence''
+	, t3.REMEDY as ''Remedy''
+	, t3.REMEDY_DETAIL as ''RemedyDetail''
+	, t3.REMEDY_PATH as ''RemedyPath''
+	, t3.RULE_YN as ''RuleYn''
+	, t3.SCORE as ''Score''
+	, t3.SORT_ORDER as ''SortOrder''
+	, t3.UPDATE_DT as ''UpdateDt''
+	, t3.UPDATE_USER_ID as ''UpdateUserId''
+	, t3.USE_YN as ''UseYn''
+	, t3.VULGROUP as ''Vulgroup''
+	, t3.VULN_NAME as ''VulnName''
+	, t3.VULN_SEQ as ''VulnSeq''
+	, t3.VULNO as ''Vulno''
+	, t4.TEMP_SEQ as ''ApplyTarget''
+from
+from 
+(
+    select 
+        *
+    from dbo.TVuln with(nolock)
+) as t3
+inner join @T_TEMP as t4
+on
+(
+    t3.VULN_SEQ = t4.VULN_SEQ
+)
+'
+    set @subquery = @subquery + ' where t4.TEMP_SEQ >= @fromidx and t4.TEMP_SEQ <= @toidx '     
+    set @SQLString = @SQLString + @wheredata + @orderby + @subquery
+
+    declare @params nvarchar(200)
+    set   @params  ='@p_value int output , @toidx int, @fromidx int'
+    
+    exec sp_executesql  @SQLString
+                      , @params
+                      , @p_value = @allCount OUTPUT
+                      , @fromidx = @fromidx
+                      , @toidx = @toidx
+                  
+    select @allCount as TotCnt
+end
+
+
+
+GO
+
+
+===================================================================
+===================================================================
+===================================================================
+
+
+USE [PJSWORK]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_VULN_LIST_02]    Script Date: 2018-12-01 오후 6:58:14 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+ALTER procedure [dbo].[SP_VULN_LIST_02]
+    @gubun				nvarchar(8)
+    ,   @diag_type      nvarchar(32)
+    ,   @diag_kind      nvarchar(32)
+	,	@comp_seq		bigint
+    ,   @comp_name		nvarchar(128)
+	,	@group_seq		bigint
+	,	@group_name		nvarchar(18)
+	,	@vuln_seq		bigint
+	,	@vuln_name		nvarchar(128)
+	,	@manage_id		nvarchar(128)
+	,	@rate			int
+	,	@score			int
+	,	@use_yn			char(1)
+	,	@exception_yn	char(1)
+	,   @user_id		nvarchar(16)
+	,   @sort_field		nvarchar(50)
+    ,   @is_desc		tinyint = 1
+	,   @pagesize		int
+    ,   @pageindex		int
+    ,   @allCount		bigint output
+as
+	
+set transaction isolation level read uncommitted
+set nocount on
+
+begin
+    declare  
+        @SQLString      nvarchar(max) = ''
+        ,   @wheredata  nvarchar(max) = ''
+        ,   @orderby    varchar(500) = ' order by CREATE_DT desc'
+        ,   @subquery   varchar(max) = ''
+        ,	@is_desc_title varchar(10)   = ''
+
+
+	if 'all' = @gubun or '' = @gubun or '' = isnull(@gubun, '') begin
+        set @gubun = null;
+    end
+
+	if 'all' = @diag_type or '' = @diag_type or '' = isnull(@diag_type, '') begin
+		set @diag_type = null;
+    end
+
+    if 'all' = @diag_kind or '' = @diag_kind or '' = isnull(@diag_kind, '') begin
+		set @diag_kind = null;
+    end
+
+    if 1 > @comp_seq begin
+        set @comp_seq = null;
+    end
+
+    if '' = @comp_name or '' = isnull(@comp_name, '') begin
+        set @comp_name = null;
+    end
+
+	if 1 > @group_seq begin
+		set @group_seq = null;
+	end
+
+    if '' = @group_name or '' = isnull(@group_name, '') begin
+        set @group_name = null;
+    end
+
+	if 1 > @vuln_seq begin
+		set @vuln_seq = null;
+	end
+
+    if '' = @vuln_name or '' = isnull(@vuln_name, '') begin
+        set @vuln_name = null;
+    end
+
+	if '' = @manage_id or '' = isnull(@manage_id, '') begin
+        set @manage_id = null;
+    end
+
+	if 1 > @rate begin
+		set @rate = null;
+	end
+
+	if 1 > @score begin
+		set @score = null;
+	end
+
+	if 'all' = @use_yn or '' = @use_yn or '' = isnull(@use_yn, '') begin
+		set @use_yn = null;
+    end
+
+	if 'all' = @exception_yn or '' = @exception_yn or '' = isnull(@exception_yn, '') begin
+		set @use_yn = null;
+    end
+
+    if(@comp_seq is not null) begin
+	    set @wheredata =  @wheredata + ' and COMP_SEQ = ''' + @comp_seq + ''' '
+    end
+
+    if(@diag_type is not null) begin
+	    set @wheredata =  @wheredata + ' and DIAG_TYPE = ''' + @diag_type + ''' '
+    end
+
+    if(@diag_kind is not null) begin
+	    set @wheredata =  @wheredata + ' and DIAG_KIND = ''' + @diag_kind + ''' '
+    end
+    
+    if(@vuln_name is not null) begin
+	    set @wheredata =  @wheredata + ' and VULN_NAME like ''%' + @vuln_name + '%'' '
+    end
+
+    if(@group_name is not null) begin
+	    set @wheredata =  @wheredata + ' and GROUP_NAME like ''%' + @group_name + '%'' '
+    end
+    
+    if '' = @sort_field or '' = isnull(@sort_field, '') begin
+        set @orderby = ' order by CREATE_DT desc '
+    end
+    else begin
+        if 1 = @is_desc begin
+           set @is_desc_title = 'DESC'
+        end
+        else begin
+           set @is_desc_title = 'ASC'
+        end
+
+        set @orderby = ' order by ' + @sort_field + ' ' + @is_desc_title
+    end
+
+    declare @fromidx int
+    declare @toidx   int
+    set @fromidx = ((@pageindex - 1) * @pagesize) + 1
+    set @toidx = @pageindex * @pagesize
+
+    set @SQLString = ' 
+declare @T_TEMP table 
+(
+    TEMP_SEQ 	    bigint identity primary key
+    ,   VULN_SEQ   bigint
+)
+
+insert into @T_TEMP(VULN_SEQ)  
+select
+	VULN_SEQ
+from
+(
+	select
+		t1.*
+		, t2.COMP_NAME
+		, t2.COMP_SEQ
+		, t2.DIAG_KIND
+		, t2.DIAG_TYPE
+		, t2.GROUP_NAME
+		, t2.[LEVEL]
+	from dbo.TVuln as t1 with(nolock)
+	left outer join
+	(
+		select
+			t21.GROUP_SEQ
+			, t21.GROUP_NAME
+			, t21.DIAG_KIND
+			, t21.[LEVEL]
+			, t22.DIAG_TYPE
+			, t22.COMP_NAME
+			, t22.COMP_SEQ
+		from dbo.TVulnGroup as t21 with(nolock)
+		left outer join
+		(
+			select
+				COMP_SEQ
+				, COMP_NAME
+				, DIAG_TYPE
+			from dbo.TCompInfo with(nolock)
+		) as t22
+		on
+		(
+			t21.COMP_SEQ = t22.COMP_SEQ
+		)
+	) as t2
+	on
+	(
+		t1.GROUP_SEQ = t2.GROUP_SEQ
+	)
+) as t0
+where 1=1
+
+'
+    set @subquery = 
+'
+select  
+    @p_value = count(*) 
+from @T_TEMP
+
+select 
+    t3.APPLY_TARGET as ''ApplyTarget''
+	, t3.APPLY_TIME as ''ApplyTime''
+	, t3.AUTO_YN as ''AutoYn''
+	, t3.CLIENT_STANDARD_ID as ''ClientStandardId''
+	, t3.CREATE_DT as ''CreateDt''
+	, t3.CREATE_USER_ID as ''CreateUserId''
+	, t3.DETAIL as ''Detail''
+	, t3.DETAIL_PATH as ''DetailPath''
+	, t3.EFFECT as ''Effect''
+	, t3.EXCEPT_CD as ''ExceptCd''
+	, t3.EXCEPT_DT as ''ExceptDt''
+	, t3.EXCEPT_REASON as ''ExceptReason''
+	, t3.EXCEPT_TERM_FR as ''ExceptTermFr''
+	, t3.EXCEPT_TERM_TO as ''ExceptTermTo''
+	, t3.EXCEPT_TERM_TYPE as ''ExceptTermType''
+	, t3.EXCEPT_USER_ID as ''ExceptUserId''
+	, t3.GROUP_SEQ as ''GroupSeq''
+	, t3.JUDGEMENT as ''Judgement''
+	, t3.MANAGE_ID as ''ManageId''
+	, t3.MANAGEMENT_VULN_YN as ''ManagementVulnYn''
+	, t3.MANUAL_YN as ''ManualYn''
+	, t3.ORG_PARSER_CONTENTS as ''OrgParserContents''
+	, t3.OVERVIEW as ''Overview''
+	, t3.RATE as ''Rate''
+	, t3.PARSER_CONTENTS as ''ParserContents''
+	, t3.REFRRENCE as ''Refrrence''
+	, t3.REMEDY as ''Remedy''
+	, t3.REMEDY_DETAIL as ''RemedyDetail''
+	, t3.REMEDY_PATH as ''RemedyPath''
+	, t3.RULE_YN as ''RuleYn''
+	, t3.SCORE as ''Score''
+	, t3.SORT_ORDER as ''SortOrder''
+	, t3.UPDATE_DT as ''UpdateDt''
+	, t3.UPDATE_USER_ID as ''UpdateUserId''
+	, t3.USE_YN as ''UseYn''
+	, t3.VULGROUP as ''Vulgroup''
+	, t3.VULN_NAME as ''VulnName''
+	, t3.VULN_SEQ as ''VulnSeq''
+	, t3.VULNO as ''Vulno''
+	, t4.TEMP_SEQ
+from 
+(
+    select 
+        *
+    from dbo.TVuln with(nolock)
+) as t3
+inner join @T_TEMP as t4
+on
+(
+    t3.VULN_SEQ = t4.VULN_SEQ
+)
+'
+    set @subquery = @subquery + ' where t4.TEMP_SEQ >= @fromidx and t4.TEMP_SEQ <= @toidx '     
+    set @SQLString = @SQLString + @wheredata + @orderby + @subquery
+
+    declare @params nvarchar(200)
+    set   @params  ='@p_value int output , @toidx int, @fromidx int'
+    
+    exec sp_executesql  @SQLString
+                      , @params
+                      , @p_value = @allCount OUTPUT
+                      , @fromidx = @fromidx
+                      , @toidx = @toidx
+                  
+    select @allCount as TotCnt
+end
+
+
+
+GO
+
+
+
+
+
