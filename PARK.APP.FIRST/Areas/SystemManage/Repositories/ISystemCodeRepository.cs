@@ -9,5 +9,6 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Repositories
     public interface ISystemCodeRepository
     {
         Task<List<TcommonCode>> GetCommonCodeDropDownListAsync(string codeType, string use_yn);
+        List<TcommonCode> GetCommonCodeDropDownList(string codeType, string use_yn);
     }
 }

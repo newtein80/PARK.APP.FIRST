@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PARK.APP.FIRST.Areas.SystemManage.Models.System;
 using PARK.APP.FIRST.Areas.SystemManage.Repositories;
 using PARK.APP.FIRST.Areas.VulnManage.Models.Vuln;
 using PARK.APP.FIRST.Services;
@@ -49,6 +50,8 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             [Display(Name = "점검 구분")]
             public string Diag_type { get; set; }
 
+            public List<TcommonCode> Diag_types { get; set; }
+
             [Display(Name = "점검 유형")]
             public string Diag_kind { get; set; }
 
@@ -88,7 +91,24 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 Rate = "";
                 Score = "";
                 Exception_yn = "";
+                Diag_types = new List<TcommonCode>();
             }
+
+            //public VulnSearchModel(List<TcommonCode> diag_types)
+            //{
+            //    Diag_type = "";
+            //    Diag_kind = "";
+            //    Comp_name = "";
+            //    Comp_seq = 0;
+            //    Group_name = "";
+            //    Group_seq = 0;
+            //    Vuln_name = "";
+            //    Manage_id = "";
+            //    Rate = "";
+            //    Score = "";
+            //    Exception_yn = "";
+            //    Diag_types = diag_types;
+            //}
         }
 
         public class VulnViewModel
@@ -102,6 +122,12 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         [HttpGet]
         public IActionResult VulnList()
         {
+            var _ddlDiagType = systemCodeRepository.GetCommonCodeDropDownList("DIAG_TYPE", "");
+
+            var vulnSearchModel = new VulnSearchModel();
+
+            vulnSearchModel.Diag_types = _ddlDiagType;
+
             var initVulnModels = new List<VulnModel>
             {
                 new VulnModel()
@@ -112,7 +138,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 pageDefault = new PageDefault(),
                 vulnModels = initVulnModels,
                 vulnModesTotalCount = 0,
-                vulnSearchModel = new VulnSearchModel()
+                vulnSearchModel = vulnSearchModel
             };
 
             return View(vulnViewModel);
@@ -162,6 +188,8 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             {
                 filter_vulnModels.Add(new VulnModel());
             }
+
+            vulnViewModel.vulnSearchModel.Diag_types = systemCodeRepository.GetCommonCodeDropDownList("DIAG_TYPE", "");
 
             VulnViewModel rtn_vulnViewModel = new VulnViewModel
             {

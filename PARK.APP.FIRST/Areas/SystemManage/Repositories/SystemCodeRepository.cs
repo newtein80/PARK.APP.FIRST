@@ -16,6 +16,11 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Repositories
             _context = context;
         }
 
+        public List<TcommonCode> GetCommonCodeDropDownList(string codeType, string use_yn)
+        {
+            return _context.TcommonCode.Where(r => r.CodeType == codeType).ToList();
+        }
+
         public async Task<List<TcommonCode>> GetCommonCodeDropDownListAsync(string codeType, string use_yn)
         {
             //return await _context.TcommonCode.Where(r => r.CodeType == codeType).;

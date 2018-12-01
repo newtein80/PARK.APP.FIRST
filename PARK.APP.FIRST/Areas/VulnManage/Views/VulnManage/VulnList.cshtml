@@ -10,45 +10,94 @@
 @{
     var gridModelDefault = Model.vulnModels.FirstOrDefault();
     var pageSearchModel = Model.vulnSearchModel;
+
+    var ddl_DiagType = Model.vulnSearchModel.Diag_types;
 }
 
 <h2>@ViewData["Title"]</h2>
-
-@using (Html.BeginForm("VulnList", "VulnManage", FormMethod.Post))
-{
-    @Html.LabelFor(m => m.vulnSearchModel.Comp_name)
-    @Html.TextBoxFor(m => m.vulnSearchModel.Comp_name, new { placeholder = "Comp_name", @class = "form-control" })
-    @Html.LabelFor(m => m.vulnSearchModel.Group_name)
-    @Html.TextBoxFor(m => m.vulnSearchModel.Group_name, new { placeholder = "Group_name", @class = "form-control" })
-    @Html.LabelFor(m => m.vulnSearchModel.Vuln_name)
-    @Html.TextBoxFor(m => m.vulnSearchModel.Vuln_name, new { placeholder = "Vuln_name", @class = "form-control" })
-    @Html.LabelFor(m => m.vulnSearchModel.Manage_id)
-    @Html.TextBoxFor(m => m.vulnSearchModel.Manage_id, new { placeholder = "Manage_id", @class = "form-control" })
-    <p></p>
-    <bootstrap-button type="submit" class="btn btn-primary btn-sm">
-        SEARCH
-    </bootstrap-button>
-}
-
 <p></p>
-<p>
-    @Html.ActionLink("Refresh", "VulnList", "VulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+@using (Html.BeginForm("VulnList", "VulnManage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td style="vertical-align:bottom">
+                        @Html.LabelFor(m => m.vulnSearchModel.Comp_name)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.vulnSearchModel.Comp_name, new { placeholder = "Comp_name", @class = "form-control" })
+                    </td>
+                    <td style="vertical-align:bottom">
+                        @Html.LabelFor(m => m.vulnSearchModel.Group_name)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.vulnSearchModel.Group_name, new { placeholder = "Group_name", @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:bottom">
+                        @Html.LabelFor(m => m.vulnSearchModel.Vuln_name)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.vulnSearchModel.Vuln_name, new { placeholder = "Vuln_name", @class = "form-control" })
+                    </td>
+                    <td style="vertical-align:bottom">
+                        @Html.LabelFor(m => m.vulnSearchModel.Manage_id)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.vulnSearchModel.Manage_id, new { placeholder = "Manage_id", @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:bottom">
+                        @Html.LabelFor(m => m.vulnSearchModel.Exception_yn)
+                    </td>
+                    <td>
+                        <input type="radio" asp-for="vulnSearchModel.Exception_yn" value="Y" checked />Y
+                        <input type="radio" asp-for="vulnSearchModel.Exception_yn" value="N" />N
+                    </td>
+                    <td style="vertical-align:bottom">
+                        @Html.LabelFor(m => m.vulnSearchModel.Diag_type)
+                    </td>
+                    <td>
+                        <select asp-for="vulnSearchModel.Diag_type" asp-items="@(new SelectList(ddl_DiagType, "CodeId","CodeName"))" class="form-control">
+                            <option value="" selected>전체</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ActionLink("Refresh", "VulnList", "VulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+                    </td>
+                    <td colspan="2" style="text-align:right">
+                        <bootstrap-button type="submit" class="btn btn-primary btn-sm">
+                            SEARCH
+                        </bootstrap-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+}
+<div style="display:none">
+    <p>
+        <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
+            Open sample modal
+        </bootstrap-button>
 
-    <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
-        Open sample modal
-    </bootstrap-button>
+        <button type="button" class="btn btn-primary btn-sm" id="partialView11">
+            Open PartialView
+        </button>
+        <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage", new { Area = "VulnManage" })"></div>
 
-    <button type="button" class="btn btn-primary btn-sm" id="partialView11">
-        Open PartialView
-    </button>
-    <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage", new { Area = "VulnManage" })"></div>
-
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="ajax-modal" data-target="#popupVulnEdit" data-url="@Url.Action("PopupTvulnManageEdit", "TvulnManage", new { Area="VulnManage", id = 2001 })">
-        Add contact
-    </button>
-    <div id="modal-placeholder"></div>
-</p>
-
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="ajax-modal" data-target="#popupVulnEdit" data-url="@Url.Action("PopupTvulnManageEdit", "TvulnManage", new { Area="VulnManage", id = 2001 })">
+            Add contact
+        </button>
+        <div id="modal-placeholder"></div>
+    </p>
+</div>
 <bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
     <bootstrap-modal-header>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -133,7 +182,7 @@
             return temp;
         }
 
-        var template = { rowDetails: "<div style=\"margin: 10px;\"></div>", rowDetailsHeight: 220, rowDetailsHidden: true };
+        var template = { rowDetails: "<div style=\"margin: 10px;\"></div>", rowDetailsHeight: 600, rowDetailsHidden: true };
         var initRowDetails = function (index, parentElement, gridElement, record) {
             var id = record.uid.toString();
             var grid = $($(parentElement).children()[0]);
@@ -185,15 +234,13 @@
 
 <div id="grid" style="width:100%"></div>
 <div style="display:none">
-    <jqx-grid id="grid" row-details="true" show-filter-row="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(gridModelDefault.VulnSeq)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="vulnModels" source-total-records="vulnModesTotalCount" source-url="@Url.Action("GetGridVulnData","VulnManage", pageSearchModel)" source-model="gridModelDefault">
+    <jqx-grid id="grid" row-details="true" show-filter-row="true" columns-resize="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(gridModelDefault.VulnSeq)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="vulnModels" source-total-records="vulnModesTotalCount" source-url="@Url.Action("GetGridVulnData","VulnManage", pageSearchModel)" source-model="gridModelDefault">
         <jqx-grid-columns>
             <jqx-grid-column datafield-for="@(gridModelDefault.VulnSeq)" width="80" text="VulnSeq" cells-renderer="cellsrenderer_default()"></jqx-grid-column>
             @*<jqx-grid-column create-widget="createWidget()" width="80" text="click" cells-renderer="cellsrenderer_btn()"></jqx-grid-column>*@
             <jqx-grid-column datafield-for="@(gridModelDefault.GroupSeq)" width="150" text="GroupSeq"></jqx-grid-column>
-            <jqx-grid-column datafield-for="@(gridModelDefault.VulnName)" width="150" text="VulnName"></jqx-grid-column>
-            <jqx-grid-column width="80" text="click" cells-renderer="cellsrenderer_btn()" column-type="button"></jqx-grid-column>
+            <jqx-grid-column datafield-for="@(gridModelDefault.VulnName)" text="VulnName"></jqx-grid-column>
             <jqx-grid-column width="80" text="test1" cells-renderer="cellsrenderer_p01()"></jqx-grid-column>
-            <jqx-grid-column width="80" text="test2" cells-renderer="cellsrenderer_p01()"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(gridModelDefault.ManageId)" width="150" text="ManageId"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(gridModelDefault.Score)" width="150" text="Score"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(gridModelDefault.Rate)" width="150" text="Rate"></jqx-grid-column>
