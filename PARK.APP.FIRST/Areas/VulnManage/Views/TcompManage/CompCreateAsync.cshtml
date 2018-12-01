@@ -1,0 +1,98 @@
+﻿@*@model PARK.APP.FIRST.Areas.VulnManage.Models.Vuln.TcompInfo*@
+@model PARK.APP.FIRST.Areas.VulnManage.Controllers.TcompManageController.PageCompCreateViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+
+@using PARK.APP.FIRST.Areas.SystemManage.Repositories
+
+@{
+    ViewData["Title"] = "CompCreateAsync";
+    ViewData["Theme"] = "metro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var ddlItems = Model.tcommonCodes.FirstOrDefault();
+    var ddlSource = Model.tcommonCodes;
+
+    var test11 = Model.tcompInfo;
+}
+@functions{
+    public string test1(string m)
+    {
+        return m + ":::::";
+    }
+}
+
+<h2>CompCreate</h2>
+@*<label>ASP .NET Core MVC DropDownList Tag Helper Example</label><br /><br />
+<h3>@test1(@DateTime.Now.ToShortTimeString())</h3>
+<h4>TcompInfo</h4>
+<div id="xxxx"></div>
+@Html.DropDownList("Exemplo", new SelectList(Model.tcommonCodes, "CodeId", "CodeName"), "-------")*@
+@*@Html.EditorFor(model => model.tcompInfo, new { @class = "form-control" })*@
+
+
+@*<jqx-drop-down-list for="@(ddlItems.CodeName)" id="xxxx"
+                    value-for="@(ddlItems.CodeId)"
+                    selected-index="0"
+                    theme="@ViewData["Theme"]" width="100" height="30"
+                    place-holder="sdffsdfs"
+                    source="ddlSource"></jqx-drop-down-list>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CompCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="tcompInfo.CompName" class="control-label"></label>
+                <input asp-for="tcompInfo.CompName" class="form-control" />
+                <span asp-validation-for="tcompInfo.CompName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tcompInfo.CompDescription" class="control-label"></label>
+                <input asp-for="tcompInfo.CompDescription" class="form-control" />
+                <span asp-validation-for="tcompInfo.CompDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tcompInfo.CompRef" class="control-label"></label>
+                <input asp-for="tcompInfo.CompRef" class="form-control" />
+                <span asp-validation-for="tcompInfo.CompRef" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tcompInfo.StandardYear" class="control-label"></label>
+                <input asp-for="tcompInfo.StandardYear" class="form-control" />
+                <span asp-validation-for="tcompInfo.StandardYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tcompInfo.DiagType" class="control-label"></label>
+                <select asp-for="tcompInfo.DiagType" asp-items="@(new SelectList(ddlSource, "CodeId","CodeName"))" class="form-control" required="required">
+                    <option value="" disabled selected>Please select</option>
+                </select>
+                <span asp-validation-for="tcompInfo.DiagType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tcompInfo.ConfirmYn" class="control-label"></label>
+                <input type="radio" asp-for="tcompInfo.ConfirmYn" value="Y" checked/>Y
+                <input type="radio" asp-for="tcompInfo.ConfirmYn" value="N" />N
+                <span asp-validation-for="tcompInfo.ConfirmYn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tcompInfo.UseYn" class="control-label"></label>
+                <input type="checkbox" asp-for="tcompInfo.UseYn" value="Y" checked/>
+                <span asp-validation-for="tcompInfo.UseYn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

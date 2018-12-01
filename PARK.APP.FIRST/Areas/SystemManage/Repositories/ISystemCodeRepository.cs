@@ -8,6 +8,6 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Repositories
 {
     public interface ISystemCodeRepository
     {
-        Task<List<TcommonCode>> GetCommonCodeDropDownListAsync(string vulnGroupSeq, string use_yn);
+        Task<List<TcommonCode>> GetCommonCodeDropDownListAsync(string codeType, string use_yn);
     }
 }

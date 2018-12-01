@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PARK.APP.FIRST.Areas.SystemManage.Models.System;
+using PARK.APP.FIRST.Areas.SystemManage.Repositories;
 using PARK.APP.FIRST.Areas.VulnManage.Models.Vuln;
 using PARK.APP.FIRST.Services;
 
@@ -17,9 +19,12 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
     {
         private readonly VulnDbContext vulnDbContext;
 
-        public TcompManageController(VulnDbContext vulnDbContext)
+        private readonly ISystemCodeRepository systemCodeRepository;
+
+        public TcompManageController(VulnDbContext vulnDbContext, ISystemCodeRepository systemCodeRepository)
         {
             this.vulnDbContext = vulnDbContext;
+            this.systemCodeRepository = systemCodeRepository;
         }
 
         public class PageDefault
@@ -416,9 +421,23 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         }
         #endregion
 
-        public IActionResult CompCreate()
+
+        public class PageCompCreateViewModel
         {
-            return View();
+            public List<TcommonCode> tcommonCodes { get; set; }
+            public TcompInfo tcompInfo { get; set; }
+        }
+
+        public async Task<IActionResult> CompCreateAsync()
+        {
+            var _ddlDiagType = await systemCodeRepository.GetCommonCodeDropDownListAsync("DIAG_TYPE", "");
+
+            var vm_createComp = new PageCompCreateViewModel
+            {
+                tcommonCodes = _ddlDiagType,
+                tcompInfo = new TcompInfo()
+            };
+            return View(vm_createComp);
         }
     }
 }

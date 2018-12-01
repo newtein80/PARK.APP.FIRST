@@ -19,6 +19,7 @@ using System.Net;
 using PARK.APP.FIRST.Areas.VulnManage.Models.Vuln;
 using PARK.APP.FIRST.Areas.VulnManage.Repositories;
 using PARK.APP.FIRST.Areas.SystemManage.Models.System;
+using PARK.APP.FIRST.Areas.SystemManage.Repositories;
 
 namespace PARK.APP.FIRST
 {
@@ -73,6 +74,8 @@ namespace PARK.APP.FIRST
             // https://exceptionnotfound.net/using-dapper-asynchronously-in-asp-net-core-2-1/
             services.AddTransient<ITVulnRepository, TVulnRepository>();
             //services.AddScoped<TVulnRepository>();
+
+            services.AddTransient<ISystemCodeRepository, SystemCodeRepository>();
 
             // https://www.codeproject.com/Articles/1237650/ASP-NET-Core-User-Role-Base-Dynamic-Menu-Managemen
             services.AddTransient<MenuMasterService, MenuMasterService>();
