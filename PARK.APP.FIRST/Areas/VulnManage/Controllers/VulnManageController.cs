@@ -93,22 +93,6 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 Exception_yn = "";
                 Diag_types = new List<TcommonCode>();
             }
-
-            //public VulnSearchModel(List<TcommonCode> diag_types)
-            //{
-            //    Diag_type = "";
-            //    Diag_kind = "";
-            //    Comp_name = "";
-            //    Comp_seq = 0;
-            //    Group_name = "";
-            //    Group_seq = 0;
-            //    Vuln_name = "";
-            //    Manage_id = "";
-            //    Rate = "";
-            //    Score = "";
-            //    Exception_yn = "";
-            //    Diag_types = diag_types;
-            //}
         }
 
         public class VulnViewModel

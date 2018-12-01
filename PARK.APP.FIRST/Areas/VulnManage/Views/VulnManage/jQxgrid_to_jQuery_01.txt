@@ -1,0 +1,149 @@
+﻿$(function () {
+    var source = {
+        id: '0',
+        dataFields: 
+            [ 
+                { 
+                    name: 'VulnSeq',
+                    type: 'string'
+                }
+                , {
+                    name: 'GroupSeq',
+                    type: 'string'
+                }
+                , {
+                    name: 'VulnName',
+                    type: 'string'
+                }
+                , {
+                    name: '',
+                    type: ''
+                }
+                , {
+                    name: 'ManageId',
+                    type: 'string'
+                }
+                , {
+                    name: 'Score',
+                    type: 'string'
+                }
+                , {
+                    name: 'Rate',
+                    type: 'string'
+                }
+                , {
+                    name: 'ExceptTermType',
+                    type: 'string'
+                }
+                , {
+                    name: '0',
+                    type: 'string'
+                }
+            ]
+        ,type: 'POST'
+        , dataType: 'json'
+
+        , url:
+            '
+                /VulnManage/VulnManage/GetGridVulnData
+                ?
+                    Diag_types = PARK.APP.FIRST.Areas.SystemManage.Models.System.TcommonCode
+                    &
+                    Diag_types = PARK.APP.FIRST.Areas.SystemManage.Models.System.TcommonCode
+                    &
+                    Diag_types = PARK.APP.FIRST.Areas.SystemManage.Models.System.TcommonCode
+                    &
+                    Comp_seq = 0
+                    &
+                    Group_seq = 0
+            '
+
+        , cache: false
+        , formatData:
+            function(data){
+                return { 'jsonData': JSON.stringify(data)};
+            }
+        , root: 'vulnModels'
+        , beforeprocessing:
+            function(data) {
+                source.totalrecords = data.vulnModesTotalCount;
+            }
+        , sort:
+            function(data) {
+                $('#grid').jqxGrid('updatebounddata', 'sort');
+            }
+        , filter:
+            function(data) {
+                $('#grid').jqxGrid('updatebounddata', 'filter');
+            }
+        };
+        
+    var adapter = new $.jqx.dataAdapter(source);
+    
+    var grid= new jqxGrid(
+        $('#grid'), {
+            rowDetails: true
+            , showFilterRow: true
+            , selectionMode: 'checkbox'
+            , columnsResize: true
+            , rowDetailsTemplate: template
+            , initRowDetails: initRowDetails
+            , altRows: true
+            , filterable: true
+            , pageable: true
+            , autoHeight: true
+            , theme: 'metro'
+            , sortable: true
+            , width: '100%'
+            , columns:
+                [
+                    {
+                        text: 'VulnSeq'
+                        , dataField: 'VulnSeq'
+                        , cellsRenderer: cellsrenderer_default
+                        , width: 80
+                    },
+                    {
+                        text: 'GroupSeq'
+                        , dataField: 'GroupSeq'
+                        , width: 150
+                    },
+                    {
+                        text: 'VulnName'
+                        , dataField: 'VulnName'
+                    },
+                    {
+                        text: 'test1'
+                        , cellsRenderer: cellsrenderer_p01
+                        , width: 80
+                    },
+                    {
+                        text: 'ManageId'
+                        , dataField: 'ManageId'
+                        , width: 150
+                    },
+                    {
+                        text: 'Score'
+                        , dataField: 'Score'
+                        , width: 150
+                    },
+                    {
+                        text: 'Rate'
+                        , dataField: 'Rate'
+                        , width: 150
+                    },
+                    {
+                        text: 'ExceptTermType'
+                        , dataField: 'ExceptTermType'
+                        , width: 150
+                    }
+                ]
+            , virtualMode: true
+            , renderGridRows:
+                function(obj) {
+                    return obj.data;
+                }
+            , source: adapter
+        }
+    );
+});

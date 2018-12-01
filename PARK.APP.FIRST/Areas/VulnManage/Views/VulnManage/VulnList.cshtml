@@ -229,12 +229,152 @@
                 alert(editrow);
             };
         });
+
+
+
+
+        $(function () {
+            var source = {
+                id: '0',
+                dataFields:
+                    [
+                        {
+                            name: 'VulnSeq',
+                            type: 'string'
+                        }
+                        , {
+                            name: 'GroupSeq',
+                            type: 'string'
+                        }
+                        , {
+                            name: 'VulnName',
+                            type: 'string'
+                        }
+                        , {
+                            name: '',
+                            type: ''
+                        }
+                        , {
+                            name: 'ManageId',
+                            type: 'string'
+                        }
+                        , {
+                            name: 'Score',
+                            type: 'string'
+                        }
+                        , {
+                            name: 'Rate',
+                            type: 'string'
+                        }
+                        , {
+                            name: 'ExceptTermType',
+                            type: 'string'
+                        }
+                        , {
+                            name: '0',
+                            type: 'string'
+                        }
+                    ]
+                , type: 'POST'
+                , dataType: 'json'
+
+                , url:"@Url.Action("GetGridVulnData", "VulnManage", pageSearchModel)"
+
+                , cache: false
+                , formatData:
+                    function (data) {
+                        return { 'jsonData': JSON.stringify(data) };
+                    }
+                , root: 'vulnModels'
+                , beforeprocessing:
+                    function (data) {
+                        source.totalrecords = data.vulnModesTotalCount;
+                    }
+                , sort:
+                    function (data) {
+                        $('#grid2').jqxGrid('updatebounddata', 'sort');
+                    }
+                , filter:
+                    function (data) {
+                        $('#grid2').jqxGrid('updatebounddata', 'filter');
+                    }
+            };
+
+            var adapter = new $.jqx.dataAdapter(source);
+
+            var grid = new jqxGrid(
+                $('#grid2'), {
+                    rowDetails: true
+                    , showFilterRow: true
+                    , selectionMode: 'checkbox'
+                    , columnsResize: true
+                    , rowDetailsTemplate: template
+                    , initRowDetails: initRowDetails
+                    , altRows: true
+                    , filterable: true
+                    , pageable: true
+                    , autoHeight: true
+                    , theme: 'metro'
+                    , sortable: true
+                    , width: '100%'
+                    , columns:
+                        [
+                            {
+                                text: 'VulnSeq'
+                                , dataField: 'VulnSeq'
+                                , cellsRenderer: cellsrenderer_default
+                                , width: 80
+                            },
+                            {
+                                text: 'GroupSeq'
+                                , dataField: 'GroupSeq'
+                                , width: 150
+                            },
+                            {
+                                text: 'VulnName'
+                                , dataField: 'VulnName'
+                            },
+                            {
+                                text: 'test1'
+                                , cellsRenderer: cellsrenderer_p01
+                                , width: 80
+                            },
+                            {
+                                text: 'ManageId'
+                                , dataField: 'ManageId'
+                                , width: 150
+                            },
+                            {
+                                text: 'Score'
+                                , dataField: 'Score'
+                                , width: 150
+                            },
+                            {
+                                text: 'Rate'
+                                , dataField: 'Rate'
+                                , width: 150
+                            },
+                            {
+                                text: 'ExceptTermType'
+                                , dataField: 'ExceptTermType'
+                                , width: 150
+                            }
+                        ]
+                    , virtualMode: true
+                    , renderGridRows:
+                        function (obj) {
+                            return obj.data;
+                        }
+                    , source: adapter
+                }
+            );
+        });
     </script>
 }
 
 <div id="grid" style="width:100%"></div>
 <div style="display:none">
-    <jqx-grid id="grid" row-details="true" show-filter-row="true" columns-resize="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(gridModelDefault.VulnSeq)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="vulnModels" source-total-records="vulnModesTotalCount" source-url="@Url.Action("GetGridVulnData","VulnManage", pageSearchModel)" source-model="gridModelDefault">
+    <jqx-grid id="grid" row-details="true" show-filter-row="true" selection-mode="checkbox" columns-resize="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(gridModelDefault.VulnSeq)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="vulnModels" source-total-records="vulnModesTotalCount" source-url="@Url.Action("GetGridVulnData","VulnManage", pageSearchModel)" source-model="gridModelDefault">
         <jqx-grid-columns>
             <jqx-grid-column datafield-for="@(gridModelDefault.VulnSeq)" width="80" text="VulnSeq" cells-renderer="cellsrenderer_default()"></jqx-grid-column>
             @*<jqx-grid-column create-widget="createWidget()" width="80" text="click" cells-renderer="cellsrenderer_btn()"></jqx-grid-column>*@
@@ -248,3 +388,5 @@
         </jqx-grid-columns>
     </jqx-grid>
 </div>
+<p></p>
+<div id="grid2" style="width:100%"></div>
