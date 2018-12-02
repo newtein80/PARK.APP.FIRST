@@ -16,7 +16,9 @@ namespace PARK.APP.FIRST.Services
         public static IConfiguration Configuration;
         // Remember to add <remove name="LocalSqlServer" > in ConnectionStrings section if using this, as otherwise it would be the first one.
         //private static string connectionString = ConfigurationManager.ConnectionStrings[0].ConnectionString;
-        private static string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+        //private static string connectionString = Configuration.GetConnectionString("DefaultConnection");
+        private static string connectionString = "Data Source=PARKJS\\SQLEXPRESS;Initial Catalog=PJSWORK;User ID=sa;Password=#skdlf12;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         #region+ http://www.nullskull.com/a/10399923/sqlmapperhelper--a-helper-class-for-dapperdotnet.aspx
         /// <summary>
@@ -27,8 +29,12 @@ namespace PARK.APP.FIRST.Services
         public static SqlConnection GetOpenConnection(string name = null)
         {
             string connString = "";
+
+            name = "Data Source=PARKJS\\SQLEXPRESS;Initial Catalog=PJSWORK;User ID=sa;Password=#skdlf12;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            connString = name;
+
             //connString = name == null ? connString = ConfigurationManager.ConnectionStrings[0].ConnectionString : connString = ConfigurationManager.ConnectionStrings[name].ConnectionString;
-            connString = name == null ? connString = Configuration.GetConnectionString("DefaultConnection") : connString = Configuration.GetConnectionString("DefaultConnection");
+            //connString = name == null ? connString = Configuration.GetConnectionString("DefaultConnection") : connString = Configuration.GetConnectionString("DefaultConnection");
             var connection = new SqlConnection(connString);
             connection.Open();
             return connection;
@@ -279,11 +285,11 @@ namespace PARK.APP.FIRST.Services
         // Select List
         public static IEnumerable<T> GetList<T>(string storedProcedure, DynamicParameters param = null, string connectionName = null) where T : class
         {
-            using (SqlConnection connection = GetOpenConnection(connectionName))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 var output = connection.Query<T>(storedProcedure, param, commandType: CommandType.StoredProcedure);
-                connection.Close();
+                //connection.Close();
                 return output;
             }
         }
@@ -291,7 +297,7 @@ namespace PARK.APP.FIRST.Services
         // Multiple Select 1: N...
         public static Dictionary<Tmain, List<Tsub>> MultiPleGetList<Tmain, Tsub>(string storedProcedure, DynamicParameters param = null, string connectionName = null) where Tmain : class
         {
-            using (SqlConnection connection = GetOpenConnection(connectionName))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -315,11 +321,11 @@ namespace PARK.APP.FIRST.Services
         // Top 1
         public static T Top1<T>(string storedProcedure, DynamicParameters param = null, string connectionName = null) where T : class
         {
-            using (SqlConnection connection = GetOpenConnection(connectionName))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 var output = connection.Query<T>(storedProcedure, param, commandType: CommandType.StoredProcedure).FirstOrDefault();
-                connection.Close();
+                //connection.Close();
                 return output;
             }
         }
@@ -327,11 +333,11 @@ namespace PARK.APP.FIRST.Services
         // Insert, Update, Delete
         public static void Process<T>(string storedProcedure, DynamicParameters param = null, string connectionName = null) where T : class
         {
-            using (SqlConnection connection = GetOpenConnection(connectionName))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 connection.Execute(storedProcedure, param, commandType: CommandType.StoredProcedure);
-                connection.Close();
+                //connection.Close();
             }
         }
 

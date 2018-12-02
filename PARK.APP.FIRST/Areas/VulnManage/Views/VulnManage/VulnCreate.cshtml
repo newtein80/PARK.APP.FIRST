@@ -37,14 +37,15 @@
             });
 
             $('#_ddlDiagKind').attr("disabled", "disabled");
-            
+
+            var item = ""
+            item = "<option value='0'>" + "Please select" + "</option>";
+
             $('#_ddlComp').change(function () {
                 var url = "@Url.Action("GetDiagKindByComp", "VulnManage")";
                 var targetSource = '#_ddlDiagKind';
 
                 if ($(this).val() == "0") {
-                    var item = ""
-                    item = "<option value='0'>" + "Please select" + "</option>";
                     $('#_ddlDiagKind').empty;
                     $('#_ddlVulnGroup').empty;
                     $('#_ddlDiagKind').html(item);
@@ -63,6 +64,10 @@
                         $(targetSource).html(items);
                     });
                 }
+
+                $('#_ddlVulnGroup').empty;
+                $('#_ddlVulnGroup').html(item);
+                $('#_ddlVulnGroup').attr("disabled", "disabled");
             });
 
             $('#_ddlVulnGroup').attr("disabled", "disabled");
@@ -71,15 +76,22 @@
                 var url = "@Url.Action("GetVulnGroupByDiagKind", "VulnManage")";
                 var targetSource = '#_ddlVulnGroup';
 
-                $.getJSON(url, { i_GroupSeq : $(this).val() }, function (data) {
-                    var items = "";
-                    $(targetSource).empty();
-                    $.each(data, function (i, tvulngroups_by_compseq) {
-                        items += "<option value='" + tvulngroups_by_compseq.value + "'>" + tvulngroups_by_compseq.text + "</option>";
+                if ($(this).val() == "0") {
+                    $('#_ddlVulnGroup').empty;
+                    $('#_ddlVulnGroup').html(item);
+                    $('#_ddlVulnGroup').attr("disabled", "disabled");
+                }
+                else {
+                    $.getJSON(url, { i_GroupSeq: $(this).val() }, function (data) {
+                        var items = "";
+                        $(targetSource).empty();
+                        $.each(data, function (i, tvulngroups_by_compseq) {
+                            items += "<option value='" + tvulngroups_by_compseq.value + "'>" + tvulngroups_by_compseq.text + "</option>";
+                        });
+                        $(targetSource).removeAttr('disabled');
+                        $(targetSource).html(items);
                     });
-                    $(targetSource).removeAttr('disabled');
-                    $(targetSource).html(items);
-                });
+                }
             });
         });
     </script>

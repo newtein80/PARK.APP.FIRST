@@ -137,6 +137,8 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             var filter_vulnModels = new List<VulnModel>();
 
             DbParameter outputParam = null;
+
+            // 굳이 필요한가?????
             vulnDbContext.LoadStoredProc("dbo.SP_VULN_LIST_02")
                 .WithSqlParam("gubun", "")
                 .WithSqlParam("diag_type", "")
