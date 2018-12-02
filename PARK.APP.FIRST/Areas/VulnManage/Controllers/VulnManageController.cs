@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PARK.APP.FIRST.Areas.SystemManage.Models.System;
@@ -420,5 +421,77 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             return items;
         }
         #endregion
+
+        public class VulnCreateModel
+        {
+            public List<TcommonCode> tCommonCodes { get; set; }
+            public List<TcompInfo> tCompInfos { get; set; }
+            public VulnCreateInfo tVulnCreateInfo { get; set; }
+        }
+
+        public class VulnCreateInfo : Tvuln
+        {
+            public long CompSeq { get; set; }
+            public string DiagType { get; set; }
+            public string DiagKind { get; set; }
+        }
+
+        [HttpGet]
+        public IActionResult VulnCreate()
+        {
+            string m_UseYn = "Y";
+            string[] arrSearchCommonCodes = { "RATE", "SCORE", "EXCEPT_CD", "USE_YN", "DIAG_TYPE" };
+            List<TcommonCode> _ddlCommonCodes = systemCodeRepository.GetCommonCodeByArray(arrSearchCommonCodes, m_UseYn);
+
+            var vulnCreateModel = new VulnCreateModel
+            {
+                tCommonCodes = _ddlCommonCodes,
+                tCompInfos = vulnDbContext.TcompInfo.ToList(),
+                tVulnCreateInfo = new VulnCreateInfo()
+            };
+
+            return View(vulnCreateModel);
+        }
+
+        [HttpPost]
+        public IActionResult VulnCreate(VulnCreateModel vulnCreateModel)
+        {
+            return RedirectToAction("VulnCreate");
+        }
+
+        public JsonResult GetCompByDiagType(string i_Diagtype)
+        {
+            List<TcompInfo> tcompInfos_by_diagtype = new List<TcompInfo>();
+
+            tcompInfos_by_diagtype = vulnDbContext.TcompInfo.Where(x => x.DiagType == i_Diagtype).ToList();
+
+            tcompInfos_by_diagtype.Insert(0, new TcompInfo { CompSeq = 0, CompName = "--select !! --" });
+
+            return Json(new SelectList(tcompInfos_by_diagtype, "CompSeq", "CompName"));
+        }
+
+        public JsonResult GetDiagKindByComp(int i_CompSeq)
+        {
+            List<TvulnGroup> tdiagkind_by_compseq = new List<TvulnGroup>();
+
+            tdiagkind_by_compseq = vulnDbContext.TvulnGroup.Where(x => x.CompSeq == i_CompSeq && x.GroupType == "K").Distinct().ToList();
+
+            tdiagkind_by_compseq.Insert(0, new TvulnGroup { GroupSeq = 0, GroupName = "--select !! --" });
+
+            return Json(new SelectList(tdiagkind_by_compseq, "GroupSeq", "GroupName"));
+        }
+
+        public JsonResult GetVulnGroupByDiagKind(int i_GroupSeq)
+        {
+            List<TvulnGroup> tvulngroups_by_compseq = new List<TvulnGroup>();
+
+            tvulngroups_by_compseq = vulnDbContext.TvulnGroup.Where(x => x.UpperSeq == i_GroupSeq && x.GroupType == "G").ToList();
+
+            tvulngroups_by_compseq.Insert(0, new TvulnGroup { GroupSeq = 0, GroupName = "--select !! --" });
+
+            return Json(new SelectList(tvulngroups_by_compseq, "GroupSeq", "GroupName"));
+        }
+
+        
     }
 }

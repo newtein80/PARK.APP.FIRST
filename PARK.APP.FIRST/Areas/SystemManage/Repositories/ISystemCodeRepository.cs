@@ -10,5 +10,6 @@ namespace PARK.APP.FIRST.Areas.SystemManage.Repositories
     {
         Task<List<TcommonCode>> GetCommonCodeDropDownListAsync(string codeType, string use_yn);
         List<TcommonCode> GetCommonCodeDropDownList(string codeType, string use_yn);
+        List<TcommonCode> GetCommonCodeByArray(string[] arrCodeType, string use_yn);
     }
 }
