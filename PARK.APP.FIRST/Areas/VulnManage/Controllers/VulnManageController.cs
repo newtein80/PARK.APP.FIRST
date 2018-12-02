@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -232,6 +234,51 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 pageDefault = new PageDefault(),
                 vulnModels = FilterItems(jsonData, filter_vulnModels, ref outputParamValue),
                 vulnModesTotalCount = outputParamValue,
+                vulnSearchModel = vulnSearchModel
+            };
+
+            return JsonConvert.SerializeObject(rtn_vulnViewModel);
+        }
+
+        [HttpPost]
+        public string GetGridVulnData_Dapper(string jsonData, VulnSearchModel vulnSearchModel)
+        {
+            var param = new DynamicParameters();
+            param.Add("@gubun", "");
+            param.Add("@diag_type", "");
+            param.Add("@diag_kind", "");
+            param.Add("@comp_seq", 0);
+            param.Add("@comp_name", vulnSearchModel.Comp_name ?? "");
+            param.Add("@group_seq", 0);
+            param.Add("@group_name", vulnSearchModel.Group_name ?? "");
+            param.Add("@vuln_seq", 0);
+            param.Add("@vuln_name", vulnSearchModel.Vuln_name ?? "");
+            param.Add("@manage_id", "");
+            param.Add("@rate", 0);
+            param.Add("@score", 0);
+            param.Add("@use_yn", "");
+            param.Add("@exception_yn", "");
+            param.Add("@user_id", "");
+            param.Add("@sort_field", "");
+            param.Add("@is_desc", 1);
+            param.Add("@pagesize", 1000000);
+            param.Add("@pageindex", 1);
+            //p.Add("@UserID", userId, DbType.String, null, 100);
+            param.Add("@allCount", dbType: DbType.Int32, direction: ParameterDirection.Output, size: 50);
+
+            // 테이블 한개 리스트
+            var listTable = DapperHelper.GetList<VulnModel>("SP_VULN_LIST_02", param).ToList();
+
+            // 메인 + 서브 모델
+            //var Table = SqlHelper.MultiPleGetList<Schema_User, Address>(SqlHelper.localDB.ToString(), "sp_GetUser_List", param);
+
+            int resultParam = param.Get<int>("@allCount");
+
+            VulnViewModel rtn_vulnViewModel = new VulnViewModel
+            {
+                pageDefault = new PageDefault(),
+                vulnModels = FilterItems(jsonData, listTable, ref resultParam),
+                vulnModesTotalCount = resultParam,
                 vulnSearchModel = vulnSearchModel
             };
 

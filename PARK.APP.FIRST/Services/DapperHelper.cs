@@ -277,9 +277,9 @@ namespace PARK.APP.FIRST.Services
 
         #region+ https://m.blog.naver.com/PostView.nhn?blogId=wolfre&logNo=220597602977&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
         // Select List
-        public static IEnumerable<T> GetList<T>(string targetDB, string storedProcedure, DynamicParameters param = null) where T : class
+        public static IEnumerable<T> GetList<T>(string storedProcedure, DynamicParameters param = null, string connectionName = null) where T : class
         {
-            using (SqlConnection connection = new SqlConnection(targetDB))
+            using (SqlConnection connection = GetOpenConnection(connectionName))
             {
                 connection.Open();
                 var output = connection.Query<T>(storedProcedure, param, commandType: CommandType.StoredProcedure);
@@ -289,9 +289,9 @@ namespace PARK.APP.FIRST.Services
         }
 
         // Multiple Select 1: N...
-        public static Dictionary<Tmain, List<Tsub>> MultiPleGetList<Tmain, Tsub>(string targetDB, string storedProcedure, DynamicParameters param = null) where Tmain : class
+        public static Dictionary<Tmain, List<Tsub>> MultiPleGetList<Tmain, Tsub>(string storedProcedure, DynamicParameters param = null, string connectionName = null) where Tmain : class
         {
-            using (SqlConnection connection = new SqlConnection(targetDB))
+            using (SqlConnection connection = GetOpenConnection(connectionName))
             {
                 connection.Open();
 
@@ -313,9 +313,9 @@ namespace PARK.APP.FIRST.Services
         }
 
         // Top 1
-        public static T Top1<T>(string targetDB, string storedProcedure, DynamicParameters param = null) where T : class
+        public static T Top1<T>(string storedProcedure, DynamicParameters param = null, string connectionName = null) where T : class
         {
-            using (SqlConnection connection = new SqlConnection(targetDB))
+            using (SqlConnection connection = GetOpenConnection(connectionName))
             {
                 connection.Open();
                 var output = connection.Query<T>(storedProcedure, param, commandType: CommandType.StoredProcedure).FirstOrDefault();
@@ -325,9 +325,9 @@ namespace PARK.APP.FIRST.Services
         }
 
         // Insert, Update, Delete
-        public static void Process<T>(string targetDB, string storedProcedure, DynamicParameters param = null) where T : class
+        public static void Process<T>(string storedProcedure, DynamicParameters param = null, string connectionName = null) where T : class
         {
-            using (SqlConnection connection = new SqlConnection(targetDB))
+            using (SqlConnection connection = GetOpenConnection(connectionName))
             {
                 connection.Open();
                 connection.Execute(storedProcedure, param, commandType: CommandType.StoredProcedure);
@@ -351,6 +351,84 @@ namespace PARK.APP.FIRST.Services
         //        return rowsAffected;
         //    }
         //}
+
+
+
+        //// Select List
+        //public static IEnumerable<T> GetList<T>(string targetDB, string storedProcedure, DynamicParameters param = null) where T : class
+        //{
+        //    using (SqlConnection connection = new SqlConnection(targetDB))
+        //    {
+        //        connection.Open();
+        //        var output = connection.Query<T>(storedProcedure, param, commandType: CommandType.StoredProcedure);
+        //        connection.Close();
+        //        return output;
+        //    }
+        //}
+
+        //// Multiple Select 1: N...
+        //public static Dictionary<Tmain, List<Tsub>> MultiPleGetList<Tmain, Tsub>(string targetDB, string storedProcedure, DynamicParameters param = null) where Tmain : class
+        //{
+        //    using (SqlConnection connection = new SqlConnection(targetDB))
+        //    {
+        //        connection.Open();
+
+        //        Dictionary<Tmain, List<Tsub>> listTable = new Dictionary<Tmain, List<Tsub>>();
+
+        //        using (var output = connection.QueryMultiple(storedProcedure, param, commandType: CommandType.StoredProcedure))
+        //        {
+        //            var main = output.Read<Tmain>().SingleOrDefault();
+        //            var sub = output.Read<Tsub>().ToList();
+
+        //            if (main != null && sub != null)
+        //            {
+        //                listTable.Add((Tmain)main, sub);
+        //            }
+
+        //            return listTable;
+        //        }
+        //    }
+        //}
+
+        //// Top 1
+        //public static T Top1<T>(string targetDB, string storedProcedure, DynamicParameters param = null) where T : class
+        //{
+        //    using (SqlConnection connection = new SqlConnection(targetDB))
+        //    {
+        //        connection.Open();
+        //        var output = connection.Query<T>(storedProcedure, param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+        //        connection.Close();
+        //        return output;
+        //    }
+        //}
+
+        //// Insert, Update, Delete
+        //public static void Process<T>(string targetDB, string storedProcedure, DynamicParameters param = null) where T : class
+        //{
+        //    using (SqlConnection connection = new SqlConnection(targetDB))
+        //    {
+        //        connection.Open();
+        //        connection.Execute(storedProcedure, param, commandType: CommandType.StoredProcedure);
+        //        connection.Close();
+        //    }
+        //}
+
+        //// 메인 서브 트랜잭션
+        ////public int DeleteProduct(Product product)
+        ////{
+        ////    using (IDbConnection connection = OpenConnection())
+        ////    {
+        ////        const string deleteImageQuery = "DELETE FROM Production.ProductProductPhoto " +
+        ////                                        "WHERE ProductID = @ProductID";
+        ////        const string deleteProductQuery = "DELETE FROM Production.Product " +
+        ////                                          "WHERE ProductID = @ProductID";
+        ////        IDbTransaction transaction = connection.BeginTransaction();
+        ////        int rowsAffected = connection.Execute(deleteImageQuery,new { ProductID = product.ProductID }, transaction);
+        ////        rowsAffected += connection.Execute(deleteProductQuery,new { ProductID = product.ProductID }, transaction);
+        ////        transaction.Commit();
+        ////        return rowsAffected;
+        ////    }
+        ////}
         #endregion
     }
 }
