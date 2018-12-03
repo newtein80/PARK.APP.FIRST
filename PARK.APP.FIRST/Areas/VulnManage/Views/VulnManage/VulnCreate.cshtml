@@ -102,8 +102,8 @@
 <h4>Tvuln</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="VulnCreate">
+    <div class="col-md-12">
+        <form asp-action="VulnCreate" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.DiagType" class="control-label"></label>
@@ -152,11 +152,6 @@
                 <label asp-for="tVulnCreateInfo.ManageId" class="control-label"></label>
                 <input asp-for="tVulnCreateInfo.ManageId" class="form-control" />
                 <span asp-validation-for="tVulnCreateInfo.ManageId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tVulnCreateInfo.VulnName" class="control-label"></label>
-                <input asp-for="tVulnCreateInfo.VulnName" class="form-control" />
-                <span asp-validation-for="tVulnCreateInfo.VulnName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.Rate" class="control-label"></label>

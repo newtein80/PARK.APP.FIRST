@@ -54,8 +54,8 @@
                         @Html.LabelFor(m => m.vulnSearchModel.Exception_yn)
                     </td>
                     <td>
-                        <input type="radio" asp-for="vulnSearchModel.Exception_yn" value="Y" checked />Y
-                        <input type="radio" asp-for="vulnSearchModel.Exception_yn" value="N" />N
+                        <input type="radio" asp-for="vulnSearchModel.Exception_yn" value="Y" />Y
+                        <input type="radio" asp-for="vulnSearchModel.Exception_yn" value="N" checked />N
                     </td>
                     <td style="vertical-align:bottom">
                         @Html.LabelFor(m => m.vulnSearchModel.Diag_type)
@@ -69,6 +69,9 @@
                 <tr>
                     <td colspan="2">
                         @Html.ActionLink("Refresh", "VulnList", "VulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+                        <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
+                            Open sample modal
+                        </bootstrap-button>
                     </td>
                     <td colspan="2" style="text-align:right">
                         @Html.ActionLink("CREATE", "VulnCreate", "VulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
@@ -84,10 +87,6 @@
 }
 <div style="display:none">
     <p>
-        <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
-            Open sample modal
-        </bootstrap-button>
-
         <button type="button" class="btn btn-primary btn-sm" id="partialView11">
             Open PartialView
         </button>
@@ -173,7 +172,7 @@
 
         var buttonclick = function (event) {
             var id = event.target.id;
-            alert(id);
+            alert("tttt : " + id);
         }
 
         $("input[id^='file_']").jqxButton({ theme: 'metro' });
@@ -198,7 +197,7 @@
         }
 
         var cellsrenderer_default_fn = function (value) {
-            alert("rowdata.Key : " + value);
+            alert("rowdata.Key 1111 : " + value);
         }
 
         var cellsrenderer_default_fn01 = function (value) {
@@ -214,7 +213,7 @@
         }
 
         var cellsbuttonclick_btn = function (rowdata) {
-            alert("xxx");
+            alert("3333 : xxx");
         }
 
         function cloneObject(obj) {
@@ -266,15 +265,15 @@
         }
 
         function alertTest(str) {
-            alert(str);
+            alert("0000 : " + str);
         }
 
-        $("#grid").bind('cellclick', function (event) {
-            if (event.args.columnindex == 2) {
-                editrow = event.args.rowindex;
-                alert(editrow);
-            };
-        });
+        //$("#grid").bind('cellclick', function (event) {
+        //    if (event.args.columnindex == 2) {
+        //        editrow = event.args.rowindex;
+        //        alert("9999 : " + editrow);
+        //    };
+        //});
 
 
 
