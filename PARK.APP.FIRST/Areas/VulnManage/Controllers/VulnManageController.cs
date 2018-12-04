@@ -480,8 +480,14 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
 
         public class VulnCreateInfo : Tvuln
         {
+            [Display(Name = "컴플라이언스")]
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the CompSeq")]
             public long CompSeq { get; set; }
+            [Display(Name = "점검구분")]
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the DiagType")]
             public string DiagType { get; set; }
+            [Display(Name = "점검유형")]
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the DiagKind")]
             public string DiagKind { get; set; }
         }
 
@@ -517,7 +523,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             param.Add("@new_sort_index", 0);
             param.Add("@manual_yn", "N");// vulnCreateModel.tVulnCreateInfo.ManualYn);
             param.Add("@auto_yn", "Y");// vulnCreateModel.tVulnCreateInfo.AutoYn);
-            param.Add("@vuln_name", DateTime.Now.ToShortTimeString());//vulnCreateModel.tVulnCreateInfo.VulnName);
+            param.Add("@vuln_name", vulnCreateModel.tVulnCreateInfo.VulnName);
             param.Add("@rate", "1");// vulnCreateModel.tVulnCreateInfo.Rate);
             param.Add("@score", "9");// vulnCreateModel.tVulnCreateInfo.Score);
             param.Add("@apply_time", "");// vulnCreateModel.tVulnCreateInfo.ApplyTime);

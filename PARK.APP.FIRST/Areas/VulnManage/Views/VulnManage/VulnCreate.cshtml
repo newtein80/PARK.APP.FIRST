@@ -184,21 +184,21 @@
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.CompSeq" class="control-label"></label>
                 <select id="_ddlComp" asp-for="tVulnCreateInfo.CompSeq" asp-items="@(new SelectList(string.Empty, "CompSeq","CompName"))" class="form-control" required="required">
-                    <option value="0" disabled selected>Please select</option>
+                    <option value="" disabled selected>Please select</option>
                 </select>
                 <span asp-validation-for="tVulnCreateInfo.CompSeq" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.DiagKind" class="control-label"></label>
                 <select id="_ddlDiagKind" asp-for="tVulnCreateInfo.DiagKind" asp-items="@(new SelectList(string.Empty, "GroupSeq","GroupName"))" class="form-control" required="required">
-                    <option value="0" disabled selected>Please select</option>
+                    <option value="" disabled selected>Please select</option>
                 </select>
                 <span asp-validation-for="tVulnCreateInfo.DiagKind" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.GroupSeq" class="control-label"></label>
                 <select id="_ddlVulnGroup" asp-for="tVulnCreateInfo.GroupSeq" asp-items="@(new SelectList(string.Empty, "GroupSeq","GroupName"))" class="form-control" required="required">
-                    <option value="0" disabled selected>Please select</option>
+                    <option value="" disabled selected>Please select</option>
                 </select>
                 <span asp-validation-for="tVulnCreateInfo.GroupSeq" class="text-danger"></span>
             </div>
@@ -234,27 +234,27 @@
             </div>
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.Detail" class="control-label"></label>
-                <input asp-for="tVulnCreateInfo.Detail" class="form-control" />
+                <textarea asp-for="tVulnCreateInfo.Detail" class="form-control" style="width:100%; height:100px; resize:none;"></textarea>
                 <span asp-validation-for="tVulnCreateInfo.Detail" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.Judgement" class="control-label"></label>
-                <input asp-for="tVulnCreateInfo.Judgement" class="form-control" />
+                <textarea asp-for="tVulnCreateInfo.Judgement" class="form-control" style="width:100%; height:100px; resize:none;"></textarea>
                 <span asp-validation-for="tVulnCreateInfo.Judgement" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.Effect" class="control-label"></label>
-                <input asp-for="tVulnCreateInfo.Effect" class="form-control" />
+                <textarea asp-for="tVulnCreateInfo.Effect" class="form-control" style="width:100%; height:100px; resize:none;"></textarea>
                 <span asp-validation-for="tVulnCreateInfo.Effect" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.Remedy" class="control-label"></label>
-                <input asp-for="tVulnCreateInfo.Remedy" class="form-control" />
+                <textarea asp-for="tVulnCreateInfo.Remedy" class="form-control" style="width:100%; height:100px; resize:none;"></textarea>
                 <span asp-validation-for="tVulnCreateInfo.Remedy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.Refrrence" class="control-label"></label>
-                <input asp-for="tVulnCreateInfo.Refrrence" class="form-control" />
+                <textarea asp-for="tVulnCreateInfo.Refrrence" class="form-control" style="width:100%; height:100px; resize:none;"></textarea>
                 <span asp-validation-for="tVulnCreateInfo.Refrrence" class="text-danger"></span>
             </div>
             <div class="form-group">
