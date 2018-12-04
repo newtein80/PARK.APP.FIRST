@@ -18,7 +18,7 @@ namespace PARK.APP.FIRST.Services
         //private static string connectionString = ConfigurationManager.ConnectionStrings[0].ConnectionString;
 
         //private static string connectionString = Configuration.GetConnectionString("DefaultConnection");
-        private static string connectionString = "Data Source=PARKJS\\SQLEXPRESS;Initial Catalog=PJSWORK;User ID=sa;Password=#skdlf12;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private static string connectionString = "Data Source=127.0.0.1;Initial Catalog=PJSWORK;User ID=sa;Password=#skdlf12;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         #region+ http://www.nullskull.com/a/10399923/sqlmapperhelper--a-helper-class-for-dapperdotnet.aspx
         /// <summary>
@@ -30,7 +30,7 @@ namespace PARK.APP.FIRST.Services
         {
             string connString = "";
 
-            name = "Data Source=PARKJS\\SQLEXPRESS;Initial Catalog=PJSWORK;User ID=sa;Password=#skdlf12;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            name = "Data Source=127.0.0.1;Initial Catalog=PJSWORK;User ID=sa;Password=#skdlf12;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             connString = name;
 
             //connString = name == null ? connString = ConfigurationManager.ConnectionStrings[0].ConnectionString : connString = ConfigurationManager.ConnectionStrings[name].ConnectionString;

@@ -17,6 +17,51 @@
 
 
     <script type="text/javascript">
+        ////https://dotnetthoughts.net/jquery-unobtrusive-ajax-helpers-in-aspnet-core/
+        ////https://dotnetthoughts.net/jquery-unobtrusive-ajax-helpers-in-aspnet-core/
+        ////https://docs.microsoft.com/ko-kr/aspnet/ajax/cdn/overview#ajaxmicrosoftcom-renamed-to-ajaxaspnetcdncom
+        ////https://www.c-sharpcorner.com/article/asp-net-mvc-5-ajax-beginform-ajaxoptions-onsuccess-onfailure/
+        //var results = $("#Results");
+        //var onBegin = function () {
+        //    alert("1");
+        //};
+
+        //var onComplete = function () {
+        //    alert("2");
+        //};
+
+        //var onSuccess = function (context) {
+        //    alert(context);
+        //};
+
+        //var onFailed = function (context) {
+        //    alert("3");
+        //};
+
+        var modalConfirm = function (callback) {
+
+            $("#VulnCreateForm_btn").on("click", function () {
+                $("#confirm-modal").modal('show');
+            });
+
+            $("#modal-btn-yes").on("click", function () {
+                callback(true);
+                $("#confirm-modal").modal('hide');
+            });
+
+            $("#modal-btn-no").on("click", function () {
+                callback(false);
+                $("#confirm-modal").modal('hide');
+            });
+        };
+
+        modalConfirm(function (confirm) {
+            if (confirm) {
+                //Acciones si el usuario confirma
+                $('#VulnCreateForm').trigger('submit');
+            }
+        });
+
         $(document).ready(function () {
             //https://stackoverflow.com/questions/46942151/how-to-create-a-cascading-selectlist-in-asp-net-core-mvc
             $('#_ddlComp').attr("disabled", "disabled");
@@ -101,10 +146,34 @@
 
 <h4>Tvuln</h4>
 <hr />
+@*<button class="btn btn-default" id="btn-confirm">Confirm</button>*@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirm-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Save ??</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="modal-btn-yes">OK</button>
+                <button type="button" class="btn btn-primary" id="modal-btn-no">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="result"></div>
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="VulnCreate" >
+        @*<form asp-action="VulnCreate" id="VulnCreateForm" asp-controller="VulnManage" data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+        data-ajax-failure="onFailed" data-ajax-success="onSuccess"
+        data-ajax="true" data-ajax-method="POST" >*@
+        <form asp-action="VulnCreate" id="VulnCreateForm" asp-controller="VulnManage">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @*<input type="submit" value="Create" class="btn btn-default" id="VulnCreateForm_btn" />*@
+                <input type="button" value="Create" class="btn btn-default" id="VulnCreateForm_btn" />
+                @*<div id="Results"></div>*@
+            </div>
             <div class="form-group">
                 <label asp-for="tVulnCreateInfo.DiagType" class="control-label"></label>
                 <select id="_ddlDiagType" asp-for="tVulnCreateInfo.DiagType" asp-items="@(new SelectList(ddlDiagType, "CodeId","CodeName"))" class="form-control" required="required">
@@ -193,14 +262,12 @@
                 <input asp-for="tVulnCreateInfo.UseYn" class="form-control" />
                 <span asp-validation-for="tVulnCreateInfo.UseYn" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="VulnList">Back to List</a>
 </div>
 

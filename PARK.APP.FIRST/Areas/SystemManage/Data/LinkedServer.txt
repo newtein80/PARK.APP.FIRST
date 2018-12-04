@@ -1,0 +1,13 @@
+﻿EXEC sp_addlinkedserver
+    @server = 'test1',
+    @srvproduct = '',
+    @provider = 'SQLOLEDB',
+    @datasrc = '127.0.0.1',
+    @catalog = 'SSUV'
+
+
+EXEC sp_addlinkedsrvlogin
+    @rmtsrvname= 'test1',
+    @useself= 'false',
+    @rmtuser = 'sa',
+    @rmtpassword = '#skdlf12'

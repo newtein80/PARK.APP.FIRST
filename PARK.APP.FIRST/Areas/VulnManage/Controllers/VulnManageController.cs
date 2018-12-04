@@ -515,13 +515,13 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             param.Add("@new_group_seq", vulnCreateModel.tVulnCreateInfo.GroupSeq);
             param.Add("@cur_sort_index", 0);
             param.Add("@new_sort_index", 0);
-            param.Add("@manual_yn", vulnCreateModel.tVulnCreateInfo.ManualYn);
-            param.Add("@auto_yn", vulnCreateModel.tVulnCreateInfo.AutoYn);
-            param.Add("@vuln_name", vulnCreateModel.tVulnCreateInfo.VulnName);
-            param.Add("@rate", vulnCreateModel.tVulnCreateInfo.Rate);
-            param.Add("@score", vulnCreateModel.tVulnCreateInfo.Score);
-            param.Add("@apply_time", vulnCreateModel.tVulnCreateInfo.ApplyTime);
-            param.Add("@detail", vulnCreateModel.tVulnCreateInfo.Detail);
+            param.Add("@manual_yn", "N");// vulnCreateModel.tVulnCreateInfo.ManualYn);
+            param.Add("@auto_yn", "Y");// vulnCreateModel.tVulnCreateInfo.AutoYn);
+            param.Add("@vuln_name", DateTime.Now.ToShortTimeString());//vulnCreateModel.tVulnCreateInfo.VulnName);
+            param.Add("@rate", "1");// vulnCreateModel.tVulnCreateInfo.Rate);
+            param.Add("@score", "9");// vulnCreateModel.tVulnCreateInfo.Score);
+            param.Add("@apply_time", "");// vulnCreateModel.tVulnCreateInfo.ApplyTime);
+            param.Add("@detail", "");// vulnCreateModel.tVulnCreateInfo.Detail);
             param.Add("@detail_path", "");
             param.Add("@overview", "");
             param.Add("@judgement", "");
@@ -530,10 +530,10 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             param.Add("@remedy_path", "");
             param.Add("@remedy_detail", "");
             param.Add("@apply_target", "");
-            param.Add("@use_yn", vulnCreateModel.tVulnCreateInfo.UseYn);
+            param.Add("@use_yn", "Y");// vulnCreateModel.tVulnCreateInfo.UseYn);
             param.Add("@user_id", "parkjs");
-            param.Add("@manage_id", vulnCreateModel.tVulnCreateInfo.ManageId);
-            param.Add("@client_standard_id", vulnCreateModel.tVulnCreateInfo.ManageId);
+            param.Add("@manage_id", "WWW-01");// vulnCreateModel.tVulnCreateInfo.ManageId);
+            param.Add("@client_standard_id", "www-11");// vulnCreateModel.tVulnCreateInfo.ManageId);
             param.Add("@rtn_message", dbType: DbType.String, direction: ParameterDirection.Output, size: 128);
 
             //p.Add("@UserID", userId, DbType.String, null, 100);
