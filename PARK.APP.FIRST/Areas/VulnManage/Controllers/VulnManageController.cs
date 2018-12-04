@@ -510,6 +510,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
 
         // https://m.blog.naver.com/PostView.nhn?blogId=wolfre&logNo=220597602977&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult VulnCreate(VulnCreateModel vulnCreateModel)
         {
             var param = new DynamicParameters();
@@ -562,6 +563,64 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             //};
 
             return RedirectToAction("VulnList");
+        }
+
+
+        // https://m.blog.naver.com/PostView.nhn?blogId=wolfre&logNo=220597602977&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
+        [HttpPost]
+        public JsonResult VulnCreate_Ajax(VulnCreateModel vulnCreateModel)
+        {
+            var param = new DynamicParameters();
+            param.Add("@gubun", "c");
+            param.Add("@diag_type", vulnCreateModel.tVulnCreateInfo.DiagType ?? "");
+            param.Add("@comp_seq", 1 > vulnCreateModel.tVulnCreateInfo.CompSeq ? 0 : vulnCreateModel.tVulnCreateInfo.CompSeq);
+            param.Add("@vuln_seq", 0);
+            param.Add("@cur_group_seq", 0);
+            param.Add("@new_group_seq", vulnCreateModel.tVulnCreateInfo.GroupSeq);
+            param.Add("@cur_sort_index", 0);
+            param.Add("@new_sort_index", 0);
+            param.Add("@manual_yn", "N");// vulnCreateModel.tVulnCreateInfo.ManualYn);
+            param.Add("@auto_yn", "Y");// vulnCreateModel.tVulnCreateInfo.AutoYn);
+            param.Add("@vuln_name", vulnCreateModel.tVulnCreateInfo.VulnName);
+            param.Add("@rate", "1");// vulnCreateModel.tVulnCreateInfo.Rate);
+            param.Add("@score", "9");// vulnCreateModel.tVulnCreateInfo.Score);
+            param.Add("@apply_time", "");// vulnCreateModel.tVulnCreateInfo.ApplyTime);
+            param.Add("@detail", "");// vulnCreateModel.tVulnCreateInfo.Detail);
+            param.Add("@detail_path", "");
+            param.Add("@overview", "");
+            param.Add("@judgement", "");
+            param.Add("@effect", "");
+            param.Add("@remedy", "");
+            param.Add("@remedy_path", "");
+            param.Add("@remedy_detail", "");
+            param.Add("@apply_target", "");
+            param.Add("@use_yn", "Y");// vulnCreateModel.tVulnCreateInfo.UseYn);
+            param.Add("@user_id", "parkjs");
+            param.Add("@manage_id", "WWW-01");// vulnCreateModel.tVulnCreateInfo.ManageId);
+            param.Add("@client_standard_id", "www-11");// vulnCreateModel.tVulnCreateInfo.ManageId);
+            param.Add("@rtn_message", dbType: DbType.String, direction: ParameterDirection.Output, size: 128);
+
+            //p.Add("@UserID", userId, DbType.String, null, 100);
+            //param.Add("@v_rtn", dbType: DbType.Int32, direction: ParameterDirection.Output, size: 50);
+
+            // 테이블 한개 리스트
+            DapperHelper.Process<VulnModel>("SP_VULN_INFO_INS_WITH_RTN", param);
+
+            // 메인 + 서브 모델
+            //var Table = SqlHelper.MultiPleGetList<Schema_User, Address>(SqlHelper.localDB.ToString(), "sp_GetUser_List", param);
+
+            var resultParam = param.Get<string>("@rtn_message");
+
+            //VulnViewModel rtn_vulnViewModel = new VulnViewModel
+            //{
+            //    pageDefault = new PageDefault(),
+            //    vulnModels = FilterItems(jsonData, listTable, ref resultParam),
+            //    vulnModesTotalCount = resultParam,
+            //    vulnSearchModel = vulnSearchModel
+            //};
+
+            //return RedirectToAction("VulnList");
+            return Json(resultParam);
         }
 
         public JsonResult GetCompByDiagType(string i_Diagtype)
