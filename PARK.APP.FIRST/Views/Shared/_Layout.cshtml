@@ -46,6 +46,42 @@
                 color: #00000;
             }
 
+    /*html {
+        height: 100%;
+    }
+
+    html body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    html body .container-fluid.body-content {
+        position: absolute;
+        top: 50px;
+        bottom: 30px;
+        right: 0;
+        left: 0;
+        overflow-y: auto;
+    }
+
+    header {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        background-color: #4C4;
+        height: 50px;
+    }
+
+    footer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #4C4;
+        height: 30px;
+    }*/
+
             .nav {
                 color: #FFFFFF;
             }
@@ -159,26 +195,26 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             @*<div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PARK.APP.FIRST</a>
-            </div>*@
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PARK.APP.FIRST</a>
+                </div>*@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li><a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PARK.APP.FIRST</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="NotFound" style="display:none">NotFound</a></li>
-                    <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:none">AccessDenied</a></li>
-                    <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="Index">User&Role</a></li>
-                    <li><a asp-area="UserManage" asp-controller="ManageRole" asp-action="Index">Roles</a></li>
-                    <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="UserList">UserList</a></li>
-                    <li><a asp-area="SystemManage" asp-controller="Menus" asp-action="Index">MenuList</a></li>
-                    <li><a asp-area="SystemManage" asp-controller="MenuMasters" asp-action="Index">NewMenuList</a></li>*@
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="NotFound" style="display:none">NotFound</a></li>
+                        <li><a asp-area="Identity" asp-page="/Account/AccessDenied" style="display:none">AccessDenied</a></li>
+                        <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="Index">User&Role</a></li>
+                        <li><a asp-area="UserManage" asp-controller="ManageRole" asp-action="Index">Roles</a></li>
+                        <li><a asp-area="UserManage" asp-controller="ManageUser" asp-action="UserList">UserList</a></li>
+                        <li><a asp-area="SystemManage" asp-controller="Menus" asp-action="Index">MenuList</a></li>
+                        <li><a asp-area="SystemManage" asp-controller="MenuMasters" asp-action="Index">NewMenuList</a></li>*@
                     @if (User.Identity.IsAuthenticated)
                     {
                         var UserRoles = "";
@@ -222,7 +258,8 @@
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
+    @*<div class="container-fluid body-content" style="">*@
+    <div class="container body-content" style="">
         @RenderBody()
         <hr />
         <footer>
@@ -231,7 +268,7 @@
     </div>
 
     <environment include="Development">
-        
+
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"

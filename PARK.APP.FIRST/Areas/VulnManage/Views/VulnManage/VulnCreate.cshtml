@@ -215,7 +215,7 @@
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="alert-modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <div class="modal-header" style="height:30px;">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="ajaxResultAlertHeader"></h4>
             </div>
@@ -230,17 +230,19 @@
 </div>
 
 <div id="result"></div>
-
+<div>
+    <a asp-action="VulnList">Back to List</a>
+</div>
 <div class="row">
     <div class="col-md-12">
         <form asp-action="VulnCreate_Ajax" id="VulnCreateForm" asp-controller="VulnManage"
-            data-ajax-begin="onBegin"
-            data-ajax-complete="onComplete"
-            data-ajax-failure="onFailed"
-            data-ajax-success="onSuccess"
-            data-ajax="true"
-            data-ajax-method="POST" >
-        @*<form asp-action="VulnCreate" id="VulnCreateForm" asp-controller="VulnManage">*@
+              data-ajax-begin="onBegin"
+              data-ajax-complete="onComplete"
+              data-ajax-failure="onFailed"
+              data-ajax-success="onSuccess"
+              data-ajax="true"
+              data-ajax-method="POST">
+            @*<form asp-action="VulnCreate" id="VulnCreateForm" asp-controller="VulnManage">*@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @Html.AntiForgeryToken()
             <div class="form-group">
@@ -341,7 +343,4 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="VulnList">Back to List</a>
-</div>
 

@@ -1,0 +1,145 @@
+﻿USE [PJSWORK]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_VULN_INFO_VIW]    Script Date: 2018-12-05 오후 11:15:45 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE procedure [dbo].[SP_VULN_INFO_VIW]
+    @vuln_seq nvarchar(32)
+    ,   @comp_seq nvarchar(32)
+    ,   @diag_kind nvarchar(32)
+    ,   @group_seq nvarchar(32)
+as
+
+set transaction isolation level read uncommitted
+set nocount on
+
+begin
+    declare
+		@_comp_seq      bigint = 0
+		, @_group_seq   bigint = 0
+		, @_vuln_seq    bigint = 0
+
+    if @vuln_seq is null or @vuln_seq = '' begin
+		set @vuln_seq = null
+    end
+    else begin
+		set @_vuln_seq = cast(@vuln_seq as bigint)
+    end
+
+    if @comp_seq is null or @comp_seq = '' begin
+		set @comp_seq = null
+    end
+    else begin
+		set @_comp_seq = cast(@comp_seq as bigint)
+    end
+
+    if @diag_kind is null or @diag_kind = '' or @diag_kind = '0' begin
+		set @diag_kind = null
+    end
+
+    if @group_seq is null or @group_seq = '' begin
+		set @group_seq = null
+    end
+    else begin
+		set @_group_seq = cast(@group_seq as bigint)
+    end
+
+	select
+		t12.DIAG_TYPE as DiagType
+		, t12.DIAG_KIND as DiagKind
+		, t12.COMP_SEQ as CompSeq
+		, t12.COMP_NAME as CompName
+		, t12.GROUP_SEQ as GroupSeq
+		, t12.GROUP_NAME as GroupName
+		, t33.APPLY_TARGET as ApplyTarget
+		, t33.APPLY_TIME as ApplyTime
+		, t33.AUTO_YN as AutoYn
+		, t33.CLIENT_STANDARD_ID as ClientStandardId
+		, t33.CREATE_DT as CreateDt
+		, t33.CREATE_USER_ID as CreateUserId
+		, t33.DETAIL as Detail
+		, t33.DETAIL_PATH as DetailPath
+		, t33.EFFECT as Effect
+		, t33.EXCEPT_CD as ExceptCd
+		, t33.EXCEPT_DT as ExceptDt
+		, t33.EXCEPT_REASON as ExceptReason
+		, t33.EXCEPT_TERM_FR as ExceptTermFr
+		, t33.EXCEPT_TERM_TO as ExceptTermTo
+		, t33.EXCEPT_TERM_TYPE as ExceptTermType
+		, t33.EXCEPT_USER_ID as ExceptUserId
+		, t33.JUDGEMENT as Judgement
+		, t33.MANAGE_ID as ManageId
+		, t33.MANAGEMENT_VULN_YN as ManagementVulnYn
+		, t33.MANUAL_YN as ManualYn
+		, t33.ORG_PARSER_CONTENTS as OrgParserContents
+		, t33.OVERVIEW as Overview
+		, t33.PARSER_CONTENTS as ParserContents
+		, t33.RATE as Rate
+		, t33.REFRRENCE as Refrrence
+		, t33.REMEDY as Remedy
+		, t33.REMEDY_DETAIL as RemedyDetail
+		, t33.REMEDY_PATH as RemedyPath
+		, t33.RULE_YN as RuleYn
+		, t33.SCORE as Score
+		, t33.SORT_ORDER as SortOrder
+		, t33.UPDATE_DT as UpdateDt
+		, t33.UPDATE_USER_ID as UpdateUserId
+		, t33.USE_YN as UseYn
+		, t33.VULGROUP as Vulgroup
+		, t33.VULN_NAME as VulnName
+		, t33.VULN_SEQ as VulnSeq
+		, t33.VULNO as Vulno
+	from dbo.TVuln as t33
+	left outer join
+	(
+		select
+			t11.COMP_SEQ
+			, t11.COMP_NAME
+			, t11.DIAG_TYPE
+			--, (select CodeName from dbo.TCommonCode where CodeType = 'DIAG_TYPE' and CodeId = t11.DIAG_TYPE)
+			, t22.DIAG_KIND
+			, t22.GROUP_SEQ
+			, t22.GROUP_NAME
+		from
+		(
+			select
+				t1.COMP_SEQ
+				, t1.COMP_NAME
+				, t1.DIAG_TYPE
+			from dbo.TCompInfo as t1 with(nolock)
+			where 1=1
+			and case when @comp_seq is null then '1' else t1.COMP_SEQ end = case when @comp_seq is null then '1' else @_comp_seq end
+		) as t11
+		left outer join
+		(
+			select
+				t2.COMP_SEQ
+				, t2.DIAG_KIND
+				, t2.GROUP_NAME
+				, t2.GROUP_SEQ
+			from dbo.TVulnGroup as t2 with(nolock)
+			where 1=1
+			and GROUP_TYPE = 'G'
+			and case when @group_seq is null then '1' else t2.GROUP_SEQ end = case when @group_seq is null then '1' else @_group_seq end
+			and case when @diag_kind is null then '1' else t2.DIAG_KIND end = case when @diag_kind is null then '1' else @diag_kind end
+		) as t22
+		on
+		(
+			t11.COMP_SEQ = t22.COMP_SEQ
+		)
+	) as t12
+	on
+	(
+		t12.GROUP_SEQ = t33.GROUP_SEQ
+	)
+	where case when @vuln_seq is null then '1' else t33.VULN_SEQ end =  case when @vuln_seq is null then '1' else @_vuln_seq end
+    
+end
+GO
+
+

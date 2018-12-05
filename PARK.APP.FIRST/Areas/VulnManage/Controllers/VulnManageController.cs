@@ -136,9 +136,9 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
         {
             var filter_vulnModels = new List<VulnModel>();
 
+            #region+ 굳이 필요한가?????
             DbParameter outputParam = null;
-
-            // 굳이 필요한가?????
+            
             vulnDbContext.LoadStoredProc("dbo.SP_VULN_LIST_02")
                 .WithSqlParam("gubun", "")
                 .WithSqlParam("diag_type", "")
@@ -187,6 +187,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
                 vulnModesTotalCount = outputParamValue,
                 vulnSearchModel = vulnViewModel.vulnSearchModel
             };
+            #endregion
 
             return View(rtn_vulnViewModel);
         }
@@ -657,6 +658,19 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             return Json(new SelectList(tvulngroups_by_compseq, "GroupSeq", "GroupName"));
         }
 
-        
+        public class VulnEditInfo : Tvuln
+        {
+            [Display(Name = "컴플라이언스")]
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the CompSeq")]
+            public long CompSeq { get; set; }
+            [Display(Name = "점검구분")]
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the DiagType")]
+            public string DiagType { get; set; }
+            [Display(Name = "점검유형")]
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the DiagKind")]
+            public string DiagKind { get; set; }
+            public string CompName { get; set; }
+            public string GroupName { get; set; }
+        }
     }
 }

@@ -74,6 +74,10 @@
                         </bootstrap-button>
                     </td>
                     <td colspan="2" style="text-align:right">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="ajax-modal" data-target="#popupVulnEdit" data-url="@Url.Action("PopupTvulnManageEdit", "TvulnManage", new { Area="VulnManage", id = 2001 })">
+                            CREATE(Modal)
+                        </button>
+
                         @Html.ActionLink("CREATE(LINK)", "VulnCreate", "VulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
                         <bootstrap-button type="submit" class="btn btn-default btn-sm">
                             SEARCH
@@ -83,19 +87,14 @@
             </tbody>
         </table>
     </div>
-    
 }
+<div id="modal-placeholder"></div>
 <div style="display:none">
     <p>
         <button type="button" class="btn btn-primary btn-sm" id="partialView11">
             Open PartialView
         </button>
         <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage", new { Area = "VulnManage" })"></div>
-
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="ajax-modal" data-target="#popupVulnEdit" data-url="@Url.Action("PopupTvulnManageEdit", "TvulnManage", new { Area="VulnManage", id = 2001 })">
-            Add contact
-        </button>
-        <div id="modal-placeholder"></div>
     </p>
 </div>
 <bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
