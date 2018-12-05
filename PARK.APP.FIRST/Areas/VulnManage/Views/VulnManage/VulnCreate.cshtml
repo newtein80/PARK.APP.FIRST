@@ -21,6 +21,7 @@
         //https://dotnetthoughts.net/jquery-unobtrusive-ajax-helpers-in-aspnet-core/
         //https://docs.microsoft.com/ko-kr/aspnet/ajax/cdn/overview#ajaxmicrosoftcom-renamed-to-ajaxaspnetcdncom
         //https://www.c-sharpcorner.com/article/asp-net-mvc-5-ajax-beginform-ajaxoptions-onsuccess-onfailure/
+        //http://www.binaryintellect.net/articles/2678a2f2-3236-45a6-a0e5-e6340d9930d5.aspx
 
         //https://stackoverflow.com/questions/50148418/ajax-helper-tags-documentation-in-asp-net-core
         //https://forums.asp.net/t/2026061.aspx?How+to+return+data+from+controller+method+to+a+jquery+ajax+post
@@ -29,44 +30,58 @@
         // google : asp.net form data-ajax-success parameter
         var results = $("#Results");
         var onBegin = function () {
-            alert("1");
+            //alert("1");
+            waitingDialog.show('Loading...'
+                , {
+                    headerText: '',
+                    headerSize: 1,
+                    dialogSize: 'sm',
+                    progressType: 'success',
+                    onHide: function () {
+                        //alert('4');
+                    }
+                }
+            );
         };
 
         var onComplete = function () {
-            alert("2");
+            //alert("2");
+            waitingDialog.hide();
         };
 
         var onSuccess = function (context) {
-            alert(context);
+            //alert(context.status);
+            //waitingDialog.hide();
+            window.location.href = context.redirectUrl;
         };
 
         var onFailed = function (context) {
-            alert("3");
+            alert("Fail !!");
         };
 
-        //var modalConfirm = function (callback) {
+        var modalConfirm = function (callback) {
 
-        //    $("#VulnCreateForm_btn").on("click", function () {
-        //        $("#confirm-modal").modal('show');
-        //    });
+            $("#VulnCreateForm_btn").on("click", function () {
+                $("#confirm-modal").modal('show');
+            });
 
-        //    $("#modal-btn-yes").on("click", function () {
-        //        callback(true);
-        //        $("#confirm-modal").modal('hide');
-        //    });
+            $("#modal-btn-yes").on("click", function () {
+                callback(true);
+                $("#confirm-modal").modal('hide');
+            });
 
-        //    $("#modal-btn-no").on("click", function () {
-        //        callback(false);
-        //        $("#confirm-modal").modal('hide');
-        //    });
-        //};
+            $("#modal-btn-no").on("click", function () {
+                callback(false);
+                $("#confirm-modal").modal('hide');
+            });
+        };
 
-        //modalConfirm(function (confirm) {
-        //    if (confirm) {
-        //        //Acciones si el usuario confirma
-        //        $('#VulnCreateForm').trigger('submit');
-        //    }
-        //});
+        modalConfirm(function (confirm) {
+            if (confirm) {
+                //Acciones si el usuario confirma
+                $('#VulnCreateForm').trigger('submit');
+            }
+        });
 
         $(document).ready(function () {
             //https://stackoverflow.com/questions/46942151/how-to-create-a-cascading-selectlist-in-asp-net-core-mvc
@@ -181,8 +196,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @Html.AntiForgeryToken()
             <div class="form-group">
-                @*<input type="button" value="Create" class="btn btn-default" id="VulnCreateForm_btn" />*@
-                <input type="submit" value="Create" class="btn btn-default" id="VulnCreateForm_btn" />
+                <input type="button" value="Create" class="btn btn-default" id="VulnCreateForm_btn" />
+                @*<input type="submit" value="Create" class="btn btn-default" id="VulnCreateForm_btn" />*@
                 <div id="Results"></div>
             </div>
             <div class="form-group">
