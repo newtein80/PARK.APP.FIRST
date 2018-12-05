@@ -74,7 +74,7 @@
                         </bootstrap-button>
                     </td>
                     <td colspan="2" style="text-align:right">
-                        @Html.ActionLink("CREATE", "VulnCreate", "VulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+                        @Html.ActionLink("CREATE(LINK)", "VulnCreate", "VulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
                         <bootstrap-button type="submit" class="btn btn-default btn-sm">
                             SEARCH
                         </bootstrap-button>
@@ -254,7 +254,7 @@
             var nestedGridAdapter = new $.jqx.dataAdapter(source);
             if (grid != null) {
                 grid.jqxGrid({
-                    source: nestedGridAdapter, width: 780, height: 200,
+                    source: nestedGridAdapter, width: 780, height: 200, theme: 'metro',
                     columns: [
                         { text: 'Order Date', cellsFormat: 'd', dataField: 'OrderDate', width: 200 },
                         { text: 'Quantity', cellsAlign: 'right', dataField: 'Quantity', width: 200 },

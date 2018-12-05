@@ -49,15 +49,44 @@
             waitingDialog.hide();
         };
 
+        var rediect_url = "";
+
         var onSuccess = function (context) {
             //alert(context.status);
             //waitingDialog.hide();
-            window.location.href = context.redirectUrl;
+
+            //$('#ajaxResultAlertHeader').html("헤더");
+            //$('#ajaxResultAlertMsg').html("메시지");
+            //$("#alert-modal").modal('show');
+            //window.location.href = context.redirectUrl;
+            var rtn_status = context.status;
+            var rtn_url = context.redirectUrl;
+            rediect_url = rtn_url;
+            AjaxEndModalAlert(rtn_status, rtn_url);
         };
 
         var onFailed = function (context) {
             alert("Fail !!");
         };
+
+        function AjaxEndModalAlert(status, url) {
+            $('#ajaxResultAlertHeader').html(status);
+            $('#ajaxResultAlertMsg').html(status);
+            $("#alert-modal").modal('show');
+        }
+
+        var modalAlert = function (callback) {
+            $("#modal-btn-ok").on("click", function () {
+                callback(true);
+                $("#alert-modal").modal('hide');
+            });
+        };
+
+        modalAlert(function (alert) {
+            if (alert) {
+                window.location.href = rediect_url;
+            }
+        });
 
         var modalConfirm = function (callback) {
 
@@ -182,7 +211,26 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="alert-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="height:30px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ajaxResultAlertHeader"></h4>
+            </div>
+            <div class="modal-body">
+                <p class="success-message" id="ajaxResultAlertMsg"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="modal-btn-ok">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="result"></div>
+
 <div class="row">
     <div class="col-md-12">
         <form asp-action="VulnCreate_Ajax" id="VulnCreateForm" asp-controller="VulnManage"

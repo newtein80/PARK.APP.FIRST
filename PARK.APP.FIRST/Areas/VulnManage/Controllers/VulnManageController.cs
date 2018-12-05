@@ -621,7 +621,7 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
 
             //return RedirectToAction("VulnList");
             //return Json(resultParam);
-            return Json(new { redirectUrl = Url.Action("VulnList", "VulnManage") , status = "OK" });
+            return Json(new { redirectUrl = Url.Action("VulnList", "VulnManage") , status = resultParam });
         }
 
         public JsonResult GetCompByDiagType(string i_Diagtype)
