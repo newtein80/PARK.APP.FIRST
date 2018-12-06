@@ -296,184 +296,182 @@
 </div>
 
 @section Scripts {
-
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
+<script type="text/javascript">
+    //https://dotnetthoughts.net/jquery-unobtrusive-ajax-helpers-in-aspnet-core/
+    //https://dotnetthoughts.net/jquery-unobtrusive-ajax-helpers-in-aspnet-core/
+    //https://docs.microsoft.com/ko-kr/aspnet/ajax/cdn/overview#ajaxmicrosoftcom-renamed-to-ajaxaspnetcdncom
+    //https://www.c-sharpcorner.com/article/asp-net-mvc-5-ajax-beginform-ajaxoptions-onsuccess-onfailure/
+    //http://www.binaryintellect.net/articles/2678a2f2-3236-45a6-a0e5-e6340d9930d5.aspx
 
-    <script type="text/javascript">
-        //https://dotnetthoughts.net/jquery-unobtrusive-ajax-helpers-in-aspnet-core/
-        //https://dotnetthoughts.net/jquery-unobtrusive-ajax-helpers-in-aspnet-core/
-        //https://docs.microsoft.com/ko-kr/aspnet/ajax/cdn/overview#ajaxmicrosoftcom-renamed-to-ajaxaspnetcdncom
-        //https://www.c-sharpcorner.com/article/asp-net-mvc-5-ajax-beginform-ajaxoptions-onsuccess-onfailure/
-        //http://www.binaryintellect.net/articles/2678a2f2-3236-45a6-a0e5-e6340d9930d5.aspx
-
-        //https://stackoverflow.com/questions/50148418/ajax-helper-tags-documentation-in-asp-net-core
-        //https://forums.asp.net/t/2026061.aspx?How+to+return+data+from+controller+method+to+a+jquery+ajax+post
-        //https://stackoverflow.com/questions/31606433/cannot-pass-parameters-from-ajax-success-to-view
-        //https://stackoverflow.com/questions/18333867/pass-action-with-model-to-jquery-ajax-success-call
-        // google : asp.net form data-ajax-success parameter
-        var results = $("#Results");
-        var onBegin = function () {
-            //alert("1");
-            waitingDialog.show('Loading...'
-                , {
-                    headerText: '',
-                    headerSize: 1,
-                    dialogSize: 'sm',
-                    progressType: 'success',
-                    onHide: function () {
-                        //alert('4');
-                    }
+    //https://stackoverflow.com/questions/50148418/ajax-helper-tags-documentation-in-asp-net-core
+    //https://forums.asp.net/t/2026061.aspx?How+to+return+data+from+controller+method+to+a+jquery+ajax+post
+    //https://stackoverflow.com/questions/31606433/cannot-pass-parameters-from-ajax-success-to-view
+    //https://stackoverflow.com/questions/18333867/pass-action-with-model-to-jquery-ajax-success-call
+    // google : asp.net form data-ajax-success parameter
+    var results = $("#Results");
+    var onBegin = function () {
+        //alert("1");
+        waitingDialog.show('Loading...'
+            , {
+                headerText: '',
+                headerSize: 1,
+                dialogSize: 'sm',
+                progressType: 'success',
+                onHide: function () {
+                    //alert('4');
                 }
-            );
-        };
+            }
+        );
+    };
 
-        var onComplete = function () {
-            //alert("2");
-            waitingDialog.hide();
-        };
+    var onComplete = function () {
+        //alert("2");
+        waitingDialog.hide();
+    };
 
-        var rediect_url = "";
+    var rediect_url = "";
 
-        var onSuccess = function (context) {
-            //alert(context.status);
-            //waitingDialog.hide();
+    var onSuccess = function (context) {
+        //alert(context.status);
+        //waitingDialog.hide();
 
-            //$('#ajaxResultAlertHeader').html("헤더");
-            //$('#ajaxResultAlertMsg').html("메시지");
-            //$("#alert-modal").modal('show');
-            //window.location.href = context.redirectUrl;
-            var rtn_status = context.status;
-            var rtn_url = context.redirectUrl;
-            rediect_url = rtn_url;
-            AjaxEndModalAlert(rtn_status, rtn_url);
-        };
+        //$('#ajaxResultAlertHeader').html("헤더");
+        //$('#ajaxResultAlertMsg').html("메시지");
+        //$("#alert-modal").modal('show');
+        //window.location.href = context.redirectUrl;
+        var rtn_status = context.status;
+        var rtn_url = context.redirectUrl;
+        rediect_url = rtn_url;
+        AjaxEndModalAlert(rtn_status, rtn_url);
+    };
 
-        var onFailed = function (context) {
-            alert("Fail !!");
-        };
+    var onFailed = function (context) {
+        alert("Fail !!");
+    };
 
-        function AjaxEndModalAlert(status, url) {
-            $('#ajaxResultAlertHeader').html(status);
-            $('#ajaxResultAlertMsg').html(status);
-            $("#alert-modal").modal('show');
+    function AjaxEndModalAlert(status, url) {
+        $('#ajaxResultAlertHeader').html(status);
+        $('#ajaxResultAlertMsg').html(status);
+        $("#alert-modal").modal('show');
+    }
+
+    var modalAlert = function (callback) {
+        $("#modal-btn-ok").on("click", function () {
+            callback(true);
+            $("#alert-modal").modal('hide');
+        });
+    };
+
+    modalAlert(function (alert) {
+        if (alert) {
+            window.location.href = rediect_url;
         }
+    });
 
-        var modalAlert = function (callback) {
-            $("#modal-btn-ok").on("click", function () {
-                callback(true);
-                $("#alert-modal").modal('hide');
-            });
-        };
+    var modalConfirm = function (callback) {
 
-        modalAlert(function (alert) {
-            if (alert) {
-                window.location.href = rediect_url;
-            }
+        $("#popupVulnEditSave").on("click", function () {
+            $("#confirm-modal").modal('show');
         });
 
-        var modalConfirm = function (callback) {
-
-            $("#popupVulnEditSave").on("click", function () {
-                $("#confirm-modal").modal('show');
-            });
-
-            $("#modal-btn-yes").on("click", function () {
-                callback(true);
-                $("#confirm-modal").modal('hide');
-            });
-
-            $("#modal-btn-no").on("click", function () {
-                callback(false);
-                $("#confirm-modal").modal('hide');
-            });
-        };
-
-        modalConfirm(function (confirm) {
-            if (confirm) {
-                //Acciones si el usuario confirma
-                $('#VulnEditForm').trigger('submit');
-            }
+        $("#modal-btn-yes").on("click", function () {
+            callback(true);
+            $("#confirm-modal").modal('hide');
         });
 
-        $(document).ready(function () {
-            alert("yyy");
-            //https://stackoverflow.com/questions/46942151/how-to-create-a-cascading-selectlist-in-asp-net-core-mvc
-            $('#_ddlComp').attr("disabled", "disabled");
+        $("#modal-btn-no").on("click", function () {
+            callback(false);
+            $("#confirm-modal").modal('hide');
+        });
+    };
 
-            $('#_ddlDiagType').change(function () {
-                alert("xxx");
-                var url = "@Url.Action("GetCompByDiagType", "VulnManage")";
-                var targetSource = '#_ddlComp';
+    modalConfirm(function (confirm) {
+        if (confirm) {
+            //Acciones si el usuario confirma
+            $('#VulnEditForm').trigger('submit');
+        }
+    });
 
-                $.getJSON(url, { i_Diagtype : $(this).val() }, function (data) {
+    $(document).ready(function () {
+        alert("yyy");
+        //https://stackoverflow.com/questions/46942151/how-to-create-a-cascading-selectlist-in-asp-net-core-mvc
+        $('#_ddlComp').attr("disabled", "disabled");
+
+        $('#_ddlDiagType').change(function () {
+            alert("xxx");
+            var url = "@Url.Action("GetCompByDiagType", "VulnManage")";
+            var targetSource = '#_ddlComp';
+
+            $.getJSON(url, { i_Diagtype : $(this).val() }, function (data) {
+                var items = "";
+                $(targetSource).empty();
+                $.each(data, function (i, tcompInfos_by_diagtype) {
+                    items += "<option value='" + tcompInfos_by_diagtype.value + "'>" + tcompInfos_by_diagtype.text + "</option>";
+                });
+                $(targetSource).removeAttr('disabled');
+                $(targetSource).html(items);
+            });
+        });
+
+        $('#_ddlDiagKind').attr("disabled", "disabled");
+
+        var item = ""
+        item = "<option value='0'>" + "Please select" + "</option>";
+
+        $('#_ddlComp').change(function () {
+            var url = "@Url.Action("GetDiagKindByComp", "VulnManage")";
+            var targetSource = '#_ddlDiagKind';
+
+            if ($(this).val() == "0") {
+                $('#_ddlDiagKind').empty;
+                $('#_ddlVulnGroup').empty;
+                $('#_ddlDiagKind').html(item);
+                $('#_ddlVulnGroup').html(item);
+                $('#_ddlDiagKind').attr("disabled", "disabled");
+                $('#_ddlVulnGroup').attr("disabled", "disabled");
+            }
+            else {
+                $.getJSON(url, { i_CompSeq: $(this).val() }, function (data) {
                     var items = "";
                     $(targetSource).empty();
-                    $.each(data, function (i, tcompInfos_by_diagtype) {
-                        items += "<option value='" + tcompInfos_by_diagtype.value + "'>" + tcompInfos_by_diagtype.text + "</option>";
+                    $.each(data, function (i, tvulngroups_by_compseq) {
+                        items += "<option value='" + tvulngroups_by_compseq.value + "'>" + tvulngroups_by_compseq.text + "</option>";
                     });
                     $(targetSource).removeAttr('disabled');
                     $(targetSource).html(items);
                 });
-            });
+            }
 
-            $('#_ddlDiagKind').attr("disabled", "disabled");
+            $('#_ddlVulnGroup').empty;
+            $('#_ddlVulnGroup').html(item);
+            $('#_ddlVulnGroup').attr("disabled", "disabled");
+        });
 
-            var item = ""
-            item = "<option value='0'>" + "Please select" + "</option>";
+        $('#_ddlVulnGroup').attr("disabled", "disabled");
 
-            $('#_ddlComp').change(function () {
-                var url = "@Url.Action("GetDiagKindByComp", "VulnManage")";
-                var targetSource = '#_ddlDiagKind';
+        $('#_ddlDiagKind').change(function () {
+            var url = "@Url.Action("GetVulnGroupByDiagKind", "VulnManage")";
+            var targetSource = '#_ddlVulnGroup';
 
-                if ($(this).val() == "0") {
-                    $('#_ddlDiagKind').empty;
-                    $('#_ddlVulnGroup').empty;
-                    $('#_ddlDiagKind').html(item);
-                    $('#_ddlVulnGroup').html(item);
-                    $('#_ddlDiagKind').attr("disabled", "disabled");
-                    $('#_ddlVulnGroup').attr("disabled", "disabled");
-                }
-                else {
-                    $.getJSON(url, { i_CompSeq: $(this).val() }, function (data) {
-                        var items = "";
-                        $(targetSource).empty();
-                        $.each(data, function (i, tvulngroups_by_compseq) {
-                            items += "<option value='" + tvulngroups_by_compseq.value + "'>" + tvulngroups_by_compseq.text + "</option>";
-                        });
-                        $(targetSource).removeAttr('disabled');
-                        $(targetSource).html(items);
-                    });
-                }
-
+            if ($(this).val() == "0") {
                 $('#_ddlVulnGroup').empty;
                 $('#_ddlVulnGroup').html(item);
                 $('#_ddlVulnGroup').attr("disabled", "disabled");
-            });
-
-            $('#_ddlVulnGroup').attr("disabled", "disabled");
-
-            $('#_ddlDiagKind').change(function () {
-                var url = "@Url.Action("GetVulnGroupByDiagKind", "VulnManage")";
-                var targetSource = '#_ddlVulnGroup';
-
-                if ($(this).val() == "0") {
-                    $('#_ddlVulnGroup').empty;
-                    $('#_ddlVulnGroup').html(item);
-                    $('#_ddlVulnGroup').attr("disabled", "disabled");
-                }
-                else {
-                    $.getJSON(url, { i_GroupSeq: $(this).val() }, function (data) {
-                        var items = "";
-                        $(targetSource).empty();
-                        $.each(data, function (i, tvulngroups_by_compseq) {
-                            items += "<option value='" + tvulngroups_by_compseq.value + "'>" + tvulngroups_by_compseq.text + "</option>";
-                        });
-                        $(targetSource).removeAttr('disabled');
-                        $(targetSource).html(items);
+            }
+            else {
+                $.getJSON(url, { i_GroupSeq: $(this).val() }, function (data) {
+                    var items = "";
+                    $(targetSource).empty();
+                    $.each(data, function (i, tvulngroups_by_compseq) {
+                        items += "<option value='" + tvulngroups_by_compseq.value + "'>" + tvulngroups_by_compseq.text + "</option>";
                     });
-                }
-            });
+                    $(targetSource).removeAttr('disabled');
+                    $(targetSource).html(items);
+                });
+            }
         });
-    </script>
-}
+    });
+</script>

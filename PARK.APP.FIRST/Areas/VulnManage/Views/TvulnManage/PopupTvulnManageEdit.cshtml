@@ -10,7 +10,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModal-label">
-                        <p>111</p>
+                        11122<br />
                         https://softdevpractice.com/blog/asp-net-core-mvc-ajax-modals/
                         https://www.w3schools.com/bootstrap/bootstrap_forms.asp
                     </h4>
@@ -302,14 +302,31 @@
     </div>
 </div>
 @section Scripts {
+
+    @*<script type="text/javascript">
+        alert("PopupTvulnManageCreate3");
+
+        $(document).ready(function () {
+            alert("PopupTvulnManageCreate4");
+        });
+    </script>*@
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     @*<script type="text/javascript">
-        $('.modal-content').resizable({
-            //alsoResize: ".modal-dialog",
-            minHeight: 300,
-            minWidth: 300
-        });
-        $('.modal-dialog').draggable();
-    </script>*@
+            $('.modal-content').resizable({
+                //alsoResize: ".modal-dialog",
+                minHeight: 300,
+                minWidth: 300
+            });
+            $('.modal-dialog').draggable();
+        </script>*@
 }
+
+<script type="text/javascript">
+    alert("PopupTvulnManageCreate3");
+
+    $(document).ready(function () {
+        alert("PopupTvulnManageCreate4");
+    });
+</script>
