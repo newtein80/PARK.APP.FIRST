@@ -15,14 +15,16 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<p>http://www.tutorialsteacher.com/mvc/partial-view-in-asp.net-mvc</p>
-<p>https://aspdotnet.tistory.com/1468?category=231675</p>
-<p>google : asp.net core jquery in partialview</p>
-<p>https://www.youtube.com/watch?v=fCTikAZVRFM</p>
-<p>https://www.youtube.com/watch?v=0Re7kDJ0vLA</p>
-<p>https://www.youtube.com/watch?v=uiIHNHfQIyE</p>
-<p>https://forums.asp.net/t/2146232.aspx?adding+a+partial+view+record+using+jquery+ajax+and+asp+net+core</p>
-<p>https://code-maze.com/aspnetcore-webapi-best-practices/</p>
+<div style="display:none">
+    <p>http://www.tutorialsteacher.com/mvc/partial-view-in-asp.net-mvc</p>
+    <p>https://aspdotnet.tistory.com/1468?category=231675</p>
+    <p>google : asp.net core jquery in partialview</p>
+    <p>https://www.youtube.com/watch?v=fCTikAZVRFM</p>
+    <p>https://www.youtube.com/watch?v=0Re7kDJ0vLA</p>
+    <p>https://www.youtube.com/watch?v=uiIHNHfQIyE</p>
+    <p>https://forums.asp.net/t/2146232.aspx?adding+a+partial+view+record+using+jquery+ajax+and+asp+net+core</p>
+    <p>https://code-maze.com/aspnetcore-webapi-best-practices/</p>
+</div>
 @using (Html.BeginForm("VulnList", "VulnManage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     <div class="table-responsive">
@@ -76,6 +78,7 @@
                 <tr>
                     <td colspan="2">
                         @Html.ActionLink("Refresh", "VulnList", "VulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+
                         <bootstrap-button type="button" class="btn btn-primary btn-sm" bootstrap-toggle-modal="index_03_Modal">
                             Open sample modal
                         </bootstrap-button>
@@ -86,6 +89,7 @@
                         </button>
 
                         @Html.ActionLink("CREATE(LINK)", "VulnCreate", "VulnManage", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+
                         <bootstrap-button type="submit" class="btn btn-default btn-sm">
                             SEARCH
                         </bootstrap-button>
@@ -194,6 +198,16 @@
             var rowdataObject = JSON.stringify(rowdata);
             var str_args = rowdata.VulnSeq;
             return '<div style="text-align:center;"><input class="btn btn-info" style="width:80%; height:50%;" type="button" onClick="cellsrenderer_default_fn01(\'' + str_args + '\')" id="btn_' + rowdata.VulnSeq + '" value="info"/></div>'
+        }
+
+        //https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/customcolumn.htm?classic
+        var cellsrenderer_p099 = function (index, datafield, value, defaultvalue, column, rowdata) {
+            var rowdataObject = JSON.stringify(rowdata);
+            var str_args = rowdata.VulnSeq;
+            var url = '@Url.Action("Details", "TvulnGroups", new { Area = "VulnManage", id = 2497 })';
+            //"<div style='margin: 6px 0px 0px 15px;'><a class="btn btn-success" style="width:80%; height:50%;" href='http://www.jqwidgets.com'>" + value + "</a></div>"
+            //return '<div style="text-align:center;"><input class="btn btn-info" style="width:80%; height:50%;" type="button" onClick="cellsrenderer_default_fn01(\'' + str_args + '\')" id="btn_' + rowdata.VulnSeq + '" value="info"/></div>'
+            return '<div style="text-align:center;"><a class="btn btn-success" style="width:80%; height:50%;" href="' + url + '">' + 'tttt' + '</a></div>';
         }
 
         var cellsrenderer_default2 = function (index, datafield, value, defaultvalue, column, rowdata) {
@@ -309,6 +323,10 @@
                             type: ''
                         }
                         , {
+                            name: '',
+                            type: ''
+                        }
+                        , {
                             name: 'ManageId',
                             type: 'string'
                         }
@@ -394,6 +412,11 @@
                                 , width: 80
                             },
                             {
+                                text: 'test2'
+                                , cellsRenderer: cellsrenderer_p01
+                                , width: 80
+                            },
+                            {
                                 text: 'ManageId'
                                 , dataField: 'ManageId'
                                 , width: 150
@@ -425,7 +448,7 @@
         });
     </script>
 }
-
+    <p>https://jseditor.io/?key=grid-with-linkbutton</p>
 <div id="grid" style="width:100%"></div>
 <div style="display:none">
     <jqx-grid id="grid" row-details="true" show-filter-row="true" selection-mode="checkbox" columns-resize="true" row-details-template="{{template}}" init-row-details="initRowDetails()" server-processing="true" alt-rows="true" filterable="true" pageable="true" auto-height="true" source-id="@(gridModelDefault.VulnSeq)" theme="@ViewData["Theme"]" sortable="true" width="100%" source-root="vulnModels" source-total-records="vulnModesTotalCount" source-url="@Url.Action("GetGridVulnData","VulnManage", pageSearchModel)" source-model="gridModelDefault">
@@ -435,6 +458,7 @@
             <jqx-grid-column datafield-for="@(gridModelDefault.GroupSeq)" width="150" text="GroupSeq"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(gridModelDefault.VulnName)" text="VulnName"></jqx-grid-column>
             <jqx-grid-column width="80" text="test1" cells-renderer="cellsrenderer_p01()"></jqx-grid-column>
+            <jqx-grid-column width="80" text="test2" cells-renderer="cellsrenderer_p099()"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(gridModelDefault.ManageId)" width="150" text="ManageId"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(gridModelDefault.Score)" width="150" text="Score"></jqx-grid-column>
             <jqx-grid-column datafield-for="@(gridModelDefault.Rate)" width="150" text="Rate"></jqx-grid-column>
