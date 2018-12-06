@@ -94,7 +94,7 @@
         <button type="button" class="btn btn-primary btn-sm" id="partialView11">
             Open PartialView
         </button>
-        <div class="modal fade" id="myModal" role="dialog" data-url="@Url.Action("PopupTvulnManageCreate", "TvulnManage", new { Area = "VulnManage" })"></div>
+        <div class="modal fade" id="myModal" role="dialog" data-url=""></div>
     </p>
 </div>
 <bootstrap-modal id="index_03_Modal" aria-labelledby="myModalLabel" class="modal-dialog modal-lg">
@@ -156,7 +156,7 @@
         Modal
     </bootstrap-modal-footer>
 </bootstrap-modal>
-
+<div class="modal fade" id="myModal2" role="dialog" data-url="@Url.Action("PopupVulnManageEdit", "VulnManage", new { Area = "VulnManage", vulnSeq = 2001 })"></div>
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
@@ -200,10 +200,11 @@
         }
 
         var cellsrenderer_default_fn01 = function (value) {
-            var url = $('#myModal').data('url');
+            var url =  $('#myModal2').data('url');
             $.get(url, function (data) {
-                $("#myModal").html(data);
-                $("#myModal").modal('show');
+                alert(data);
+                $("#myModal2").html(data);
+                $("#myModal2").modal('show');
             });
         }
 

@@ -669,8 +669,30 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             [Display(Name = "점검유형")]
             [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the DiagKind")]
             public string DiagKind { get; set; }
+            [Display(Name = "컴플라이언스명")]
             public string CompName { get; set; }
+            [Display(Name = "항목그룹명")]
             public string GroupName { get; set; }
+        }
+
+        [HttpGet]
+        public IActionResult PopupVulnManageEdit(long? vulnSeq)
+        {
+            if(vulnSeq == null || 1 > vulnSeq)
+            {
+                return NotFound();
+            }
+
+            var param = new DynamicParameters();
+            param.Add("@@vuln_seq", vulnSeq.ToString());
+            param.Add("@@comp_seq", "");
+            param.Add("@@diag_kind", "");
+            param.Add("@@group_seq", "");
+
+
+            // 테이블 한개 리스트
+            VulnEditInfo vulnEditInfo = DapperHelper.Top1<VulnEditInfo>("SP_VULN_INFO_VIW", param);
+            return PartialView(vulnEditInfo);
         }
     }
 }

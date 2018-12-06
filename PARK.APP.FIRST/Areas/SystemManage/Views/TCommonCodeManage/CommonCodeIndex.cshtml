@@ -117,6 +117,7 @@
         var cellsrenderer_default_fn01 = function (value) {
             var url = $('#myModal').data('url');
             $.get(url, function (data) {
+                alert(data);
                 $("#myModal").html(data);
                 $("#myModal").modal('show');
             });
