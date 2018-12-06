@@ -566,7 +566,6 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             return RedirectToAction("VulnList");
         }
 
-
         // https://m.blog.naver.com/PostView.nhn?blogId=wolfre&logNo=220597602977&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
         [HttpPost]
         public JsonResult VulnCreate_Ajax(VulnCreateModel vulnCreateModel)
@@ -658,6 +657,15 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             return Json(new SelectList(tvulngroups_by_compseq, "GroupSeq", "GroupName"));
         }
 
+        public class VulnEditModel
+        {
+            public List<TcommonCode> tCommonCodes { get; set; }
+            public List<TcompInfo> tCompInfos { get; set; }
+            public List<TvulnGroup> tVulnGroup_kind { get; set; }
+            public List<TvulnGroup> tVulnGroup_group { get; set; }
+            public VulnEditInfo tVulnEditInfo { get; set; }
+        }
+
         public class VulnEditInfo : Tvuln
         {
             [Display(Name = "컴플라이언스")]
@@ -689,10 +697,23 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
             param.Add("@@diag_kind", "");
             param.Add("@@group_seq", "");
 
-
             // 테이블 한개 리스트
             VulnEditInfo vulnEditInfo = DapperHelper.Top1<VulnEditInfo>("SP_VULN_INFO_VIW", param);
-            return PartialView(vulnEditInfo);
+
+            string m_UseYn = "Y";
+            string[] arrSearchCommonCodes = { "RATE", "SCORE", "EXCEPT_CD", "USE_YN", "DIAG_TYPE" };
+            List<TcommonCode> _ddlCommonCodes = systemCodeRepository.GetCommonCodeByArray(arrSearchCommonCodes, m_UseYn);
+
+            var vulnEditModel = new VulnEditModel
+            {
+                tCommonCodes = _ddlCommonCodes,
+                tCompInfos = vulnDbContext.TcompInfo.ToList(),
+                tVulnGroup_kind = vulnDbContext.TvulnGroup.Where(x => x.CompSeq == vulnEditInfo.CompSeq && x.GroupType == "K").Distinct().ToList(),
+                tVulnGroup_group = vulnDbContext.TvulnGroup.Where(x => x.DiagKind == vulnEditInfo.DiagKind && x.GroupType == "G").ToList(),
+                tVulnEditInfo = vulnEditInfo
+            };
+
+            return PartialView(vulnEditModel);
         }
     }
 }

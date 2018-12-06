@@ -1,0 +1,202 @@
+﻿USE PJSWORK
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_VULN_INFO_UPT_WITH_RTN]    Script Date: 12/06/2018 14:37:34 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE procedure [dbo].[SP_VULN_INFO_UPT_WITH_RTN]
+     @gubun NVARCHAR(32)
+    , @diag_type NVARCHAR(32)
+    , @comp_seq BIGINT
+    , @vuln_seq BIGINT
+    , @cur_group_seq BIGINT
+    , @new_group_seq BIGINT
+    , @cur_sort_index BIGINT
+    , @new_sort_index BIGINT
+    , @manual_yn nvarchar(1)
+    , @auto_yn nvarchar(1)
+    , @vuln_name nvarchar(128)
+    , @rate nvarchar(32)
+    , @score nvarchar(2)
+    , @apply_time nvarchar(2)
+    , @detail text
+    , @detail_path nvarchar(256)
+    , @overview nvarchar(2048)
+    , @judgement nvarchar(2048)
+    , @effect nvarchar(2048)
+    , @remedy text
+    , @remedy_path nvarchar(2048)
+    , @remedy_detail text
+    , @apply_target nvarchar(1024)
+    , @use_yn nvarchar(1)
+    , @user_id nvarchar(16)
+    , @manage_id nvarchar(32)
+    , @client_standard_id nvarchar(32)
+    , @rtn_message nvarchar(128) output
+as
+
+set nocount on
+
+declare @rule_yn NVARCHAR(1)
+        , @max_vuln_seq bigint
+        , @max_sort_index bigint
+        
+begin
+	begin try
+		begin tran
+			set @rtn_message = 'NONE'
+			
+			set @max_vuln_seq = (select isnull(max(GROUP_SEQ), 0) + 1 from dbo.TVulnGroup with(nolock))
+
+			if(@diag_type = 'WEB_VULN') begin
+				set @rule_yn = 'Y'
+			end
+			else begin
+				set @rule_yn = 'N'
+			end
+	        
+			if('' = @detail_path or '' = isnull(@detail_path, '')) begin
+				set @detail_path = null
+			end
+
+			if('' = @remedy_path or '' = isnull(@remedy_path, '')) begin
+				set @remedy_path = null
+			end
+	        
+			if(@gubun = 'm') begin
+				if(@cur_group_seq = @new_group_seq) begin
+					if(@new_sort_index > @cur_sort_index) begin
+						update dbo.TVuln set
+							SORT_ORDER = SORT_ORDER - 1
+						where SORT_ORDER > @cur_sort_index and @new_sort_index + 1 > SORT_ORDER
+						and GROUP_SEQ = @cur_group_seq					
+						set @max_sort_index = @new_sort_index
+					end
+					else if(@cur_sort_index > @new_sort_index) begin
+						update dbo.TVuln set
+							SORT_ORDER = SORT_ORDER + 1
+						where SORT_ORDER > @new_sort_index - 1 and @cur_sort_index > SORT_ORDER
+						and GROUP_SEQ = @new_group_seq					
+						set @max_sort_index = @new_sort_index
+					end
+					else begin					
+						set @max_sort_index = @new_sort_index
+					end
+				end
+				else if(@cur_group_seq <> @new_group_seq) begin
+					if('0' = @new_sort_index) begin
+						set @max_sort_index = (
+						select top 1 
+							SORT_ORDER + 1 as MAX_SORT_ORDER
+						from dbo.TVuln
+						where GROUP_SEQ = @new_group_seq
+						order by SORT_ORDER desc)
+					end
+					else begin
+						set @max_sort_index = @new_sort_index
+					end
+	                
+					update dbo.TVuln set
+						SORT_ORDER = SORT_ORDER - 1
+					where SORT_ORDER > @cur_sort_index
+					and GROUP_SEQ = @cur_group_seq
+	                
+					update dbo.TVuln set
+						SORT_ORDER = SORT_ORDER + 1
+					where SORT_ORDER > @max_sort_index - 1
+					and GROUP_SEQ = @new_group_seq
+				end
+	            
+				update dbo.TVuln
+				set
+					GROUP_SEQ = @new_group_seq
+					,   MANUAL_YN = @manual_yn
+					,   AUTO_YN = @auto_yn
+					,   MANAGE_ID = @manage_id
+					,   CLIENT_STANDARD_ID = @client_standard_id
+					,   VULN_NAME = @vuln_name
+					,   SORT_ORDER = @max_sort_index
+					--,   RULE_YN = @rule_yn
+					,   RATE = @rate
+					,   SCORE = @score
+					,   APPLY_TIME = @apply_time
+					,   DETAIL = @detail
+					,   DETAIL_PATH = @detail_path
+					,   OVERVIEW = @overview
+					,   JUDGEMENT = @judgement
+					,   EFFECT = @effect
+					,   REMEDY = @remedy
+					,   REMEDY_PATH = @remedy_path
+					,	REMEDY_DETAIL = @remedy_detail
+					--,   REFRRENCE = ''
+					--,   PARSER_CONTENTS = null
+					--,   APPLY_TARGET = @apply_target
+					--,   USE_YN = @use_yn
+					--,   EXCEPT_CD
+					--,   EXCEPT_TERM_TYPE
+					--,   EXCEPT_TERM_FR
+					--,   EXCEPT_TERM_TO
+					--,   EXCEPT_REASON
+					--,   EXCEPT_USER_ID
+					--,   EXCEPT_DT
+					--,   CREATE_USER_ID
+					--,   CREATE_DT
+					,   UPDATE_USER_ID = @user_id
+					,   UPDATE_DT = getdate()
+				where VULN_SEQ = @vuln_seq
+
+			end
+			else begin
+				update dbo.TVuln
+				set
+					AUTO_YN = @auto_yn
+					,   MANUAL_YN = @manual_yn
+					,   MANAGE_ID = @manage_id
+					,	GROUP_SEQ = @new_group_seq
+					,   CLIENT_STANDARD_ID = @client_standard_id
+					,   VULN_NAME = @vuln_name
+					,   RATE = @rate
+					,   SCORE = @score
+					,   APPLY_TIME = @apply_time
+					,   OVERVIEW = @overview
+					,   JUDGEMENT = @judgement
+					,   EFFECT = @effect
+					,   REMEDY = @remedy
+					,	REMEDY_DETAIL = @remedy_detail
+					,   UPDATE_DT = getdate()
+					,   UPDATE_USER_ID = @user_id
+					,   DETAIL = @detail 
+				where VULN_SEQ = @vuln_seq
+				--and GROUP_SEQ = @new_group_seq
+
+			end
+			
+			set @rtn_message = 'OK'
+			
+		commit tran
+	end try
+	begin catch
+		if (@@TRANCOUNT <> 0) begin
+			rollback tran
+			-- 리턴 메세지
+			SET @rtn_message = 'Error Line :' + CAST(ERROR_LINE() AS VARCHAR) + ' ' +CAST(ERROR_NUMBER() AS VARCHAR) + ' ' + ISNULL(ERROR_PROCEDURE(),'없음')
+			-- 에러 프로세스
+            DECLARE @v          NVARCHAR(50)
+            DECLARE @Name       NVARCHAR(50) = CAST(ERROR_PROCEDURE() AS VARCHAR)
+            DECLARE @Line       NVARCHAR(10) = CAST(ERROR_LINE() AS VARCHAR)
+            DECLARE @Number     NVARCHAR(10) = CAST(ERROR_NUMBER() AS VARCHAR)
+            DECLARE @Date       DATETIME = GETDATE()
+            --EXEC uspDBErrorInsert 'INSERT', -1, @Name, @Line, @Number, @Date, '', @v OUTPUT
+		end
+	end catch
+	
+    return
+end
+
+GO
+
+

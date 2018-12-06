@@ -15,7 +15,7 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<p></p>
+<p>https://code-maze.com/aspnetcore-webapi-best-practices/</p>
 @using (Html.BeginForm("VulnList", "VulnManage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     <div class="table-responsive">
@@ -156,7 +156,7 @@
         Modal
     </bootstrap-modal-footer>
 </bootstrap-modal>
-<div class="modal fade" id="myModal2" role="dialog" data-url="@Url.Action("PopupVulnManageEdit", "VulnManage", new { Area = "VulnManage", vulnSeq = 2001 })"></div>
+<div class="modal fade" id="myModal2" role="dialog" data-url="" tabindex="-1" aria-labelledby="addContactLabel" aria-hidden="true"></div>
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
@@ -200,9 +200,11 @@
         }
 
         var cellsrenderer_default_fn01 = function (value) {
-            var url =  $('#myModal2').data('url');
+            //var url = $('#myModal2').data('url');
+            //https://www.jasoncavett.com/blog/using-the-url-action-helper-with-javascript-variables/
+            var url = '@Url.Action("PopupVulnManageEdit", "VulnManage", new { Area = "VulnManage", vulnSeq = "param1" })';
+            url = url.replace("param1", value);
             $.get(url, function (data) {
-                alert(data);
                 $("#myModal2").html(data);
                 $("#myModal2").modal('show');
             });
