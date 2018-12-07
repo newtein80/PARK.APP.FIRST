@@ -1,0 +1,466 @@
+﻿@model PARK.APP.FIRST.Areas.VulnManage.Controllers.VulnManageController.VulnEditModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, jQWidgets.AspNetCore.Mvc.Bootstrap.TagHelpers
+
+@{
+    ViewData["Title"] = "VulnEdit";
+    ViewData["Theme"] = "metro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var ddlComp = Model.tCompInfos;
+    var ddlDiagKind = Model.tVulnGroup_kind;
+    var ddlVulnGroup = Model.tVulnGroup_group;
+    var ddlDiagType = Model.tCommonCodes.Where(r => r.CodeType == "DIAG_TYPE");
+}
+<h2>VulnEdit</h2>
+
+<h4>Tvuln</h4>
+<hr />
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirm-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Really ??</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="modal-btn-yes">OK</button>
+                <button type="button" class="btn btn-primary" id="modal-btn-no">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="alert-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ajaxResultAlertHeader"></h4>
+            </div>
+            <div class="modal-body">
+                <p class="success-message" id="ajaxResultAlertMsg"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="modal-btn-ok">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @*<div class="modal fade" id="popupVulnManageEdit" tabindex="-1" role="dialog" aria-labelledby="addContactLabel" aria-hidden="true">*@
+    <div class="col-md-12">
+        <form asp-action="VulnEdit" id="VulnEditForm" asp-controller="VulnManage"
+              data-ajax-begin="onBegin"
+              data-ajax-complete="onComplete"
+              data-ajax-failure="onFailed"
+              data-ajax-success="onSuccess"
+              data-ajax="true"
+              data-ajax-method="POST">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.AntiForgeryToken()
+            <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+            <input type="hidden" asp-for="tVulnEditInfo.VulnSeq" />
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.DiagType" class="control-label"></label>
+                <select id="_ddlDiagType" asp-for="tVulnEditInfo.DiagType" asp-items="@(new SelectList(ddlDiagType, "CodeId","CodeName"))" class="form-control" required="required">
+                    <option value="" disabled selected>Please select</option>
+                </select>
+                <span asp-validation-for="tVulnEditInfo.DiagType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.CompSeq" class="control-label"></label>
+                <select id="_ddlComp" asp-for="tVulnEditInfo.CompSeq" asp-items="@(new SelectList(ddlComp, "CompSeq","CompName"))" class="form-control" required="required">
+                    <option value="" disabled selected>Please select</option>
+                </select>
+                <span asp-validation-for="tVulnEditInfo.CompSeq" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.DiagKind" class="control-label"></label>
+                <select id="_ddlDiagKind" asp-for="tVulnEditInfo.DiagKind" asp-items="@(new SelectList(ddlDiagKind, "DiagKind","GroupName"))" class="form-control" required="required">
+                    <option value="" disabled selected>Please select</option>
+                </select>
+                <span asp-validation-for="tVulnEditInfo.DiagKind" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.GroupSeq" class="control-label"></label>
+                <select id="_ddlVulnGroup" asp-for="tVulnEditInfo.GroupSeq" asp-items="@(new SelectList(ddlVulnGroup, "GroupSeq","GroupName"))" class="form-control" required="required">
+                    <option value="" disabled selected>Please select</option>
+                </select>
+                <span asp-validation-for="tVulnEditInfo.GroupSeq" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.VulnName" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.VulnName" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.VulnName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ManualYn" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ManualYn" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ManualYn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.AutoYn" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.AutoYn" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.AutoYn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ManageId" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ManageId" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ManageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ClientStandardId" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ClientStandardId" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ClientStandardId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.SortOrder" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.SortOrder" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.SortOrder" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="tVulnEditInfo.RuleYn" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.RuleYn" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.RuleYn" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.Rate" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.Rate" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.Rate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.Score" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.Score" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.Score" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ApplyTime" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ApplyTime" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ApplyTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.Detail" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.Detail" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.Detail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.DetailPath" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.DetailPath" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.DetailPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.Judgement" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.Judgement" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.Judgement" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.Effect" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.Effect" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.Effect" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.Remedy" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.Remedy" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.Remedy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.RemedyPath" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.RemedyPath" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.RemedyPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.Refrrence" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.Refrrence" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.Refrrence" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="tVulnEditInfo.ParserContents" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ParserContents" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ParserContents" class="text-danger"></span>
+            </div>*@
+            @*<div class="form-group">
+                <label asp-for="tVulnEditInfo.OrgParserContents" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.OrgParserContents" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.OrgParserContents" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ApplyTarget" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ApplyTarget" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ApplyTarget" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.UseYn" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.UseYn" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.UseYn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ExceptCd" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ExceptCd" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ExceptCd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ExceptTermType" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ExceptTermType" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ExceptTermType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ExceptTermFr" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ExceptTermFr" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ExceptTermFr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ExceptTermTo" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ExceptTermTo" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ExceptTermTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ExceptReason" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ExceptReason" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ExceptReason" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="tVulnEditInfo.ExceptUserId" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ExceptUserId" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ExceptUserId" class="text-danger"></span>
+            </div>*@
+            @*<div class="form-group">
+                <label asp-for="tVulnEditInfo.ExceptDt" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ExceptDt" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ExceptDt" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.CreateUserId" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.CreateUserId" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.CreateUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.CreateDt" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.CreateDt" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.CreateDt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.UpdateUserId" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.UpdateUserId" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.UpdateUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.UpdateDt" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.UpdateDt" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.UpdateDt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.Vulgroup" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.Vulgroup" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.Vulgroup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.Vulno" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.Vulno" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.Vulno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.RemedyDetail" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.RemedyDetail" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.RemedyDetail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.Overview" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.Overview" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.Overview" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tVulnEditInfo.ManagementVulnYn" class="control-label"></label>
+                <input asp-for="tVulnEditInfo.ManagementVulnYn" class="form-control" />
+                <span asp-validation-for="tVulnEditInfo.ManagementVulnYn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Save" class="btn btn-default" id="VulnEditSave" />
+            </div>
+        </form>
+    </div>
+    @*</div>*@
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script type="text/javascript">
+    //https://dotnetthoughts.net/jquery-unobtrusive-ajax-helpers-in-aspnet-core/
+    //https://dotnetthoughts.net/jquery-unobtrusive-ajax-helpers-in-aspnet-core/
+    //https://docs.microsoft.com/ko-kr/aspnet/ajax/cdn/overview#ajaxmicrosoftcom-renamed-to-ajaxaspnetcdncom
+    //https://www.c-sharpcorner.com/article/asp-net-mvc-5-ajax-beginform-ajaxoptions-onsuccess-onfailure/
+    //http://www.binaryintellect.net/articles/2678a2f2-3236-45a6-a0e5-e6340d9930d5.aspx
+
+    //https://stackoverflow.com/questions/50148418/ajax-helper-tags-documentation-in-asp-net-core
+    //https://forums.asp.net/t/2026061.aspx?How+to+return+data+from+controller+method+to+a+jquery+ajax+post
+    //https://stackoverflow.com/questions/31606433/cannot-pass-parameters-from-ajax-success-to-view
+    //https://stackoverflow.com/questions/18333867/pass-action-with-model-to-jquery-ajax-success-call
+    // google : asp.net form data-ajax-success parameter
+    var results = $("#Results");
+    var onBegin = function () {
+        //alert("1");
+        waitingDialog.show('Loading...'
+            , {
+                headerText: '',
+                headerSize: 1,
+                dialogSize: 'sm',
+                progressType: 'success',
+                onHide: function () {
+                    //alert('4');
+                }
+            }
+        );
+    };
+
+    var onComplete = function () {
+        //alert("2");
+        waitingDialog.hide();
+    };
+
+    var rediect_url = "";
+
+    var onSuccess = function (context) {
+        //alert(context.status);
+        //waitingDialog.hide();
+
+        //$('#ajaxResultAlertHeader').html("헤더");
+        //$('#ajaxResultAlertMsg').html("메시지");
+        //$("#alert-modal").modal('show');
+        //window.location.href = context.redirectUrl;
+        var rtn_status = context.status;
+        var rtn_url = context.redirectUrl;
+        rediect_url = rtn_url;
+        AjaxEndModalAlert(rtn_status, rtn_url);
+    };
+
+    var onFailed = function (context) {
+        alert("Fail !!");
+    };
+
+    function AjaxEndModalAlert(status, url) {
+        $('#ajaxResultAlertHeader').html(status);
+        $('#ajaxResultAlertMsg').html(status);
+        $("#alert-modal").modal('show');
+    }
+
+    var modalAlert = function (callback) {
+        $("#modal-btn-ok").on("click", function () {
+            callback(true);
+            $("#alert-modal").modal('hide');
+        });
+    };
+
+    modalAlert(function (alert) {
+        if (alert) {
+            window.location.href = rediect_url;
+        }
+    });
+
+    var modalConfirm = function (callback) {
+
+        $("#VulnEditSave").on("click", function () {
+            $("#confirm-modal").modal('show');
+        });
+
+        $("#modal-btn-yes").on("click", function () {
+            callback(true);
+            $("#confirm-modal").modal('hide');
+        });
+
+        $("#modal-btn-no").on("click", function () {
+            callback(false);
+            $("#confirm-modal").modal('hide');
+        });
+    };
+
+    modalConfirm(function (confirm) {
+        if (confirm) {
+            //Acciones si el usuario confirma
+            $('#VulnEditForm').trigger('submit');
+        }
+    });
+
+    $(document).ready(function () {
+        alert("yyy");
+        //https://stackoverflow.com/questions/46942151/how-to-create-a-cascading-selectlist-in-asp-net-core-mvc
+        $('#_ddlComp').attr("disabled", "disabled");
+
+        $('#_ddlDiagType').change(function () {
+            alert("xxx");
+            var url = "@Url.Action("GetCompByDiagType", "VulnManage")";
+            var targetSource = '#_ddlComp';
+
+            $.getJSON(url, { i_Diagtype : $(this).val() }, function (data) {
+                var items = "";
+                $(targetSource).empty();
+                $.each(data, function (i, tcompInfos_by_diagtype) {
+                    items += "<option value='" + tcompInfos_by_diagtype.value + "'>" + tcompInfos_by_diagtype.text + "</option>";
+                });
+                $(targetSource).removeAttr('disabled');
+                $(targetSource).html(items);
+            });
+        });
+
+        $('#_ddlDiagKind').attr("disabled", "disabled");
+
+        var item = ""
+        item = "<option value='0'>" + "Please select" + "</option>";
+
+        $('#_ddlComp').change(function () {
+            var url = "@Url.Action("GetDiagKindByComp", "VulnManage")";
+            var targetSource = '#_ddlDiagKind';
+
+            if ($(this).val() == "0") {
+                $('#_ddlDiagKind').empty;
+                $('#_ddlVulnGroup').empty;
+                $('#_ddlDiagKind').html(item);
+                $('#_ddlVulnGroup').html(item);
+                $('#_ddlDiagKind').attr("disabled", "disabled");
+                $('#_ddlVulnGroup').attr("disabled", "disabled");
+            }
+            else {
+                $.getJSON(url, { i_CompSeq: $(this).val() }, function (data) {
+                    var items = "";
+                    $(targetSource).empty();
+                    $.each(data, function (i, tvulngroups_by_compseq) {
+                        items += "<option value='" + tvulngroups_by_compseq.value + "'>" + tvulngroups_by_compseq.text + "</option>";
+                    });
+                    $(targetSource).removeAttr('disabled');
+                    $(targetSource).html(items);
+                });
+            }
+
+            $('#_ddlVulnGroup').empty;
+            $('#_ddlVulnGroup').html(item);
+            $('#_ddlVulnGroup').attr("disabled", "disabled");
+        });
+
+        $('#_ddlVulnGroup').attr("disabled", "disabled");
+
+        $('#_ddlDiagKind').change(function () {
+            var url = "@Url.Action("GetVulnGroupByDiagKind", "VulnManage")";
+            var targetSource = '#_ddlVulnGroup';
+
+            if ($(this).val() == "0") {
+                $('#_ddlVulnGroup').empty;
+                $('#_ddlVulnGroup').html(item);
+                $('#_ddlVulnGroup').attr("disabled", "disabled");
+            }
+            else {
+                $.getJSON(url, { i_GroupSeq: $(this).val() }, function (data) {
+                    var items = "";
+                    $(targetSource).empty();
+                    $.each(data, function (i, tvulngroups_by_compseq) {
+                        items += "<option value='" + tvulngroups_by_compseq.value + "'>" + tvulngroups_by_compseq.text + "</option>";
+                    });
+                    $(targetSource).removeAttr('disabled');
+                    $(targetSource).html(items);
+                });
+            }
+        });
+    });
+</script>

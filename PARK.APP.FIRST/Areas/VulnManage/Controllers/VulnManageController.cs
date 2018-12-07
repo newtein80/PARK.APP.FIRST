@@ -715,5 +715,38 @@ namespace PARK.APP.FIRST.Areas.VulnManage.Controllers
 
             return PartialView(vulnEditModel);
         }
+
+        [HttpGet]
+        public IActionResult VulnEdit(long? vulnSeq)
+        {
+            if (vulnSeq == null || 1 > vulnSeq)
+            {
+                return NotFound();
+            }
+
+            var param = new DynamicParameters();
+            param.Add("@@vuln_seq", vulnSeq.ToString());
+            param.Add("@@comp_seq", "");
+            param.Add("@@diag_kind", "");
+            param.Add("@@group_seq", "");
+
+            // 테이블 한개 리스트
+            VulnEditInfo vulnEditInfo = DapperHelper.Top1<VulnEditInfo>("SP_VULN_INFO_VIW", param);
+
+            string m_UseYn = "Y";
+            string[] arrSearchCommonCodes = { "RATE", "SCORE", "EXCEPT_CD", "USE_YN", "DIAG_TYPE" };
+            List<TcommonCode> _ddlCommonCodes = systemCodeRepository.GetCommonCodeByArray(arrSearchCommonCodes, m_UseYn);
+
+            var vulnEditModel = new VulnEditModel
+            {
+                tCommonCodes = _ddlCommonCodes,
+                tCompInfos = vulnDbContext.TcompInfo.ToList(),
+                tVulnGroup_kind = vulnDbContext.TvulnGroup.Where(x => x.CompSeq == vulnEditInfo.CompSeq && x.GroupType == "K").Distinct().ToList(),
+                tVulnGroup_group = vulnDbContext.TvulnGroup.Where(x => x.DiagKind == vulnEditInfo.DiagKind && x.GroupType == "G").ToList(),
+                tVulnEditInfo = vulnEditInfo
+            };
+
+            return View(vulnEditModel);
+        }
     }
 }
